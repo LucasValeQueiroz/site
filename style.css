@@ -130,9 +130,12 @@ h2 {
     margin-bottom: 0.5rem;
 }
 
+
 /* Conteúdo das Páginas de App */
 .app-container {
     text-align: center;
+    width: 100%; /* Garante que o container ocupe a largura máxima */
+    box-sizing: border-box; /* Faz com que padding/border não aumentem a largura total */
 }
 
 .app-container h1 {
@@ -140,12 +143,12 @@ h2 {
 }
 
 .app-container iframe {
-    width: 100%;
+    width: 100%; /* O iframe ocupa 100% do .app-container */
     height: 85vh; /* Altura do AppWeb na tela */
     border: 1px solid var(--border-color);
     border-radius: 8px;
+    box-sizing: border-box; /* Impede que a borda cause problemas de layout */
 }
-
 /* Rodapé */
 footer {
     background-color: var(--secondary-color);
