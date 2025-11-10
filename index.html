@@ -5,6 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luma Info Tech Dev - Soluções Inteligentes</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Estilos para o botão flutuante do WhatsApp -->
+    <style>
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .whatsapp-float:hover {
+            background-color: #128C7E;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -65,5 +88,12 @@
         <p>DESENVOLVIDO PELA EMPRESA LUMA INFORMATION TECHNOLOGY DEVELOPERS</p>
         <p>CNPJ DO RESPONSÁVEL: 61.868.004/0001-80</p>
     </footer>
+
+    <!-- Botão Flutuante WhatsApp -->
+    <a href="https://api.whatsapp.com/send?phone=553799642620&text=Fiquei%20interessado(a)%20no%20servi%C3%A7o%20oferecido%20e%20gostaria%20de%20saber%20mais%20detalhes%20a%20respeito." class="whatsapp-float" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="24" height="24" fill="#fff">
+            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27.1 106.1 27.1s73.7-9.4 106.1-27.1l117.7 30.9L418.4 365c19.4-33.7 29.6-71.9 29.6-111 0-122.4-99.6-222-222-222zM223.9 439.7c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L78 362.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.5-184.5 49.3 0 95.6 19.2 130.4 54s54 81.1 54 130.4c0 101.7-82.8 184.5-184.5 184.5zM319.1 307.2c-3.8-1.9-22.6-11.2-26.1-12.5-3.5-1.3-6-1.9-8.6 1.9-2.6 3.8-9.9 12.5-12.1 15-2.2 2.6-4.5 2.9-8.3 1-3.8-1.9-16-5.9-30.5-18.7-11.4-10-19.2-22.4-22.6-27.4-3.4-5-0.4-7.7 1.5-10.1 1.8-2.2 3.8-5.7 5.7-8.6 1.9-2.9 2.6-4.5 3.8-7.7 1.3-3.2 0.6-5.9-0.3-7.7-0.9-1.9-8.6-20.6-11.7-28.2-3.1-7.6-6.2-6.6-8.6-6.6-2.2 0-4.8 0-7.4 0-2.6 0-6.8 0.9-10.3 4.8-3.5 3.8-13.4 13.1-13.4 31.9 0 18.8 13.7 37 15.6 39.6 1.9 2.6 26.1 41.8 63.4 56.2 8.7 3.3 15.6 5.3 20.9 6.8 5.3 1.5 10 0.9 13.7-1 3.9-1.9 22.6-9.2 25.7-18.1 3.1-8.9 3.1-16.4 2.2-18.1-0.9-1.8-3.4-2.8-7.2-4.7z"/>
+        </svg>
+    </a>
 </body>
 </html>
