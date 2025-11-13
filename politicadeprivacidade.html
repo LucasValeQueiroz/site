@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidade - Luma Info Tech Dev</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="index.html" class="logo">Luma Info Tech Dev</a>
+        <ul>
+            <li><a href="index.html">Sobre</a></li>
+            <li><a href="controleimobiliario.html">Controle Imobiliário</a></li>
+            <li><a href="driveinteligente.html">Drive Inteligente</a></li>
+            <li><a href="receberarquivos.html">Receber Arquivos</a></li>
+            <li><a href="chatwhatsappinteligente.html">Chat WhatsApp</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="policy-content">
+        <h2>Política de Privacidade</h2>
+        <p><strong>Última atualização:</strong> 12 de novembro de 2025</p>
+        <p>Esta Política de Privacidade descreve como a <strong>LUCAS VALE QUEIROZ - ME</strong>, inscrita no CNPJ <strong>61.868.004/0001-80</strong> ("nós", "nosso" ou "empresa"), coleta, usa e protege as informações dos usuários ("você", "usuário", "atendente", "cliente") em conexão com o uso de nossos aplicativos de software integrados, incluindo o "Controle Imobiliário", "Recebimento de Documentos", "Sistema de Atendimento WhatsApp" e "Drive Organizado" (coletivamente, "Serviços").</p>
+        <p>Nosso compromisso é com a transparência e a proteção dos seus dados, em conformidade com a Lei Geral de Proteção de Dados (LGPD, Lei nº 13.709/2018).</p>
+
+        <h3>1. Informações que Coletamos</h3>
+        <p>Nossos Serviços coletam dados para operar de forma eficaz e fornecer a melhor experiência:</p>
+        <ul>
+            <li><strong>Dados de Identificação da Conta Google (Administradores/Atendentes):</strong> Quando você se autentica em nossos painéis de gerenciamento, recebemos seu endereço de e-mail e informações básicas de perfil (como nome) fornecidos pelo Google. Usamos isso para verificar suas permissões de acesso.</li>
+            <li><strong>Dados de Clientes Finais:</strong> Coletamos informações de clientes que interagem com nossos Serviços, incluindo números de telefone (para o serviço de WhatsApp) e arquivos (documentos, notas fiscais, imagens, áudios) que eles enviam.</li>
+            <li><strong>Dados Gerados pelo Usuário:</strong> Coletamos os dados que você insere nos Serviços, como registros de imóveis, dados de agendamentos, lançamentos contábeis, logs de chat, configurações de sistema e anotações de fluxo de trabalho.</li>
+            <li><strong>Dados Extraídos de Documentos:</strong> Quando um arquivo é enviado (como uma nota fiscal), nosso sistema pode usar APIs de Inteligência Artificial (Google Gemini) para processar o documento e extrair metadados, como nome do emitente, data de emissão, número da nota e valor total.</li>
+        </ul>
+
+        <h3>2. Como Usamos Seus Dados</h3>
+        <p>Utilizamos os dados coletados exclusivamente para as seguintes finalidades:</p>
+        <ul>
+            <li><strong>Prestar os Serviços:</strong> Autenticar seu login, salvar seus dados de trabalho (imóveis, finanças, chats), organizar seus arquivos no Google Drive e executar as automações solicitadas.</li>
+            <li><strong>Comunicação:</strong> Enviar mensagens de WhatsApp (em seu nome, como parte do serviço de chat) e enviar e-mails administrativos (como solicitações de aprovação de novos usuários).</li>
+            <li><strong>Automação:</strong> Processar arquivos enviados para extrair dados e preencher automaticamente sua planilha de controle, economizando seu tempo.</li>
+            <li><strong>Suporte e Segurança:</strong> Rastrear logs de atividade (como quem mudou o status de uma pasta) para fins de auditoria, diagnosticar problemas e proteger o acesso ao sistema.</li>
+        </ul>
+
+        <h3>3. Acesso e Uso de APIs do Google (Justificativa de Escopo)</h3>
+        <p>Nossos Serviços são construídos sobre a plataforma Google Workspace e solicitam permissões para funcionar. Nossos princípios de acesso são: <strong>nunca ler, mover ou excluir arquivos que não sejam diretamente gerenciados pelo próprio aplicativo.</strong></p>
+
+        <h4>A. Google Planilhas (Google Sheets)</h4>
+        <ul>
+            <li><strong>Por que precisamos:</strong> A Planilha Google (especificamente as planilhas vinculadas aos nossos scripts) é usada como o <strong>banco de dados central</strong> para todos os nossos Serviços.</li>
+            <li>
+                <strong>O que fazemos:</strong>
+                <ul>
+                    <li>Lemos e gravamos dados de imóveis e finanças (Projeto 1).</li>
+                    <li>Lemos e gravamos dados de lançamentos contábeis e clientes (Projeto 2).</li>
+                    <li>Lemos e gravamos logs de chat, configurações de atendentes, setores, contatos e agendamentos (Projeto 3).</li>
+                    <li>Lemos e gravamos a lista de usuários autorizados e o log de status de pastas (Projeto 4).</li>
+                </ul>
+            </li>
+            <li><strong>O que NÃO fazemos:</strong> O Serviço <strong>não</strong> lê, analisa, modifica ou exclui nenhuma outra planilha pessoal em sua conta Google que não esteja diretamente listada nos arquivos de configuração dos scripts.</li>
+        </ul>
+
+        <h4>B. Google Drive</h4>
+        <ul>
+            <li><strong>Por que precisamos:</strong> O Google Drive é usado como o <strong>sistema de arquivos e arquivamento</strong> para todos os nossos Serviços.</li>
+            <li>
+                <strong>O que fazemos:</strong>
+                <ul>
+                    <li>Criamos, lemos e modificamos pastas de projeto (ex: 'Projeto', 'drivecontabilidade', pastas de empresas, pastas de clientes por nº de telefone).</li>
+                    <li>Salvamos arquivos que você (ou seus clientes) enviam, como fotos de imóveis, contratos, notas fiscais e mídias de WhatsApp (áudios, imagens, documentos).</li>
+                    <li>Geramos arquivos dentro dessas pastas, como relatórios em PDF (Projeto 1) e arquivos .zip temporários para download (Projeto 4).</li>
+                    <li>Concedemos permissão de acesso (<code>addEditor</code>) a essas pastas para novos usuários quando um administrador aprova sua entrada no sistema.</li>
+                </ul>
+            </li>
+            <li><strong>O que NÃO fazemos:</strong> O Serviço <strong>não</strong> realiza uma varredura geral do seu Google Drive. Nosso acesso é estritamente limitado às pastas raiz criadas e gerenciadas pelos próprios aplicativos. <strong>Não acessamos seus documentos pessoais ou quaisquer arquivos não relacionados ao funcionamento dos Serviços.</strong></li>
+        </ul>
+
+        <h4>C. Gmail (MailApp)</h4>
+        <ul>
+            <li><strong>Por que precisamos:</strong> Usamos η API do Gmail (MailApp) exclusivamente para o <strong>fluxo de aprovação e notificação administrativa</strong>.</li>
+            <li>
+                <strong>O que fazemos:</strong> O Serviço <strong>apenas envia</strong> e-mails em duas situações específicas:
+                <ol>
+                    <li><strong>Solicitação de Acesso:</strong> Quando um novo usuário não autorizado tenta acessar um dos aplicativos, o sistema usa a conta Google <em>desse usuário</em> (<code>Session.getActiveUser()</code>) para enviar um e-mail de solicitação para o administrador (<code>ADMIN_EMAIL</code>).</li>
+                    <li><strong>Aprovação de Acesso:</strong> Quando um administrador clica em um link de aprovação/negação (recebido por e-mail ou em um painel), o sistema envia um e-mail de confirmação <em>do administrador para ele mesmo</em> ou <em>para o usuário</em> informando o resultado.</li>
+                </ol>
+            </li>
+            <li><strong>O que NÃO fazemos:</strong> O Serviço <strong>não</strong> lê, analisa, exclui, filtra ou gerencia sua caixa de entrada do Gmail. Ele apenas utiliza a permissão para <em>enviar</em> estas notificações transacionais específicas.</li>
+        </ul>
+
+        <h4>D. Outras APIs (Maps, Gemini, UrlFetch, Cache)</h4>
+        <ul>
+            <li><strong>API Google Maps:</strong> Usamos para exibir um mapa em seu painel imobiliário, permitindo que você visualize a localização de seus imóveis e ajuste suas coordenadas arrastando um marcador.</li>
+            <li><strong>API Google Gemini (<code>UrlFetchApp</code>):</strong> Usamos para enviar arquivos (como notas fiscais) que seus clientes enviam para a API de IA do Google. A API processa o arquivo e nos retorna dados estruturados (como data, valor, emitente), que salvamos em sua planilha.</li>
+            <li><strong><code>UrlFetchApp</code> (Geral):</strong> Usamos para conectar o Serviço a APIs de terceiros, mais notavelmente a <strong>API Oficial do WhatsApp (Meta)</strong>, para enviar e receber mensagens e mídias.</li>
+            <li><strong><code>CacheService</code>:</strong> Usamos para armazenar temporariamente seu status de permissão (ex: "APROVADO") por alguns minutos. Isso torna o aplicativo muito mais rápido, evitando que ele precise ler a planilha a cada clique.</li>
+        </ul>
+
+        <h3>4. Política de Uso Limitado do Google (Google Limited Use Policy)</h3>
+        <p>O uso das informações recebidas das APIs do Google aderirá estritamente à <strong>Política de Dados do Usuário dos Serviços de API do Google</strong>, incluindo os <strong>Requisitos de Uso Limitado</strong>.</p>
+        <ul>
+            <li><strong>Não transferimos</strong> informações recebidas das APIs do Google para qualquer outro aplicativo, a menos que seja necessário para fornecer ou melhorar os recursos do Serviço, cumprir a lei ou como parte de uma fusão/aquisição.</li>
+            <li><strong>Não usamos</strong> as informações para veicular anúncios.</li>
+            <li><strong>Não permitimos</strong> que humanos leiam seus dados, exceto com seu consentimento afirmativo para mensagens específicas, por motivos de segurança (como investigar abuso) ou para cumprir a lei.</li>
+        </ul>
+
+        <h3>5. Compartilhamento de Dados</h3>
+        <p><strong>Nós não vendemos, alugamos ou compartilhamos seus dados pessoais com terceiros para fins de marketing.</strong></p>
+        <p>Seus dados só serão compartilhados nas seguintes circunstâncias:</p>
+        <ul>
+            <li><strong>Com a Meta (Facebook/WhatsApp):</strong> Para o funcionamento do Serviço de Atendimento (Projeto 3), as mensagens e mídias são trafegadas pela API Oficial do WhatsApp, conforme os termos de serviço da Meta.</li>
+            <li><strong>Com outros Usuários do Sistema:</strong> Ao ser <code>APROVADO</code> em um dos Serviços, seu e-mail será adicionado às permissões de compartilhamento da Planilha principal e/ou Pasta Raiz do Drive, tornando-o visível para outros usuários aprovados com quem esses recursos são compartilhados.</li>
+            <li><strong>Com sua autorização explícita.</strong></li>
+            <li><strong>Para cumprir uma obrigação legal ou ordem judicial.</strong></li>
+            <li><strong>Com provedores de serviços (suboperadores):</strong> Como o próprio Google (para Planilhas, Drive, Gemini e Gmail), que processam os dados em nosso nome e estão obrigados a manter a confidencialidade.</li>
+        </ul>
+
+        <h3>6. Segurança dos Dados</h3>
+        <p>Temos um compromisso sério com a segurança. Adotamos medidas técnicas e administrativas para proteger seus dados:</p>
+        <ul>
+            <li><strong>Criptografia:</strong> Toda a comunicação com os aplicativos web é feita via HTTPS.</li>
+            <li><strong>Controle de Acesso:</strong> O acesso aos Serviços é rigorosamente controlado por listas de permissão em nossas planilhas de controle.</li>
+            <li><strong>Senhas:</strong> No Sistema de Atendimento (Projeto 3), as senhas dos atendentes são armazenadas usando criptografia hash (SHA-256), o que significa que nem mesmo nós podemos ver a senha original.</li>
+            <li><strong>Tokens:</strong> Usamos tokens de sessão seguros para manter o login e tokens de uso único para links de upload de clientes.</li>
+        </ul>
+
+        <h3>7. Seus Direitos (LGPD)</h3>
+        <p>Como titular dos dados, você tem o direito de:</p>
+        <ul>
+            <li>Confirmar a existência de tratamento dos seus dados.</li>
+            <li>Acessar seus dados.</li>
+            <li>Corrigir dados incompletos ou desatualizados.</li>
+            <li>Solicitar a anonimização, bloqueio ou eliminação de dados desnecessários.</li>
+            <li>Revogar seu consentimento a qualquer momento (o que removerá seu acesso aos Serviços).</li>
+        </ul>
+
+        <blockquote>
+            <h3>8. Retenção e Exclusão de Dados</h3>
+            <p>Nós tratamos seus dados pessoais apenas pelo tempo necessário para cumprir as finalidades descritas na Seção 2, ou seja, enquanto seu contrato de prestação de Serviços conosco estiver ativo.</p>
+            <p>Conforme estipulado pela LGPD, o término do tratamento de dados ocorrerá ao fim da relação contratual. Em caso de término do contrato de serviço, seja por sua solicitação ou por nossa iniciativa, os dados pessoais coletados e gerados pelo uso dos Serviços (como dados de imóveis, logs de chat, arquivos no Drive, etc.) serão excluídos permanentemente de nossos sistemas e bancos de dados (planilhas) em um prazo máximo de <strong>30 (trinta) dias</strong> após a data de encerramento.</p>
+            <p>Ressalva-se, no entanto, a manutenção de dados necessários para o cumprimento de obrigações legais ou regulatórias (como, por exemplo, registros de logs de aplicação para fins de segurança ou dados de faturamento para fins fiscais), que serão mantidos pelos prazos estipulados na legislação aplicável, sendo eliminados após o término deste prazo.</p>
+        </blockquote>
+
+        <h3>9. Alterações nesta Política</h3>
+        <p>Podemos atualizar esta Política de Privacidade periodicamente. Notificaremos você sobre quaisquer alterações publicando a nova política nesta página.</p>
+
+        <h3>10. Contato</h3>
+        <p>Se você tiver dúvidas sobre esta Política de Privacidade ou desejar exercer seus direitos, entre entre em contato conosco:</p>
+        <p><strong>LUCAS VALE QUEIROZ - ME</strong><br>
+        <strong>Encarregado (DPO) ou Canal de Contato:</strong> <code>lucas@lumainfotechdev.com</code><br>
+        <strong>CNPJ:</strong> 61.868.004/0001-80</p>
+    </section>
+</main>
+
+<footer>
+    <p>DESENVOLVIDO PELA EMPRESA LUMA INFORMATION TECHNOLOGY DEVELOPERS</p>
+    <p>CNPJ DO RESPONSÁVEL: 61.868.004/0001-80</p>
+    
+    <div class="footer-links">
+      <a href="politicadeprivacidade.html">Política de Privacidade</a>
+    </div>
+    </footer>
+
+<a href="https://api.whatsapp.com/send?phone=553799642620&text=Fiquei%20interessado(a)%20no%20servi%C3%A7o%20oferecido%20e%20gostaria%20de%20saber%20mais%20detalhes%20a%20respeito." class="whatsapp-float" target="_blank">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="24" height="24" fill="#fff">
+        <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27.1 106.1 27.1s73.7-9.4 106.1-27.1l117.7 30.9L418.4 365c19.4-33.7 29.6-71.9 29.6-111 0-122.4-99.6-222-222-222zM223.9 439.7c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L78 362.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.5-184.5 49.3 0 95.6 19.2 130.4 54s54 81.1 54 130.4c0 101.7-82.8 184.5-184.5 184.5zM319.1 307.2c-3.8-1.9-22.6-11.2-26.1-12.5-3.5-1.3-6-1.9-8.6 1.9-2.6 3.8-9.9 12.5-12.1 15-2.2 2.6-4.5 2.9-8.3 1-3.8-1.9-16-5.9-30.5-18.7-11.4-10-19.2-22.4-22.6-27.4-3.4-5-0.4-7.7 1.5-10.1 1.8-2.2 3.8-5.7 5.7-8.6 1.9-2.9 2.6-4.5 3.8-7.7 1.3-3.2 0.6-5.9-0.3-7.7-0.9-1.9-8.6-20.6-11.7-28.2-3.1-7.6-6.2-6.6-8.6-6.6-2.2 0-4.8 0-7.4 0-2.6 0-6.8 0.9-10.3 4.8-3.5 3.8-13.4 13.1-13.4 31.9 0 18.8 13.7 37 15.6 39.6 1.9 2.6 26.1 41.8 63.4 56.2 8.7 3.3 15.6 5.3 20.9 6.8 5.3 1.5 10 0.9 13.7-1 3.9-1.9 22.6-9.2 25.7-18.1 3.1-8.9 3.1-16.4 2.2-18.1-0.9-1.8-3.4-2.8-7.2-4.7z"/>
+    </svg>
+</a>
+
+</body>
+</html>
