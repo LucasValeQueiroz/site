@@ -13,6 +13,7 @@
             background-color: #25d366; color: #FFF; border-radius: 50px;
             text-align: center; font-size: 30px; box-shadow: 2px 2px 3px #999;
             z-index: 1000; display: flex; align-items: center; justify-content: center;
+            transition: background-color 0.3s;
         }
         .whatsapp-float:hover { background-color: #128C7E; }
     </style>
@@ -41,47 +42,45 @@
                     <h1>LUMA INFOTECH <span class="neon-text">DEV</span></h1>
                     <h2>REVOLUÇÃO EM SOFTWARE</h2>
                     <p>Melhor preço e máxima personalização. O futuro da sua empresa começa aqui.</p>
-                    <a href="https://api.whatsapp.com/send?phone=553799642620" class="cta-button neon-button">
+                    
+                    <a href="https://api.whatsapp.com/send?phone=553799642620&text=Fiquei%20interessado(a)%20no%20servi%C3%A7o%20oferecido%20e%20gostaria%20de%20saber%20mais%20detalhes%20a%20respeito." class="cta-button neon-button" target="_blank">
                         <i class="fab fa-whatsapp"></i> TRANSFORME SEU NEGÓCIO
                     </a>
                 </div>
+                
                 <div class="hero-image-container">
-                    <div class="profile-neon-circle">
-                        <img src="MINHAFOTO.jpg" alt="Lucas Vale - CEO">
+                    <div class="hero-tech-profile">
+                        <div class="tech-ring-dashed"></div>
+                        <div class="tech-ring-glow"></div>
+                        
+                        <div class="profile-mask">
+                            <img src="MINHAFOTOSEMFUNDO.jpg" alt="Lucas Vale - CEO">
+                        </div>
                     </div>
                 </div>
             </div>
+            
             <div class="hero-fade-bottom"></div>
         </section>
         
         <section class="services-neon-section">
             <h2 class="section-title neon-title">NOSSOS SERVIÇOS</h2>
             <div class="cards-container">
-                
                 <div class="neon-card">
-                    <div class="card-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
+                    <div class="card-icon"><i class="fas fa-code"></i></div>
                     <h3>Desenvolvimento Web e Mobile</h3>
                     <p>Criação de sites, e-commerce e aplicativos personalizados.</p>
                 </div>
-
                 <div class="neon-card">
-                    <div class="card-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
+                    <div class="card-icon"><i class="fas fa-cogs"></i></div>
                     <h3>Software Sob Medida</h3>
                     <p>Sistemas internos e automação de processos para sua empresa.</p>
                 </div>
-
                 <div class="neon-card">
-                    <div class="card-icon">
-                        <i class="fas fa-cloud"></i>
-                    </div>
+                    <div class="card-icon"><i class="fas fa-cloud"></i></div>
                     <h3>Consultoria e Integração</h3>
                     <p>Soluções estratégicas e integração de sistemas existentes.</p>
                 </div>
-
             </div>
         </section>
 
@@ -142,14 +141,10 @@
         window.addEventListener('scroll', function() {
             const heroBg = document.querySelector('.hero-bg-tech');
             const scrollPosition = window.scrollY;
-            const fadePoint = 600; // Ponto onde o fundo fica invisível
-            
+            const fadePoint = 600;
             let opacity = 1 - (scrollPosition / fadePoint);
             if (opacity < 0) opacity = 0;
-            
-            if (heroBg) {
-                heroBg.style.opacity = opacity;
-            }
+            if (heroBg) heroBg.style.opacity = opacity;
         });
     </script>
 </body>
