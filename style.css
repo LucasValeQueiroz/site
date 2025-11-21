@@ -103,67 +103,105 @@ nav ul li a:hover, nav ul li a.active {
     box-shadow: 0 0 30px rgba(0, 242, 255, 0.6); transform: translateY(-3px);
 }
 
-/* --- ÁREA DA IMAGEM (CÍRCULO TECH) --- */
+/* --- ÁREA DA IMAGEM (CÍRCULO TECH POP-OUT) --- */
 .hero-image-container {
-    flex: 1; display: flex; justify-content: center; align-items: center; position: relative;
+    flex: 1; display: flex; justify-content: center; align-items: flex-end; position: relative;
+    /* Altura mínima necessária para caber o efeito pop-out sem cortar no mobile */
+    min-height: 450px; 
 }
 
-/* Container dos Anéis e Foto */
-.hero-tech-profile {
-    position: relative; width: 380px; height: 380px;
+/* Wrapper Principal que alinha a base da imagem com os anéis */
+.tech-profile-popout-wrapper {
+    position: relative;
+    width: 400px; height: 400px;
+    display: flex; justify-content: center; align-items: flex-end; /* Alinha tudo na base */
+    margin-bottom: 20px;
+}
+
+/* --- Camada dos Anéis e Fundo (Atrás da Foto) --- */
+.rings-layer {
+    position: absolute; bottom: 0;
+    width: 350px; height: 350px; /* O tamanho visual do círculo */
     display: flex; justify-content: center; align-items: center;
+    z-index: 0; /* Fica atrás da imagem */
 }
 
-/* 1. Máscara da Foto (O Círculo Central) */
-.profile-mask {
-    width: 320px; height: 320px;
-    border-radius: 50%; overflow: hidden;
-    position: relative; z-index: 2;
-    border: 3px solid rgba(0, 242, 255, 0.3);
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+/* O Fundo Azul Gradiente DENTRO do círculo */
+.circle-background {
+    position: absolute; width: 100%; height: 100%; border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 102, 255, 0.5) 0%, rgba(10, 14, 26, 1) 80%);
+    border: 2px solid rgba(0, 242, 255, 0.4); /* Borda do círculo principal */
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.8); /* Sombra interna para profundidade */
+    z-index: 2;
+}
+
+/* Anel 1: Brilho Externo Intenso */
+.ring-outer-glow {
+    position: absolute; width: 110%; height: 110%; border-radius: 50%;
+    box-shadow: 0 0 40px rgba(0, 102, 255, 0.6), inset 0 0 20px rgba(0, 242, 255, 0.3);
+    opacity: 0.7; z-index: 1;
+}
+
+/* Anel 2: Tracejado Giratório (Mais complexo) */
+.ring-dashed {
+    position: absolute; width: 118%; height: 118%; border-radius: 50%;
+    border: 3px dashed var(--neon-cyan);
+    /* Máscara para criar falhas no anel */
+    mask-image: conic-gradient(from 0deg, transparent 0%, black 10%, black 30%, transparent 40%, black 50%, black 70%, transparent 80%, black 90%);
+    -webkit-mask-image: conic-gradient(from 0deg, transparent 0%, black 10%, black 30%, transparent 40%, black 50%, black 70%, transparent 80%, black 90%);
+    animation: spin-slow 25s linear infinite; z-index: 0; opacity: 0.6;
+}
+
+/* Anel 3: Linha Fina Interna (Gira ao contrário) */
+.ring-inner-border {
+    position: absolute; width: 92%; height: 92%; border-radius: 50%;
+    border: 1px solid var(--neon-blue);
+    border-top-color: transparent; border-bottom-color: transparent; /* Cria falhas */
+    animation: spin-reverse 15s linear infinite; z-index: 3;
+}
+
+/* --- A IMAGEM QUE SALTA (POP-OUT) --- */
+.pop-out-image {
+    position: relative;
+    z-index: 10; /* Fica na frente de todos os anéis */
     
-    /* FUNDO DENTRO DO CÍRCULO (Atrás do PNG transparente) */
-    background: radial-gradient(circle, rgba(0, 102, 255, 0.4) 0%, rgba(10, 14, 26, 1) 90%);
+    /* O TRUQUE DO POP-OUT: A imagem é mais alta que o container */
+    height: 125%; 
+    width: auto;
+    
+    /* Ajuste fino vertical para alinhar o terno dentro do círculo */
+    bottom: -25px; 
+    
+    /* Sombra na imagem para dar profundidade em relação ao círculo */
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+    transition: transform 0.3s ease;
 }
 
-.profile-mask img {
-    width: 100%; height: 100%;
-    object-fit: cover; object-position: top center;
-    transition: transform 0.5s ease;
-}
-.hero-tech-profile:hover .profile-mask img { transform: scale(1.05); }
-
-/* 2. Anel de Brilho Fixo */
-.tech-ring-glow {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 340px; height: 340px; border-radius: 50%;
-    border: 2px solid var(--neon-cyan);
-    box-shadow: 0 0 15px var(--neon-cyan), inset 0 0 10px var(--neon-cyan);
-    opacity: 0.6; z-index: 1;
+/* Efeito hover opcional na imagem */
+.tech-profile-popout-wrapper:hover .pop-out-image {
+    transform: translateY(-5px) scale(1.02);
 }
 
-/* 3. Anel Tracejado Giratório */
-.tech-ring-dashed {
-    position: absolute; top: 50%; left: 50%;
-    width: 370px; height: 370px; border-radius: 50%;
-    border: 2px dashed var(--neon-blue);
-    mask-image: linear-gradient(0deg, transparent 10%, black 10%, black 40%, transparent 40%, transparent 60%, black 60%, black 90%, transparent 90%);
-    -webkit-mask-image: linear-gradient(0deg, transparent 10%, black 10%, black 40%, transparent 40%, transparent 60%, black 60%, black 90%, transparent 90%);
-    animation: spin-slow 20s linear infinite; z-index: 0; opacity: 0.8;
-}
-.tech-ring-dashed::before, .tech-ring-dashed::after {
-    content: ''; position: absolute; background-color: var(--neon-cyan);
-    border-radius: 50%; box-shadow: 0 0 10px var(--neon-cyan);
-}
-
+/* Animações */
 @keyframes spin-slow {
-    from { transform: translate(-50%, -50%) rotate(0deg); }
-    to { transform: translate(-50%, -50%) rotate(360deg); }
+    from { transform: rotate(0deg); } to { transform: rotate(360deg); }
+}
+@keyframes spin-reverse {
+    from { transform: rotate(360deg); } to { transform: rotate(0deg); }
 }
 
 .hero-fade-bottom {
     position: absolute; bottom: 0; left: 0; width: 100%; height: 150px;
     background: linear-gradient(to top, var(--primary-bg), transparent); z-index: 1;
+}
+
+/* --- Ajustes de Responsividade para o novo círculo --- */
+@media (max-width: 900px) {
+    .hero-image-container { min-height: auto; margin-top: 3rem; }
+    .tech-profile-popout-wrapper { width: 320px; height: 320px; }
+    .rings-layer { width: 280px; height: 280px; }
+    /* Ajuste da imagem no celular para manter proporção */
+    .pop-out-image { height: 120%; bottom: -20px; }
 }
 
 /* --- SEÇÃO SERVIÇOS --- */
