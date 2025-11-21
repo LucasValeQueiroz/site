@@ -1,13 +1,12 @@
 /* --- CONFIGURAÇÕES GLOBAIS E VARIÁVEIS --- */
 :root {
-    /* Paleta Tech/Neon */
-    --primary-bg: #0a0e1a;    /* Azul Profundo */
-    --secondary-bg: #111827;  /* Cinza Azulado */
-    --neon-cyan: #00f2ff;     /* Ciano Brilhante */
-    --neon-blue: #0066ff;     /* Azul Elétrico */
-    --text-light: #e2e8f0;    /* Texto Claro */
-    --text-dim: #94a3b8;      /* Texto Secundário */
-    --border-color: #1e293b;  /* Bordas Sutis */
+    --primary-bg: #0a0e1a;
+    --secondary-bg: #111827;
+    --neon-cyan: #00f2ff;
+    --neon-blue: #0066ff;
+    --text-light: #e2e8f0;
+    --text-dim: #94a3b8;
+    --border-color: #1e293b;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -22,7 +21,7 @@ body {
     overflow-x: hidden;
 }
 
-/* --- HEADER E NAVEGAÇÃO --- */
+/* --- HEADER --- */
 header {
     background-color: rgba(10, 14, 26, 0.95);
     border-bottom: 1px solid var(--border-color);
@@ -55,14 +54,13 @@ nav ul li a:hover, nav ul li a.active {
     flex-grow: 1; width: 100%; max-width: none; padding: 0; margin-top: 60px;
 }
 
-/* --- SEÇÃO HERO (Estrutura) --- */
+/* --- SEÇÃO HERO --- */
 .hero-section {
     position: relative; min-height: 90vh;
     display: flex; align-items: center; justify-content: center;
     overflow: hidden; padding: 2rem;
 }
 
-/* Fundo Tech Global (Some ao rolar) */
 .hero-bg-tech {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
     background: radial-gradient(circle at 70% 30%, rgba(0, 102, 255, 0.25) 0%, transparent 60%),
@@ -76,7 +74,6 @@ nav ul li a:hover, nav ul li a.active {
     width: 100%; max-width: 1200px; z-index: 2; gap: 2rem; padding-top: 2rem;
 }
 
-/* Texto Hero */
 .hero-text { flex: 1; max-width: 600px; }
 .hero-text h1 {
     font-size: 3.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 0.5rem; letter-spacing: -1px;
@@ -89,7 +86,6 @@ nav ul li a:hover, nav ul li a.active {
     font-size: 1.1rem; color: var(--text-dim); line-height: 1.6; margin-bottom: 2.5rem;
 }
 
-/* Botão Neon */
 .neon-button {
     display: inline-flex; align-items: center; gap: 10px;
     padding: 1rem 2rem; background: transparent;
@@ -103,56 +99,53 @@ nav ul li a:hover, nav ul li a.active {
     box-shadow: 0 0 30px rgba(0, 242, 255, 0.6); transform: translateY(-3px);
 }
 
-/* --- ÁREA DA IMAGEM (CÍRCULO TECH SANDUÍCHE) --- */
+/* --- ÁREA DA IMAGEM (SANDUÍCHE LIMPO) --- */
 .hero-image-container {
     flex: 1; display: flex; justify-content: center; align-items: center; position: relative;
-    min-height: 550px; /* Garante espaço vertical */
+    min-height: 550px; 
 }
 
-/* Wrapper Principal - O Palco */
 .tech-sandwich-wrapper {
-    position: relative; width: 420px; height: 420px;
+    position: relative; width: 400px; height: 400px;
     display: flex; justify-content: center; align-items: center;
 }
 
-/* --- CAMADA 1: FUNDO E ANÉIS TRASEIROS (Z-INDEX 1) --- */
+/* CAMADA 1: Fundo e Anéis Traseiros */
 .layer-back-rings {
     position: absolute; top:0; left:0; width: 100%; height: 100%;
     display: flex; justify-content: center; align-items: center;
-    z-index: 1; /* Atrás */
+    z-index: 1;
 }
-/* Fundo azul interno */
 .circle-background-back {
     position: absolute; width: 380px; height: 380px; border-radius: 50%;
     background: radial-gradient(circle, rgba(0, 102, 255, 0.5) 0%, rgba(10, 14, 26, 1) 80%);
     border: 2px solid rgba(0, 242, 255, 0.4);
     box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
 }
-/* Brilho externo */
 .ring-outer-glow {
     position: absolute; width: 420px; height: 420px; border-radius: 50%;
     box-shadow: 0 0 50px rgba(0, 102, 255, 0.5), inset 0 0 20px rgba(0, 242, 255, 0.2);
     opacity: 0.6;
 }
-/* Anel tracejado traseiro */
 .ring-dashed-back {
     position: absolute; width: 440px; height: 440px; border-radius: 50%;
     border: 3px dashed var(--neon-cyan); opacity: 0.4;
-    mask-image: conic-gradient(from 0deg, transparent 0%, black 10%, black 30%, transparent 40%, black 50%, black 70%, transparent 80%, black 90%);
-    -webkit-mask-image: conic-gradient(from 0deg, transparent 0%, black 10%, black 30%, transparent 40%, black 50%, black 70%, transparent 80%, black 90%);
     animation: spin-slow 30s linear infinite;
 }
 
-/* --- CAMADA 2: A IMAGEM (Z-INDEX 2) --- */
+/* CAMADA 2: A Imagem (O CORTE É ESCONDIDO AQUI) */
 .layer-middle-image {
     position: absolute;
-    z-index: 2; /* No meio */
-    bottom: 0; /* Ancora no fundo do wrapper */
-    left: 50%; transform: translateX(-50%); /* Centraliza horizontalmente */
+    z-index: 2;
+    bottom: 0; /* Alinhado na base */
+    left: 50%; transform: translateX(-50%);
     
-    /* Altura maior que o wrapper para a cabeça sair */
-    height: 145%; 
+    /* Ajuste de tamanho */
+    height: 135%; 
     width: auto;
+    
+    /* O TRUQUE: Arredonda apenas a parte de baixo da foto para combinar com o círculo */
+    border-radius: 0 0 1000px 1000px;
     
     filter: drop-shadow(0 5px 15px rgba(0,0,0,0.6));
     transition: transform 0.3s ease;
@@ -161,41 +154,27 @@ nav ul li a:hover, nav ul li a.active {
     transform: translateX(-50%) translateY(-5px) scale(1.02);
 }
 
-/* --- CAMADA 3: MÁSCARA FRONTAL INFERIOR (Z-INDEX 3) --- */
-.layer-front-mask {
+/* CAMADA 3: Anel Frontal (Sem fundo escuro) */
+.layer-front-ring {
     position: absolute;
     bottom: 0; left: 0;
-    width: 100%;
-    height: 50%; /* Cobre EXATAMENTE a metade de baixo do wrapper */
-    z-index: 3; /* Na frente de tudo */
-    overflow: hidden; /* Corta o que vazar */
-    pointer-events: none; /* Permite cliques na imagem */
+    width: 100%; height: 100%;
+    z-index: 3; /* Fica na frente */
+    pointer-events: none;
+    display: flex; justify-content: center; align-items: center;
 }
 
-/* Fundo escuro semi-círculo para esconder o terno */
-.mask-background {
-    position: absolute;
-    bottom: 0; left: 50%; transform: translateX(-50%);
-    width: 380px; height: 380px; /* Mesmo tamanho do fundo traseiro */
-    border-radius: 50%;
-    /* Gradiente escuro na base para esconder o corte */
-    background: linear-gradient(to top, rgba(10, 14, 26, 1) 40%, transparent 100%);
-}
-
-/* Anel frontal para dar acabamento por cima do terno */
 .ring-dashed-front {
     position: absolute;
-    bottom: 0; left: 50%; transform: translateX(-50%);
     width: 440px; height: 440px; /* Mesmo tamanho do anel traseiro */
     border-radius: 50%;
     border: 3px dashed var(--neon-cyan); opacity: 0.8;
-    mask-image: conic-gradient(from 0deg, transparent 0%, black 10%, black 30%, transparent 40%, black 50%, black 70%, transparent 80%, black 90%);
-    -webkit-mask-image: conic-gradient(from 0deg, transparent 0%, black 10%, black 30%, transparent 40%, black 50%, black 70%, transparent 80%, black 90%);
+    /* Corta a metade de cima, mostrando apenas o anel na frente do terno */
+    clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0% 100%);
     animation: spin-slow 30s linear infinite;
 }
 
-/* Animações */
-@keyframes spin-slow { from { transform: translateX(-50%) rotate(0deg); } to { transform: translateX(-50%) rotate(360deg); } }
+@keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
 .hero-fade-bottom {
     position: absolute; bottom: 0; left: 0; width: 100%; height: 150px;
@@ -232,64 +211,39 @@ nav ul li a:hover, nav ul li a.active {
 .neon-card h3 { font-size: 1.4rem; margin-bottom: 1rem; color: var(--text-light); }
 .neon-card p { color: var(--text-dim); line-height: 1.5; }
 
-/* --- SEÇÃO HISTÓRIA --- */
-.about-integrated {
-    padding: 5rem 2rem; background: var(--secondary-bg); border-top: 1px solid var(--border-color);
-}
+/* --- OUTRAS SEÇÕES E RESPONSIVIDADE --- */
+.about-integrated { padding: 5rem 2rem; background: var(--secondary-bg); border-top: 1px solid var(--border-color); }
 .about-content-box { max-width: 800px; margin: 0 auto; text-align: center; }
 .about-content-box h2 { font-size: 2rem; margin-bottom: 2rem; color: var(--text-light); }
 .about-content-box p { margin-bottom: 1.5rem; line-height: 1.8; color: var(--text-dim); }
 .about-content-box strong { color: var(--neon-cyan); }
 
-/* --- LINKS PROJETOS --- */
-.projects-quick-links {
-    padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; text-align: center;
-}
+.projects-quick-links { padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; text-align: center; }
 .projects-quick-links h2 { margin-bottom: 2rem; font-size: 2rem; }
-.project-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem;
-}
+.project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
 .project-card {
     background-color: var(--secondary-bg); border: 1px solid var(--border-color);
     border-radius: 8px; padding: 1.5rem; text-decoration: none; color: var(--text-light);
     transition: all 0.3s ease;
 }
-.project-card:hover {
-    border-color: var(--neon-blue); transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 102, 255, 0.2);
-}
+.project-card:hover { border-color: var(--neon-blue); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0, 102, 255, 0.2); }
 .project-card h3 { color: var(--neon-blue); font-size: 1.1rem; margin-bottom: 0.5rem; }
 
-/* --- APP PADRÃO --- */
-main.app-container { flex-grow: 1; width: 100%; max-width: 1100px; margin: 0 auto; padding: 2rem; margin-top: 60px; }
-.app-container { text-align: center; width: 100%; box-sizing: border-box; max-width: none; padding-left: 0; padding-right: 0; }
-.app-container h1 { margin-bottom: 2rem; }
-.app-container iframe { width: 100%; height: 85vh; border: 1px solid var(--border-color); box-sizing: border-box; border-left: none; border-right: none; border-radius: 0; }
-
-/* --- FOOTER --- */
-footer {
-    background-color: var(--secondary-bg); border-top: 1px solid var(--border-color);
-    text-align: center; padding: 2rem; font-size: 0.9rem; color: var(--text-dim);
-}
+footer { background-color: var(--secondary-bg); border-top: 1px solid var(--border-color); text-align: center; padding: 2rem; font-size: 0.9rem; color: var(--text-dim); }
 footer p { margin: 0.5rem 0; }
 footer .footer-links a { color: var(--text-dim); text-decoration: none; transition: 0.3s; }
 footer .footer-links a:hover { color: var(--neon-cyan); }
 
-/* --- RESPONSIVIDADE --- */
 @media (max-width: 900px) {
-    .hero-content {
-        flex-direction: column-reverse; text-align: center; padding-top: 4rem;
-    }
+    .hero-content { flex-direction: column-reverse; text-align: center; padding-top: 4rem; }
     .hero-text { margin-top: 2rem; }
     .hero-text h1 { font-size: 2.5rem; }
     .hero-image-container { min-height: auto; margin-bottom: 3rem; }
     
-    /* Ajustes do Pop-Out no celular */
-    .tech-sandwich-wrapper { width: 320px; height: 320px; }
-    .circle-background-back, .mask-background { width: 290px; height: 290px; }
-    .ring-outer-glow, .ring-dashed-back, .ring-dashed-front { width: 340px; height: 340px; }
-    /* Ajuste fino da imagem no mobile */
-    .layer-middle-image { height: 145%; }
+    /* Celular */
+    .tech-sandwich-wrapper { width: 300px; height: 300px; }
+    .circle-background-back, .ring-outer-glow { width: 280px; height: 280px; }
+    .ring-dashed-back, .ring-dashed-front { width: 310px; height: 310px; }
 }
 @media (max-width: 768px) {
     nav { flex-direction: column; gap: 1rem; }
