@@ -1,6 +1,6 @@
 /* --- CONFIGURAÇÕES GLOBAIS E VARIÁVEIS --- */
 :root {
-    --primary-bg: #0a0e1a; /* Azul Profundo/Preto */
+    --primary-bg: #0a0e1a;
     --secondary-bg: #111827;
     --neon-cyan: #00f2ff;
     --neon-blue: #0066ff;
@@ -143,18 +143,25 @@ nav ul li a:hover, nav ul li a.active {
     pointer-events: none;
 }
 
-/* CAMADA 2: A Parte do Corpo (Z-INDEX 2) */
-.image-body-part {
-    z-index: 2;
-    /* Sem clip-path aqui, o gradiente fará o trabalho visual */
+/* NOVO CONTAINER PARA RECORTE DO CORPO */
+.body-clipper {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 2; /* Fica atrás do anel frontal e da cabeça */
+    /* O RECORTE CIRCULAR PERFEITO */
+    clip-path: circle(190px at center center);
 }
 
-/* NOVO: Gradiente para disfarçar a base do terno */
+/* CAMADA 2: A Parte do Corpo */
+.image-body-part {
+    /* Propriedades movidas para o container .body-clipper */
+}
+
+/* CAMADA 2.5: Gradiente de disfarce */
 .body-gradient-overlay {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    z-index: 2; /* Fica logo acima da imagem do corpo */
-    border-radius: 50%; /* Garante que o gradiente siga a forma circular */
+    /* z-index e border-radius removidos, pois o container pai já resolve */
     /* Gradiente: Transparente em cima -> Cor do fundo em baixo */
     background: linear-gradient(to bottom, transparent 50%, var(--primary-bg) 95%);
     pointer-events: none;
