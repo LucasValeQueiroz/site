@@ -147,8 +147,10 @@ nav ul li a:hover, nav ul li a.active {
     height: 140%; 
     width: auto;
     
-    /* Arredonda a base da imagem para encaixar no círculo, deixa o topo livre */
-    border-radius: 0 0 50% 50%;
+    /* CORREÇÃO FUNDAMENTAL: */
+    /* Usa um valor fixo grande para forçar o arredondamento circular perfeito na base */
+    /* Topo esquerdo: 0 | Topo direito: 0 | Base direita: 200px | Base esquerda: 200px */
+    border-radius: 0 0 200px 200px;
     
     filter: drop-shadow(0 5px 15px rgba(0,0,0,0.6));
     transition: transform 0.3s ease;
@@ -169,7 +171,7 @@ nav ul li a:hover, nav ul li a.active {
     pointer-events: none;
 }
 
-/* Anel frontal (cópia do traseiro, mas na frente) */
+/* Anel frontal (cópia do traseiro, mas na frente e cortado pela layer-front) */
 .ring-dashed-front {
     position: absolute;
     width: 440px; height: 440px; 
