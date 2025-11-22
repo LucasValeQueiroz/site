@@ -111,12 +111,11 @@ nav ul li a:hover, nav ul li a.active {
     display: flex; justify-content: center; align-items: center;
 }
 
-/* === CAMADA 1: FUNDO (Z-INDEX 1) === */
-/* Tudo aqui fica ATRÁS da foto */
+/* CAMADA 1: Fundo e Anéis Traseiros (Z-INDEX 1) */
 .layer-back {
     position: absolute; top:0; left:0; width: 100%; height: 100%;
     display: flex; justify-content: center; align-items: center;
-    z-index: 1;
+    z-index: 1; /* ATRÁS DA FOTO */
 }
 .circle-bg-back {
     position: absolute; width: 380px; height: 380px; border-radius: 50%;
@@ -129,65 +128,58 @@ nav ul li a:hover, nav ul li a.active {
     box-shadow: 0 0 50px rgba(0, 102, 255, 0.5), inset 0 0 20px rgba(0, 242, 255, 0.2);
     opacity: 0.6;
 }
-/* Anel completo que passa atrás da cabeça */
-.ring-dashed-full {
+/* Anel traseiro (passa atrás da cabeça) */
+.ring-dashed-back {
     position: absolute; width: 440px; height: 440px; border-radius: 50%;
-    border: 3px dashed var(--neon-cyan); opacity: 0.5;
+    border: 3px dashed var(--neon-cyan); opacity: 0.6;
     mask-image: conic-gradient(from 0deg, transparent 0%, black 10%, black 30%, transparent 40%, black 50%, black 70%, transparent 80%, black 90%);
     -webkit-mask-image: conic-gradient(from 0deg, transparent 0%, black 10%, black 30%, transparent 40%, black 50%, black 70%, transparent 80%, black 90%);
     animation: spin-slow 30s linear infinite;
 }
 
-/* === CAMADA 2: A IMAGEM (Z-INDEX 2) === */
-/* Fica no meio. Tapa a camada 1, mas é tapada pela camada 3 na parte de baixo */
+/* CAMADA 2: A Imagem (Z-INDEX 2) */
 .layer-image {
     position: absolute;
-    z-index: 2;
-    bottom: 0; /* Alinhada na base */
-    left: 50%; transform: translateX(-50%);
+    z-index: 2; /* NO MEIO */
+    bottom: 0; left: 50%; transform: translateX(-50%);
     
-    /* Altura suficiente para a cabeça sair */
+    /* Altura maior que o wrapper para a cabeça sair */
     height: 140%; 
     width: auto;
     
-    /* Removemos o hack de border-radius. O corte será feito pela máscara. */
+    /* Arredonda a base da imagem para encaixar no círculo, deixa o topo livre */
+    border-radius: 0 0 50% 50%;
+    
     filter: drop-shadow(0 5px 15px rgba(0,0,0,0.6));
     transition: transform 0.3s ease;
-    pointer-events: none; /* Deixa o clique passar se necessário */
+    pointer-events: none;
+}
+.tech-sandwich-wrapper:hover .layer-image {
+    transform: translateX(-50%) translateY(-5px) scale(1.02);
 }
 
-/* === CAMADA 3: MÁSCARA FRONTAL (Z-INDEX 3) === */
-/* Fica na frente de tudo, mas só na metade de baixo */
-.layer-front-mask {
+/* CAMADA 3: Anel Frontal (Z-INDEX 3) */
+.layer-front {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; justify-content: center; align-items: center;
+    z-index: 3; /* NA FRENTE DO TERNO */
+    
+    /* IMPORTANTE: Corta a metade de cima, para o anel não passar na cara */
+    clip-path: inset(50% 0 0 0);
+    pointer-events: none;
+}
+
+/* Anel frontal (cópia do traseiro, mas na frente) */
+.ring-dashed-front {
     position: absolute;
-    bottom: 0; left: 0;
-    width: 100%;
-    height: 50%; /* OCUPA APENAS A METADE INFERIOR */
-    z-index: 3;
-    
-    /* O SEGREDO: Corta tudo que estiver dentro dela (terno e anel) no formato do círculo */
-    overflow: hidden; 
-    border-radius: 0 0 200px 200px; /* Arredonda a base da máscara para combinar com o círculo de 400px */
-    
-    pointer-events: none; /* Não atrapalha cliques */
-    display: flex; justify-content: center; align-items: flex-end; /* Alinha o anel interno */
-}
-
-/* O anel que fica dentro da máscara (só vemos a parte de baixo dele) */
-.ring-dashed-bottom {
-    position: relative; /* Relativo à máscara */
-    /* Tamanho igual ao anel traseiro, mas posicionado para cima para alinhar o centro */
     width: 440px; height: 440px; 
-    top: -50%; /* Puxa para cima para centralizar no círculo principal */
-    
     border-radius: 50%;
-    border: 3px dashed var(--neon-cyan); opacity: 0.8; /* Mais brilhante que o de trás */
+    border: 3px dashed var(--neon-cyan); opacity: 0.8; /* Mais brilhante na frente */
     mask-image: conic-gradient(from 0deg, transparent 0%, black 10%, black 30%, transparent 40%, black 50%, black 70%, transparent 80%, black 90%);
     -webkit-mask-image: conic-gradient(from 0deg, transparent 0%, black 10%, black 30%, transparent 40%, black 50%, black 70%, transparent 80%, black 90%);
     animation: spin-slow 30s linear infinite;
 }
 
-/* Animação sincronizada */
 @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
 .hero-fade-bottom {
@@ -258,10 +250,8 @@ footer .footer-links a:hover { color: var(--neon-cyan); }
     .tech-sandwich-wrapper { width: 300px; height: 300px; }
     .circle-bg-back { width: 280px; height: 280px; }
     .ring-outer-glow { width: 300px; height: 300px; }
-    .ring-dashed-full, .ring-dashed-bottom { width: 320px; height: 320px; }
-    /* Ajuste importante da máscara no celular */
-    .layer-front-mask { border-radius: 0 0 150px 150px; } 
-    .layer-image { height: 150%; }
+    .ring-dashed-back, .ring-dashed-front { width: 320px; height: 320px; }
+    .layer-image { height: 145%; }
 }
 @media (max-width: 768px) {
     nav { flex-direction: column; gap: 1rem; }
