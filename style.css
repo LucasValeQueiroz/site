@@ -1,6 +1,6 @@
 /* --- CONFIGURAÇÕES GLOBAIS E VARIÁVEIS --- */
 :root {
-    --primary-bg: #0a0e1a;
+    --primary-bg: #0a0e1a; /* Azul Profundo/Preto */
     --secondary-bg: #111827;
     --neon-cyan: #00f2ff;
     --neon-blue: #0066ff;
@@ -146,7 +146,18 @@ nav ul li a:hover, nav ul li a.active {
 /* CAMADA 2: A Parte do Corpo (Z-INDEX 2) */
 .image-body-part {
     z-index: 2;
-    /* O corte circular foi removido conforme solicitado */
+    /* Sem clip-path aqui, o gradiente fará o trabalho visual */
+}
+
+/* NOVO: Gradiente para disfarçar a base do terno */
+.body-gradient-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 2; /* Fica logo acima da imagem do corpo */
+    border-radius: 50%; /* Garante que o gradiente siga a forma circular */
+    /* Gradiente: Transparente em cima -> Cor do fundo em baixo */
+    background: linear-gradient(to bottom, transparent 50%, var(--primary-bg) 95%);
+    pointer-events: none;
 }
 
 /* CAMADA 3: Anel Frontal (Z-INDEX 3) */
@@ -250,8 +261,6 @@ footer .footer-links a:hover { color: var(--neon-cyan); }
     .circle-bg-back { width: 280px; height: 280px; }
     .ring-outer-glow { width: 300px; height: 300px; }
     .ring-dashed-back, .ring-dashed-front { width: 320px; height: 320px; }
-    
-    /* O ajuste de clip-path no mobile também foi removido para image-body-part */
 }
 @media (max-width: 768px) {
     nav { flex-direction: column; gap: 1rem; }
