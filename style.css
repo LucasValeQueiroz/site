@@ -99,7 +99,7 @@ nav ul li a:hover, nav ul li a.active {
     box-shadow: 0 0 30px rgba(0, 242, 255, 0.6); transform: translateY(-3px);
 }
 
-/* --- ÁREA DA IMAGEM (SANDUÍCHE 3D REALISTA) --- */
+/* --- ÁREA DA IMAGEM (TÉCNICA DE DUPLA IMAGEM) --- */
 .hero-image-container {
     flex: 1; display: flex; justify-content: center; align-items: center; position: relative;
     min-height: 550px; 
@@ -115,7 +115,7 @@ nav ul li a:hover, nav ul li a.active {
 .layer-back {
     position: absolute; top:0; left:0; width: 100%; height: 100%;
     display: flex; justify-content: center; align-items: center;
-    z-index: 1; /* ATRÁS DA FOTO */
+    z-index: 1;
 }
 .circle-bg-back {
     position: absolute; width: 380px; height: 380px; border-radius: 50%;
@@ -128,7 +128,6 @@ nav ul li a:hover, nav ul li a.active {
     box-shadow: 0 0 50px rgba(0, 102, 255, 0.5), inset 0 0 20px rgba(0, 242, 255, 0.2);
     opacity: 0.6;
 }
-/* Anel traseiro (passa atrás da cabeça) */
 .ring-dashed-back {
     position: absolute; width: 440px; height: 440px; border-radius: 50%;
     border: 3px dashed var(--neon-cyan); opacity: 0.6;
@@ -137,50 +136,61 @@ nav ul li a:hover, nav ul li a.active {
     animation: spin-slow 30s linear infinite;
 }
 
-/* CAMADA 2: A Imagem (Z-INDEX 2) */
-.layer-image {
+/* --- CONFIGURAÇÃO DAS DUAS IMAGENS --- */
+/* Classe comum para garantir que ambas as imagens fiquem na mesma posição */
+.split-image {
     position: absolute;
-    z-index: 2; /* NO MEIO */
-    bottom: 0; left: 50%; transform: translateX(-50%);
-    
-    /* Altura maior que o wrapper para a cabeça sair */
-    height: 140%; 
-    width: auto;
-    
-    /* CORREÇÃO FUNDAMENTAL: */
-    /* Usa um valor fixo grande para forçar o arredondamento circular perfeito na base */
-    /* Topo esquerdo: 0 | Topo direito: 0 | Base direita: 200px | Base esquerda: 200px */
-    border-radius: 0 0 200px 200px;
-    
-    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.6));
+    /* Ajuste fino da posição vertical para centralizar bem o corpo no círculo */
+    bottom: 25px; 
+    left: 50%; transform: translateX(-50%);
+    height: 140%; width: auto;
     transition: transform 0.3s ease;
     pointer-events: none;
 }
-.tech-sandwich-wrapper:hover .layer-image {
-    transform: translateX(-50%) translateY(-5px) scale(1.02);
+
+/* CAMADA 2: A Parte do Corpo (Z-INDEX 2) */
+.image-body-part {
+    z-index: 2;
+    /* O SEGREDO DO ENCAIXE PERFEITO: */
+    /* Corta a imagem em um círculo exato de 190px de raio (380px diâmetro) */
+    /* A posição do centro do corte (center 63%) alinha o terno dentro do círculo azul */
+    clip-path: circle(190px at center 63%);
 }
 
 /* CAMADA 3: Anel Frontal (Z-INDEX 3) */
-.layer-front {
+.layer-front-ring {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     display: flex; justify-content: center; align-items: center;
-    z-index: 3; /* NA FRENTE DO TERNO */
-    
-    /* IMPORTANTE: Corta a metade de cima, para o anel não passar na cara */
+    z-index: 3; /* Fica entre o corpo e a cabeça */
+    /* Corta a metade de cima para não passar na frente da cabeça */
     clip-path: inset(50% 0 0 0);
     pointer-events: none;
 }
-
-/* Anel frontal (cópia do traseiro, mas na frente e cortado pela layer-front) */
 .ring-dashed-front {
     position: absolute;
     width: 440px; height: 440px; 
     border-radius: 50%;
-    border: 3px dashed var(--neon-cyan); opacity: 0.8; /* Mais brilhante na frente */
+    border: 3px dashed var(--neon-cyan); opacity: 0.8;
     mask-image: conic-gradient(from 0deg, transparent 0%, black 10%, black 30%, transparent 40%, black 50%, black 70%, transparent 80%, black 90%);
     -webkit-mask-image: conic-gradient(from 0deg, transparent 0%, black 10%, black 30%, transparent 40%, black 50%, black 70%, transparent 80%, black 90%);
     animation: spin-slow 30s linear infinite;
 }
+
+/* CAMADA 4: A Parte da Cabeça (Z-INDEX 4) */
+.image-head-part {
+    z-index: 4; /* Fica na frente de tudo */
+    /* Corta a metade de baixo da imagem para não tapar o anel frontal */
+    /* inset(topo direita base esquerda) -> corta 45% de baixo para cima */
+    clip-path: inset(0 0 45% 0);
+    /* Sombra apenas na cabeça que salta */
+    filter: drop-shadow(0 -5px 15px rgba(0,0,0,0.5));
+}
+
+/* Efeito hover move ambas as imagens juntas */
+.tech-sandwich-wrapper:hover .split-image {
+    transform: translateX(-50%) translateY(-5px) scale(1.02);
+}
+
 
 @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
@@ -253,7 +263,9 @@ footer .footer-links a:hover { color: var(--neon-cyan); }
     .circle-bg-back { width: 280px; height: 280px; }
     .ring-outer-glow { width: 300px; height: 300px; }
     .ring-dashed-back, .ring-dashed-front { width: 320px; height: 320px; }
-    .layer-image { height: 145%; }
+    
+    /* Ajuste dos cortes no celular */
+    .image-body-part { clip-path: circle(140px at center 63%); }
 }
 @media (max-width: 768px) {
     nav { flex-direction: column; gap: 1rem; }
