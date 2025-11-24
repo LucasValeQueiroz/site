@@ -5,17 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Receber Arquivos - Luma Info Tech Dev</title>
     <link rel="stylesheet" href="style.css">
+    
     <style>
-        /* Correção de Espaçamento para o Cabeçalho */
+        /* GARANTIA DE ESPAÇAMENTO DO CABEÇALHO */
+        /* Isso impede que o conteúdo fique escondido atrás do menu no celular */
         .app-container {
-            padding-top: 100px; /* Espaço para Desktop */
+            padding-top: 100px; /* Espaço padrão para Desktop */
         }
+
         @media (max-width: 768px) {
             .app-container {
-                padding-top: 140px; /* Espaço maior para Celular */
+                padding-top: 160px !important; /* Espaço aumentado para Mobile */
             }
         }
 
+        /* Botão Flutuante */
         .whatsapp-float {
             position: fixed;
             width: 60px;
@@ -32,6 +36,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: background-color 0.3s;
         }
         .whatsapp-float:hover {
             background-color: #128C7E;
@@ -53,8 +58,8 @@
     </header>
 
     <main class="app-container">
-        <h1>Receber Arquivos</h1>
-        <iframe src="LINK_DO_SEU_WEBAPP_AQUI"></iframe>
+        <h1>Portal para Recebimento de Arquivos</h1>
+        <iframe src="https://script.google.com/macros/s/AKfycbxjOhV3tF4h6JrsE2aF0wGgdoZfjEK8Vijvw8GW3_aY_yNcNovtdKwCwfffX4fdXbxs/exec"></iframe>
     </main>
 
     <footer>

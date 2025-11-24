@@ -51,7 +51,9 @@ nav ul li a:hover, nav ul li a.active {
 
 /* --- HOME MAIN (Página Inicial) --- */
 .home-main {
-    flex-grow: 1; width: 100%; max-width: none; padding: 0; margin-top: 60px;
+    flex-grow: 1; width: 100%; max-width: none; padding: 0; 
+    margin-top: 0; 
+    padding-top: 100px; /* Ajuste para não cortar o topo na home */
 }
 
 /* --- PÁGINAS DE APP (TELA CHEIA) - ATUALIZADO --- */
@@ -60,13 +62,14 @@ main.app-container {
     width: 100%;
     max-width: 100%; /* Remove limites laterais */
     margin: 0;
-    padding: 0; /* Remove espaçamento interno */
-    margin-top: 60px; /* Compensa o Header fixo */
+    
+    /* ALTERAÇÃO IMPORTANTE: Espaçamento interno superior para o cabeçalho fixo */
+    padding-top: 110px; 
     
     /* Configuração Flex para esticar o iframe verticalmente */
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - 60px); /* Garante altura mínima da tela */
+    min-height: 100vh; /* Ocupa a altura total da tela */
 }
 
 .app-container h1 {
@@ -296,7 +299,13 @@ footer .footer-links a:hover { color: var(--neon-cyan); }
     .ring-dashed-back, .ring-dashed-front { width: 320px; height: 320px; }
     .body-clipper { clip-path: circle(140px at center center); }
 }
+
 @media (max-width: 768px) {
     nav { flex-direction: column; gap: 1rem; }
     nav ul { flex-wrap: wrap; justify-content: center; gap: 1rem; }
+    
+    /* GARANTIA EXTRA PARA MOBILE NO CSS GERAL */
+    main.app-container {
+        padding-top: 160px; /* Garante que o menu quebrado em duas linhas não cubra o conteúdo */
+    }
 }
