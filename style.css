@@ -171,11 +171,14 @@ main.app-container {
     animation: spin-slow 30s linear infinite;
 }
 
+/* CORREÇÃO APLICADA AQUI: Ajuste de posicionamento da imagem */
 .split-image {
     position: absolute;
-    bottom: 25px; 
-    left: 50%; transform: translateX(-50%);
-    height: 140%; width: auto;
+    bottom: -30px; /* Alterado de 25px para -30px (desce a imagem) */
+    left: 50%; 
+    transform: translateX(-50%);
+    height: 130%; /* Alterado de 140% para 130% (reduz levemente o zoom) */
+    width: auto;
     transition: transform 0.3s ease;
     pointer-events: none;
 }
