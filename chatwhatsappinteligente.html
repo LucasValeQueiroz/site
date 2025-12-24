@@ -6,18 +6,42 @@
     <title>Chat WhatsApp Inteligente - Luma Info Tech Dev</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Estilos para o Banner Hero - Ajustado para cobrir a tela toda */
+        /* Estilos para o Banner Hero com Disfarce Lateral */
         .hero-banner-container {
             width: 100%;
-            height: 500px; /* Altura para Computadores */
-            background: #0a0e1b url('WHATSAPP.jpg') no-repeat center center;
-            background-size: cover; /* Isso remove as bordas pretas e estica a imagem */
+            height: 500px;
+            
+            /* TÉCNICA DE DISFARCE: 
+            1. Criamos um gradiente que vai da cor do fundo -> transparente -> cor do fundo.
+            2. Colocamos a imagem por baixo. */
+            background: 
+                linear-gradient(to right, 
+                    var(--primary-bg) 0%, 
+                    transparent 15%, 
+                    transparent 85%, 
+                    var(--primary-bg) 100%),
+                url('WHATSAPP.jpg') no-repeat center center;
+            
+            background-size: contain; /* 'contain' garante que nenhum texto da imagem seja cortado */
+            background-color: #060914; /* Cor exata do fundo da sua imagem para sumir com o preto */
+            
             border-bottom: 3px solid var(--neon-cyan);
             box-shadow: 0 10px 30px rgba(0, 242, 255, 0.2);
             margin-top: -10px;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+        }
+
+        /* Ajuste para Celulares (Mobile) */
+        @media (max-width: 768px) {
+            .hero-banner-container {
+                height: 250px;
+                background-size: cover; /* No celular, o 'cover' é melhor para preencher tudo */
+                background-image: url('WHATSAPP.jpg'); /* Removemos o gradiente lateral no mobile */
+                margin-top: 0;
+            }
         }
 
         /* Ajuste específico para telas muito largas (monitores grandes) */
@@ -36,17 +60,7 @@
             color: var(--text-light);
         }
 
-        /* Ajuste para Celulares (Mobile) */
-        @media (max-width: 768px) {
-            .hero-banner-container {
-                height: 250px; /* Altura menor para o celular */
-                background-size: cover; /* Mantém preenchido no celular também */
-                margin-top: 0;
-            }
-            .app-container {
-                padding-top: 140px;
-            }
-        }
+      
         .pilar-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
