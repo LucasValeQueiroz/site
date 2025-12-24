@@ -88,19 +88,42 @@
             color: var(--neon-cyan);
         }
 
+        /* --- NOVA SEÇÃO DE BOTÕES --- */
         .cta-section {
             text-align: center;
-            padding: 3rem 0;
+            padding: 4rem 0;
             border-top: 1px solid var(--border-color);
+            background: radial-gradient(circle at center, rgba(0, 102, 255, 0.05) 0%, transparent 70%);
         }
 
-        /* Reaproveitando o estilo do neon-button do seu style.css com ajustes */
-        .btn-access-now {
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 2rem;
+        .cta-buttons-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 2.5rem;
         }
 
+        /* Ajuste para que os botões fiquem com o mesmo tamanho */
+        .cta-buttons-wrapper .neon-button {
+            min-width: 280px;
+            justify-content: center;
+        }
+
+        /* Variação de cor para o botão de contato para diferenciar do de acesso */
+        .btn-whatsapp-cta {
+            border-color: #25d366 !important;
+            color: #25d366 !important;
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.2) !important;
+        }
+
+        .btn-whatsapp-cta:hover {
+            background: #25d366 !important;
+            color: var(--primary-bg) !important;
+            box-shadow: 0 0 30px rgba(37, 211, 102, 0.5) !important;
+        }
+
+        /* --- BOTÃO FLUTUANTE --- */
         .whatsapp-float {
             position: fixed;
             width: 60px;
@@ -123,6 +146,13 @@
         .whatsapp-float:hover {
             transform: scale(1.1);
             background-color: #128C7E;
+        }
+
+        @media (max-width: 768px) {
+            .cta-buttons-wrapper {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
@@ -197,11 +227,17 @@
 
             <div class="cta-section">
                 <h2>Acredito que esta ferramenta será o divisor de águas no seu negócio.</h2>
-                <p>Estou à disposição para tirarmos esse projeto do papel.</p>
+                <p>Escolha como deseja prosseguir para tirarmos esse projeto do papel:</p>
                 
-                <a href="https://script.google.com/macros/s/AKfycbw41QoZubgf6KsPo5XWmuZUhJuA9LLnwVFaN07aSW5-EFd-8iHxQwo1joyyApdLehaH/exec" class="neon-button btn-access-now" target="_blank">
-                    ACESSAR DEMONSTRAÇÃO DO SISTEMA
-                </a>
+                <div class="cta-buttons-wrapper">
+                    <a href="https://script.google.com/macros/s/AKfycbw41QoZubgf6KsPo5XWmuZUhJuA9LLnwVFaN07aSW5-EFd-8iHxQwo1joyyApdLehaH/exec" class="neon-button" target="_blank">
+                        ACESSAR DEMONSTRAÇÃO
+                    </a>
+
+                    <a href="https://api.whatsapp.com/send?phone=553799642620&text=Fiquei%20interessado(a)%20na%20Gest%C3%A3o%20de%20WhatsApp%20oferecido%20e%20gostaria%20de%20saber%20mais%20detalhes%20a%20respeito." class="neon-button btn-whatsapp-cta" target="_blank">
+                        MARCAR REUNIÃO / FALAR COM ATENDENTE
+                    </a>
+                </div>
             </div>
 
             <div style="text-align: center; margin-top: 2rem; color: var(--text-dim);">
