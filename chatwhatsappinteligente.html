@@ -6,31 +6,43 @@
     <title>Chat WhatsApp Inteligente - Luma Info Tech Dev</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Ajustes para harmonia com o tema dark/neon do style.css */
+        /* Estilos para o Banner Hero */
+        .hero-banner-container {
+            width: 100%;
+            height: 450px; /* Altura ideal para desktop */
+            background: url('WHATSAPP.jpg') no-repeat center center;
+            background-size: cover;
+            border-bottom: 3px solid var(--neon-cyan);
+            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.2);
+            margin-top: -10px; /* Ajuste fino para encaixe */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         .landing-container {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 3rem 2rem;
             color: var(--text-light);
         }
 
-        .intro-box {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .intro-box p {
-            color: var(--text-dim);
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 1.5rem auto;
+        /* Ajuste para dispositivos móveis */
+        @media (max-width: 768px) {
+            .hero-banner-container {
+                height: 250px;
+                margin-top: 0;
+            }
+            .app-container {
+                padding-top: 140px; /* Mantém o espaço para o menu mobile */
+            }
         }
 
         .pilar-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
-            margin-bottom: 3rem;
+            margin: 3rem 0;
         }
 
         .pilar-card-vendas {
@@ -50,9 +62,6 @@
         .pilar-card-vendas h3 {
             color: var(--neon-cyan);
             margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         .pilar-card-vendas ul {
@@ -64,8 +73,8 @@
             margin-bottom: 0.8rem;
             color: var(--text-dim);
             font-size: 0.95rem;
-            position: relative;
             padding-left: 20px;
+            position: relative;
         }
 
         .pilar-card-vendas ul li::before {
@@ -84,15 +93,9 @@
             text-align: center;
         }
 
-        .security-badge strong {
-            color: var(--neon-cyan);
-        }
-
-        /* --- NOVA SEÇÃO DE BOTÕES --- */
         .cta-section {
             text-align: center;
             padding: 4rem 0;
-            border-top: 1px solid var(--border-color);
             background: radial-gradient(circle at center, rgba(0, 102, 255, 0.05) 0%, transparent 70%);
         }
 
@@ -104,26 +107,22 @@
             margin-top: 2.5rem;
         }
 
-        /* Ajuste para que os botões fiquem com o mesmo tamanho */
         .cta-buttons-wrapper .neon-button {
             min-width: 280px;
             justify-content: center;
+            text-decoration: none;
         }
 
-        /* Variação de cor para o botão de contato para diferenciar do de acesso */
         .btn-whatsapp-cta {
             border-color: #25d366 !important;
             color: #25d366 !important;
-            box-shadow: 0 0 15px rgba(37, 211, 102, 0.2) !important;
         }
 
         .btn-whatsapp-cta:hover {
             background: #25d366 !important;
             color: var(--primary-bg) !important;
-            box-shadow: 0 0 30px rgba(37, 211, 102, 0.5) !important;
         }
 
-        /* --- BOTÃO FLUTUANTE --- */
         .whatsapp-float {
             position: fixed;
             width: 60px;
@@ -133,26 +132,11 @@
             background-color: #25d366;
             color: #FFF;
             border-radius: 50px;
-            text-align: center;
-            font-size: 30px;
-            box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
-            z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.3s ease;
-        }
-
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-            background-color: #128C7E;
-        }
-
-        @media (max-width: 768px) {
-            .cta-buttons-wrapper {
-                flex-direction: column;
-                align-items: center;
-            }
+            z-index: 1000;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
         }
     </style>
 </head>
@@ -171,11 +155,14 @@
     </header>
 
     <main class="app-container">
+        <section class="hero-banner-container">
+            </section>
+
         <div class="landing-container">
-            <div class="intro-box">
-                <h1 class="neon-text">Chat WhatsApp Inteligente</h1>
-                <p>
-                    Para atender à demanda crescente de comunicação e garantir que nenhum cliente fique sem resposta, desenvolvemos uma plataforma completa de Gestão e Automação. Diferente do uso comum do aplicativo, nossa solução transforma seu WhatsApp em uma verdadeira central de atendimento multiusuário.
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <h2 class="neon-text" style="font-size: 2.5rem;">Gestão e Automação Profissional</h2>
+                <p style="color: var(--text-dim); font-size: 1.2rem; max-width: 800px; margin: 1rem auto;">
+                    Sua solução completa para transformar o WhatsApp em uma central de atendimento multiusuário organizada e escalável.
                 </p>
             </div>
 
@@ -183,59 +170,56 @@
                 <div class="pilar-card-vendas">
                     <h3>01. Centralização</h3>
                     <ul>
-                        <li><strong>Multiusuários:</strong> Vários atendentes no mesmo número com logins individuais.</li>
-                        <li><strong>Setores:</strong> Direcionamento automático para Comercial, Suporte ou Financeiro.</li>
+                        <li><strong>Multiusuários:</strong> Vários atendentes em um único número.</li>
+                        <li><strong>Setores:</strong> Comercial, Suporte e Financeiro organizados.</li>
                     </ul>
                 </div>
 
                 <div class="pilar-card-vendas">
                     <h3>02. Atendimento 24/7</h3>
                     <ul>
-                        <li><strong>Chatbot Inteligente:</strong> Respostas automáticas baseadas em palavras-chave.</li>
-                        <li><strong>Horários:</strong> O robô assume fora do expediente e agenda o retorno.</li>
+                        <li><strong>Chatbot:</strong> Automação inteligente por palavras-chave.</li>
+                        <li><strong>Horários:</strong> Gestão automática fora do expediente.</li>
                     </ul>
                 </div>
 
                 <div class="pilar-card-vendas">
                     <h3>03. Produtividade</h3>
                     <ul>
-                        <li><strong>Alertas de Vácuo:</strong> O sistema avisa se um cliente ou atendente demorar a responder.</li>
-                        <li><strong>Transferência:</strong> Passe o chat para outro colega com um clique.</li>
+                        <li><strong>Sem Vácuo:</strong> Alertas de inatividade para chats pendentes.</li>
+                        <li><strong>Histórico:</strong> Transferência de conversas entre agentes.</li>
                     </ul>
                 </div>
 
                 <div class="pilar-card-vendas">
                     <h3>04. Marketing</h3>
                     <ul>
-                        <li><strong>Envio em Massa:</strong> Campanhas agendadas de promoções ou avisos.</li>
-                        <li><strong>Janelas Gratuitas:</strong> Otimização de custos seguindo as regras da API.</li>
+                        <li><strong>Envios em Massa:</strong> Campanhas e avisos agendados.</li>
+                        <li><strong>Otimização:</strong> Redução de custos operacionais.</li>
                     </ul>
                 </div>
 
                 <div class="pilar-card-vendas">
                     <h3>05. Inteligência</h3>
                     <ul>
-                        <li><strong>Mark as Converted:</strong> Acompanhe em tempo real o faturamento vindo do WhatsApp.</li>
-                        <li><strong>Backup Drive:</strong> Histórico, áudios e PDFs salvos no seu Google Drive.</li>
+                        <li><strong>ROI Real:</strong> Função "Mark as Converted" para vendas.</li>
+                        <li><strong>Google Drive:</strong> Segurança total e backup dos arquivos.</li>
                     </ul>
                 </div>
             </div>
 
             <div class="security-badge">
-                <p>🛡️ <strong>Segurança de Dados:</strong> Autenticação via criptografia <strong>SHA-256</strong>. Os dados são 100% seus, armazenados de forma privada na sua conta Google.</p>
+                <p>🛡️ <strong>Segurança SHA-256:</strong> Autenticação criptografada e dados 100% privados no seu Google Drive.</p>
             </div>
 
             <div class="cta-section">
-                <h2>Acredito que esta ferramenta será o divisor de águas no seu negócio.</h2>
-                <p>Escolha como deseja prosseguir para tirarmos esse projeto do papel:</p>
-                
+                <h2>Vamos elevar o nível do seu atendimento?</h2>
                 <div class="cta-buttons-wrapper">
                     <a href="https://script.google.com/macros/s/AKfycbw41QoZubgf6KsPo5XWmuZUhJuA9LLnwVFaN07aSW5-EFd-8iHxQwo1joyyApdLehaH/exec" class="neon-button" target="_blank">
-                        ACESSAR DEMONSTRAÇÃO
+                        TESTAR DEMONSTRAÇÃO
                     </a>
-
                     <a href="https://api.whatsapp.com/send?phone=553799642620&text=Fiquei%20interessado(a)%20na%20Gest%C3%A3o%20de%20WhatsApp%20oferecido%20e%20gostaria%20de%20saber%20mais%20detalhes%20a%20respeito." class="neon-button btn-whatsapp-cta" target="_blank">
-                        MARCAR REUNIÃO / FALAR COM ATENDENTE
+                        MARCAR REUNIÃO
                     </a>
                 </div>
             </div>
