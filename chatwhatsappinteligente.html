@@ -6,107 +6,101 @@
     <title>Chat WhatsApp Inteligente - Luma Info Tech Dev</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Estilos específicos para a página de vendas/apresentação */
-        :root {
-            --primary-color: #25d366;
-            --dark-color: #128C7E;
-            --text-color: #333;
-            --bg-light: #f4f7f6;
-        }
-
-        .app-container {
-            max-width: 900px;
+        /* Ajustes para harmonia com o tema dark/neon do style.css */
+        .landing-container {
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 40px 20px;
-            line-height: 1.6;
-            color: var(--text-color);
+            padding: 2rem;
+            color: var(--text-light);
         }
 
-        @media (max-width: 768px) {
-            .app-container {
-                padding-top: 140px;
-            }
-        }
-
-        h1 {
-            color: var(--dark-color);
+        .intro-box {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+            margin-bottom: 3rem;
         }
 
-        .intro-text {
+        .intro-box p {
+            color: var(--text-dim);
             font-size: 1.2rem;
-            color: #555;
-            margin-bottom: 40px;
-            text-align: center;
+            max-width: 800px;
+            margin: 1.5rem auto;
         }
 
-        .pilar-card {
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border-left: 5px solid var(--primary-color);
+        .pilar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
         }
 
-        .pilar-card h3 {
-            margin-top: 0;
-            color: var(--dark-color);
+        .pilar-card-vendas {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
         }
 
-        .pilar-card ul {
+        .pilar-card-vendas:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .pilar-card-vendas h3 {
+            color: var(--neon-cyan);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pilar-card-vendas ul {
             list-style: none;
-            padding-left: 0;
+            padding: 0;
         }
 
-        .pilar-card ul li {
-            margin-bottom: 10px;
-            padding-left: 25px;
+        .pilar-card-vendas ul li {
+            margin-bottom: 0.8rem;
+            color: var(--text-dim);
+            font-size: 0.95rem;
             position: relative;
+            padding-left: 20px;
         }
 
-        .pilar-card ul li::before {
-            content: "✓";
+        .pilar-card-vendas ul li::before {
+            content: "→";
             position: absolute;
             left: 0;
-            color: var(--primary-color);
-            font-weight: bold;
+            color: var(--neon-blue);
         }
 
-        .security-note {
-            background: #e9f7ef;
-            padding: 20px;
+        .security-badge {
+            background: rgba(0, 242, 255, 0.05);
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            padding: 1.5rem;
             border-radius: 8px;
-            border: 1px dashed var(--dark-color);
-            margin: 30px 0;
-            font-size: 0.95rem;
-        }
-
-        .cta-container {
+            margin: 2rem 0;
             text-align: center;
-            margin: 50px 0;
         }
 
-        .btn-access {
-            background-color: var(--dark-color);
-            color: white;
-            padding: 18px 35px;
+        .security-badge strong {
+            color: var(--neon-cyan);
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Reaproveitando o estilo do neon-button do seu style.css com ajustes */
+        .btn-access-now {
             text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border-radius: 50px;
-            transition: transform 0.3s, background 0.3s;
             display: inline-block;
+            margin-top: 2rem;
         }
 
-        .btn-access:hover {
-            background-color: #075E54;
-            transform: scale(1.05);
-        }
-
-        /* Floating WhatsApp Button */
         .whatsapp-float {
             position: fixed;
             width: 60px;
@@ -118,14 +112,16 @@
             border-radius: 50px;
             text-align: center;
             font-size: 30px;
-            box-shadow: 2px 2px 3px #999;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
             z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: transform 0.3s ease;
         }
 
         .whatsapp-float:hover {
+            transform: scale(1.1);
             background-color: #128C7E;
         }
     </style>
@@ -145,80 +141,79 @@
     </header>
 
     <main class="app-container">
-        <h1>Chat WhatsApp Inteligente</h1>
-        
-        <p class="intro-text">
-            Transforme seu WhatsApp em uma verdadeira central de atendimento multiusuário e automatizada. 
-            Desenvolvemos uma plataforma completa para garantir que nenhum cliente fique sem resposta.
-        </p>
+        <div class="landing-container">
+            <div class="intro-box">
+                <h1 class="neon-text">Chat WhatsApp Inteligente</h1>
+                <p>
+                    Para atender à demanda crescente de comunicação e garantir que nenhum cliente fique sem resposta, desenvolvemos uma plataforma completa de Gestão e Automação. Diferente do uso comum do aplicativo, nossa solução transforma seu WhatsApp em uma verdadeira central de atendimento multiusuário.
+                </p>
+            </div>
 
-        <div class="pilar-card">
-            <h3>1. Centralização e Organização por Setores</h3>
-            <ul>
-                <li><strong>Multiusuários:</strong> Vários atendentes utilizando o mesmo número simultaneamente com logins individuais.</li>
-                <li><strong>Divisão por Setores:</strong> Menus interativos que direcionam o cliente para Comercial, Suporte ou Financeiro automaticamente.</li>
-            </ul>
+            <div class="pilar-grid">
+                <div class="pilar-card-vendas">
+                    <h3>01. Centralização</h3>
+                    <ul>
+                        <li><strong>Multiusuários:</strong> Vários atendentes no mesmo número com logins individuais.</li>
+                        <li><strong>Setores:</strong> Direcionamento automático para Comercial, Suporte ou Financeiro.</li>
+                    </ul>
+                </div>
+
+                <div class="pilar-card-vendas">
+                    <h3>02. Atendimento 24/7</h3>
+                    <ul>
+                        <li><strong>Chatbot Inteligente:</strong> Respostas automáticas baseadas em palavras-chave.</li>
+                        <li><strong>Horários:</strong> O robô assume fora do expediente e agenda o retorno.</li>
+                    </ul>
+                </div>
+
+                <div class="pilar-card-vendas">
+                    <h3>03. Produtividade</h3>
+                    <ul>
+                        <li><strong>Alertas de Vácuo:</strong> O sistema avisa se um cliente ou atendente demorar a responder.</li>
+                        <li><strong>Transferência:</strong> Passe o chat para outro colega com um clique.</li>
+                    </ul>
+                </div>
+
+                <div class="pilar-card-vendas">
+                    <h3>04. Marketing</h3>
+                    <ul>
+                        <li><strong>Envio em Massa:</strong> Campanhas agendadas de promoções ou avisos.</li>
+                        <li><strong>Janelas Gratuitas:</strong> Otimização de custos seguindo as regras da API.</li>
+                    </ul>
+                </div>
+
+                <div class="pilar-card-vendas">
+                    <h3>05. Inteligência</h3>
+                    <ul>
+                        <li><strong>Mark as Converted:</strong> Acompanhe em tempo real o faturamento vindo do WhatsApp.</li>
+                        <li><strong>Backup Drive:</strong> Histórico, áudios e PDFs salvos no seu Google Drive.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="security-badge">
+                <p>🛡️ <strong>Segurança de Dados:</strong> Autenticação via criptografia <strong>SHA-256</strong>. Os dados são 100% seus, armazenados de forma privada na sua conta Google.</p>
+            </div>
+
+            <div class="cta-section">
+                <h2>Acredito que esta ferramenta será o divisor de águas no seu negócio.</h2>
+                <p>Estou à disposição para tirarmos esse projeto do papel.</p>
+                
+                <a href="https://script.google.com/macros/s/AKfycbw41QoZubgf6KsPo5XWmuZUhJuA9LLnwVFaN07aSW5-EFd-8iHxQwo1joyyApdLehaH/exec" class="neon-button btn-access-now" target="_blank">
+                    ACESSAR DEMONSTRAÇÃO DO SISTEMA
+                </a>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem; color: var(--text-dim);">
+                <p>Atenciosamente,</p>
+                <p><strong style="color: var(--neon-cyan);">Lucas Vale Queiroz</strong><br>Luma Information Technology Developers</p>
+            </div>
         </div>
-
-        <div class="pilar-card">
-            <h3>2. Atendimento 24/7 com Chatbot</h3>
-            <ul>
-                <li><strong>Fluxos Automáticos:</strong> Respostas instantâneas baseadas em palavras-chave ou botões (ex: "orçamento").</li>
-                <li><strong>Horário de Funcionamento:</strong> O robô agenda retornos e informa o expediente de forma automática.</li>
-                <li><strong>Setores de Plantão:</strong> Configuração para setores de emergência funcionarem 24h.</li>
-            </ul>
-        </div>
-
-        <div class="pilar-card">
-            <h3>3. Gestão de Produtividade</h3>
-            <ul>
-                <li><strong>Alertas de Ausência:</strong> Mensagens automáticas de acompanhamento caso o cliente ou atendente parem de interagir.</li>
-                <li><strong>Transferência Agilizada:</strong> Transfira conversas entre agentes mantendo todo o histórico intacto.</li>
-            </ul>
-        </div>
-
-        <div class="pilar-card">
-            <h3>4. Marketing e Prospecção Inteligente</h3>
-            <ul>
-                <li><strong>Campanhas Agendadas:</strong> Programe avisos e promoções para datas específicas.</li>
-                <li><strong>Economia Operacional:</strong> O sistema prioriza envios dentro das janelas de gratuidade do WhatsApp.</li>
-            </ul>
-        </div>
-
-        <div class="pilar-card">
-            <h3>5. Relatórios e Inteligência de Vendas</h3>
-            <ul>
-                <li><strong>Painel de Controle:</strong> Visualize atendimentos abertos, finalizados e desempenho por setor.</li>
-                <li><strong>Rastreamento de Conversão:</strong> Marque chats como "Convertidos" e saiba exatamente o ROI gerado pelo canal.</li>
-                <li><strong>Histórico no Google Drive:</strong> Todos os arquivos e mensagens são armazenados com segurança na infraestrutura da sua empresa.</li>
-            </ul>
-        </div>
-
-        <div class="security-note">
-            <strong>🔒 Segurança e Propriedade de Dados:</strong><br>
-            Sua tranquilidade é nossa prioridade. O sistema utiliza criptografia <strong>SHA-256</strong> para autenticação e todos os dados pertencem exclusivamente à sua empresa, sendo armazenados diretamente no seu Google Drive e Planilhas.
-        </div>
-
-        <div class="cta-container">
-            <h2>Pronto para tirar o projeto do papel?</h2>
-            <p>Acesse a plataforma abaixo ou entre em contato para uma demonstração personalizada.</p>
-            <br>
-            <a href="https://script.google.com/macros/s/AKfycbw41QoZubgf6KsPo5XWmuZUhJuA9LLnwVFaN07aSW5-EFd-8iHxQwo1joyyApdLehaH/exec" class="btn-access" target="_blank">
-                ACESSAR PLATAFORMA DE GESTÃO
-            </a>
-        </div>
-
-        <p style="text-align: center; color: #777;">
-            Atenciosamente,<br>
-            <strong>Lucas Vale Queiroz</strong><br>
-            Luma Information Technology Developers
-        </p>
     </main>
 
     <footer>
-        <p>DESENVOLVIDO PELA EMPRESA LUMA INFORMATION TECHNOLOGY DEVELOPERS PARA O ESCRITÓRIO DE CONTABILDADE EDGAR PEREIRA</p>
+        <p>DESENVOLVIDO PELA EMPRESA LUMA INFORMATION TECHNOLOGY DEVELOPERS PARA O ESCRITÓRIO DE CONTABILIDADE EDGAR PEREIRA</p>
         <p>CNPJ DO RESPONSÁVEL: 61.868.004/0001-80</p>
-                
         <div class="footer-links">
             <a href="politicadeprivacidade.html">Política de Privacidade</a>
         </div>
