@@ -9,16 +9,28 @@
         /* Estilos para o Banner Hero */
         .hero-banner-container {
             width: 100%;
-            /* AJUSTE REALIZADO AQUI: Altura reduzida para desktops */
-            height: 350px; 
-            background: url('WHATSAPP.jpg') no-repeat center center;
-            background-size: cover;
+            /* Alteração: Usamos min-height e aspect-ratio para manter a proporção da imagem */
+            min-height: 450px; 
+            aspect-ratio: 16 / 8; /* Mantém a proporção retangular típica de banners */
+            
+            background: #0a0e1b url('WHATSAPP.jpg') no-repeat center center;
+            background-size: cover; /* Tenta preencher tudo */
+            
             border-bottom: 3px solid var(--neon-cyan);
             box-shadow: 0 10px 30px rgba(0, 242, 255, 0.2);
             margin-top: -10px;
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        /* Ajuste específico para telas muito largas (monitores grandes) */
+        @media (min-width: 1200px) {
+            .hero-banner-container {
+                height: 550px; /* Aumenta a altura para não cortar os textos da imagem */
+                background-size: contain; /* Opcional: use 'contain' se não quiser nenhum corte na imagem */
+                background-color: #060914; /* Cor de fundo que combina com as bordas da imagem */
+            }
         }
 
         .landing-container {
