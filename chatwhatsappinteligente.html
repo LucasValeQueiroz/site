@@ -6,24 +6,26 @@
     <title>Chat WhatsApp Inteligente - Luma Info Tech Dev</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Estilos para o Banner Hero com Disfarce Lateral */
+        /* Estilos para o Banner Hero com Disfarce Lateral Roxo */
         .hero-banner-container {
             width: 100%;
             height: 500px;
             
-            /* TÉCNICA DE DISFARCE: 
-            1. Criamos um gradiente que vai da cor do fundo -> transparente -> cor do fundo.
-            2. Colocamos a imagem por baixo. */
+            /* TÉCNICA DE DISFARCE ATUALIZADA: 
+            1. Gradiente roxo neon nas bordas que fica transparente no centro.
+            2. A imagem fica centralizada por baixo. */
             background: 
                 linear-gradient(to right, 
-                    var(--primary-bg) 0%, 
-                    transparent 15%, 
-                    transparent 85%, 
-                    var(--primary-bg) 100%),
+                    rgba(125, 18, 255, 0.7) 0%,  /* Roxo neon na esquerda (com transparência) */
+                    var(--primary-bg) 15%,       /* Transição suave para a cor de fundo escura */
+                    transparent 30%,             /* Fica transparente para mostrar a imagem */
+                    transparent 70%,             /* Mantém transparente no centro */
+                    var(--primary-bg) 85%,       /* Volta para a cor de fundo escura */
+                    rgba(125, 18, 255, 0.7) 100%), /* Roxo neon na direita */
                 url('WHATSAPP.jpg') no-repeat center center;
             
-            background-size: contain; /* 'contain' garante que nenhum texto da imagem seja cortado */
-            background-color: #060914; /* Cor exata do fundo da sua imagem para sumir com o preto */
+            background-size: contain; /* Garante que a imagem inteira apareça no PC */
+            background-color: var(--primary-bg); /* Garante que o fundo atrás de tudo seja a cor escura do site */
             
             border-bottom: 3px solid var(--neon-cyan);
             box-shadow: 0 10px 30px rgba(0, 242, 255, 0.2);
@@ -38,8 +40,9 @@
         @media (max-width: 768px) {
             .hero-banner-container {
                 height: 250px;
-                background-size: cover; /* No celular, o 'cover' é melhor para preencher tudo */
-                background-image: url('WHATSAPP.jpg'); /* Removemos o gradiente lateral no mobile */
+                background-size: cover; /* No celular, 'cover' preenche melhor */
+                /* No mobile, removemos o gradiente roxo para a imagem ocupar tudo */
+                background-image: url('WHATSAPP.jpg'); 
                 margin-top: 0;
             }
         }
@@ -47,9 +50,7 @@
         /* Ajuste específico para telas muito largas (monitores grandes) */
         @media (min-width: 1200px) {
             .hero-banner-container {
-                height: 550px; /* Aumenta a altura para não cortar os textos da imagem */
-                background-size: contain; /* Opcional: use 'contain' se não quiser nenhum corte na imagem */
-                background-color: #060914; /* Cor de fundo que combina com as bordas da imagem */
+                height: 550px;
             }
         }
 
@@ -60,7 +61,7 @@
             color: var(--text-light);
         }
 
-      
+       
         .pilar-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
