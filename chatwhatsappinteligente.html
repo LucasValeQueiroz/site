@@ -6,27 +6,30 @@
     <title>Chat WhatsApp Inteligente - Luma Info Tech Dev</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Estilos para o Banner Hero com Disfarce Lateral Roxo */
+        /* --- ESTILOS DO BANNER HERO (SOLUÇÃO FINAL) --- */
         .hero-banner-container {
             width: 100%;
+            /* Altura fixa para desktop */
             height: 500px;
             
-            /* TÉCNICA DE DISFARCE ATUALIZADA: 
-            1. Gradiente roxo neon nas bordas que fica transparente no centro.
-            2. A imagem fica centralizada por baixo. */
-            background: 
-                linear-gradient(to right, 
-                    rgba(125, 18, 255, 0.7) 0%,  /* Roxo neon na esquerda (com transparência) */
-                    var(--primary-bg) 15%,       /* Transição suave para a cor de fundo escura */
-                    transparent 30%,             /* Fica transparente para mostrar a imagem */
-                    transparent 70%,             /* Mantém transparente no centro */
-                    var(--primary-bg) 85%,       /* Volta para a cor de fundo escura */
-                    rgba(125, 18, 255, 0.7) 100%), /* Roxo neon na direita */
-                url('WHATSAPP.jpg') no-repeat center center;
+            /* 1. Define a imagem */
+            background-image: url('WHATSAPP.jpg');
             
-            background-size: contain; /* Garante que a imagem inteira apareça no PC */
-            background-color: var(--primary-bg); /* Garante que o fundo atrás de tudo seja a cor escura do site */
+            /* 2. Centraliza a imagem perfeitamente na horizontal e vertical */
+            background-position: center center;
             
+            /* 3. Garante que a imagem não se repita */
+            background-repeat: no-repeat;
+            
+            /* 4. 'contain' é o segredo: força a imagem a caber inteira dentro da caixa de 500px de altura, 
+               sem cortar absolutamente nada. */
+            background-size: contain;
+            
+            /* 5. Se a tela for muito larga e sobrar espaço nas laterais, 
+               essa cor de fundo sólida preencherá o vazio. */
+            background-color: var(--primary-bg);
+            
+            /* Estilos de borda e sombra */
             border-bottom: 3px solid var(--neon-cyan);
             box-shadow: 0 10px 30px rgba(0, 242, 255, 0.2);
             margin-top: -10px;
@@ -36,24 +39,27 @@
             position: relative;
         }
 
-        /* Ajuste para Celulares (Mobile) */
+        /* Ajuste para Celulares (Mobile) - Mantido para preencher bem a tela pequena */
         @media (max-width: 768px) {
             .hero-banner-container {
                 height: 250px;
-                background-size: cover; /* No celular, 'cover' preenche melhor */
-                /* No mobile, removemos o gradiente roxo para a imagem ocupar tudo */
-                background-image: url('WHATSAPP.jpg'); 
+                /* No celular, usamos 'cover' para preencher tudo, pois a tela é estreita e não sobram laterais */
+                background-size: cover; 
                 margin-top: 0;
             }
-        }
-
-        /* Ajuste específico para telas muito largas (monitores grandes) */
-        @media (min-width: 1200px) {
-            .hero-banner-container {
-                height: 550px;
+             .app-container {
+                padding-top: 140px;
             }
         }
 
+        /* Ajuste para Telas Muito Grandes (Opcional: aumenta um pouco a altura para a imagem ficar maior) */
+        @media (min-width: 1400px) {
+            .hero-banner-container {
+                height: 600px;
+            }
+        }
+
+        /* --- RESTANTE DOS ESTILOS DA PÁGINA --- */
         .landing-container {
             max-width: 1000px;
             margin: 0 auto;
@@ -180,7 +186,7 @@
 
     <main class="app-container">
         <section class="hero-banner-container">
-            </section>
+        </section>
 
         <div class="landing-container">
             <div style="text-align: center; margin-bottom: 3rem; margin-top: 2rem;">
