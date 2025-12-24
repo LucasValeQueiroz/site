@@ -6,16 +6,12 @@
     <title>Chat WhatsApp Inteligente - Luma Info Tech Dev</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Estilos para o Banner Hero */
+        /* Estilos para o Banner Hero - Ajustado para cobrir a tela toda */
         .hero-banner-container {
             width: 100%;
-            /* Alteração: Usamos min-height e aspect-ratio para manter a proporção da imagem */
-            min-height: 450px; 
-            aspect-ratio: 16 / 8; /* Mantém a proporção retangular típica de banners */
-            
+            height: 500px; /* Altura para Computadores */
             background: #0a0e1b url('WHATSAPP.jpg') no-repeat center center;
-            background-size: cover; /* Tenta preencher tudo */
-            
+            background-size: cover; /* Isso remove as bordas pretas e estica a imagem */
             border-bottom: 3px solid var(--neon-cyan);
             box-shadow: 0 10px 30px rgba(0, 242, 255, 0.2);
             margin-top: -10px;
@@ -40,17 +36,17 @@
             color: var(--text-light);
         }
 
-        /* Ajuste para dispositivos móveis (Mantido conforme solicitado) */
+        /* Ajuste para Celulares (Mobile) */
         @media (max-width: 768px) {
             .hero-banner-container {
-                height: 250px;
+                height: 250px; /* Altura menor para o celular */
+                background-size: cover; /* Mantém preenchido no celular também */
                 margin-top: 0;
             }
             .app-container {
                 padding-top: 140px;
             }
         }
-
         .pilar-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
