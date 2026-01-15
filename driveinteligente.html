@@ -42,16 +42,23 @@
             position: relative;
         }
 
-        /* Ajuste para Celulares */
+        /* Ajuste para Celulares (Mobile) - Mantido para preencher bem a tela pequena */
         @media (max-width: 768px) {
             .hero-banner-container {
                 height: 250px;
-                /* No celular, 'cover' preenche melhor */
+                /* No celular, usamos 'cover' para preencher tudo, pois a tela é estreita e não sobram laterais */
                 background-size: cover; 
                 margin-top: 0;
             }
              .app-container {
                 padding-top: 140px;
+            }
+        }
+
+        /* Ajuste para Telas Muito Grandes (Opcional: aumenta um pouco a altura para a imagem ficar maior) */
+        @media (min-width: 1400px) {
+            .hero-banner-container {
+                height: 600px;
             }
         }
 
