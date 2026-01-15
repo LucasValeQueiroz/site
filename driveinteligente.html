@@ -10,22 +10,38 @@
         /* --- ESTILOS ESPECÍFICOS PARA ESTA PÁGINA (HERDADOS DO ESTILO CHATWHATSAPP) --- */
 
         /* Estilo do Banner Hero com a imagem DRIVE.jpg */
+        <style>
+        /* --- ESTILOS DO BANNER HERO (SOLUÇÃO FINAL) --- */
         .hero-banner-container {
             width: 100%;
-            height: 500px; /* Altura fixa para desktop */
-            /* Define a imagem de fundo */
+            /* Altura fixa para desktop */
+            height: 500px;
+            
+            /* 1. Define a imagem */
             background-image: url('DRIVE.jpg');
+            
+            /* 2. Centraliza a imagem perfeitamente na horizontal e vertical */
             background-position: center center;
+            
+            /* 3. Garante que a imagem não se repita */
             background-repeat: no-repeat;
-            /* 'contain' para garantir que a imagem caiba inteira sem cortes */
+            
+            /* 4. 'contain' é o segredo: força a imagem a caber inteira dentro da caixa de 500px de altura, 
+               sem cortar absolutamente nada. */
             background-size: contain;
-            /* Cor de fundo para preencher laterais se a tela for muito larga */
+            
+            /* 5. Se a tela for muito larga e sobrar espaço nas laterais, 
+               essa cor de fundo sólida preencherá o vazio. */
             background-color: var(--primary-bg);
             
-            /* Estilos de borda e sombra neon */
+            /* Estilos de borda e sombra */
             border-bottom: 3px solid var(--neon-cyan);
             box-shadow: 0 10px 30px rgba(0, 242, 255, 0.2);
-            margin-top: -10px; /* Ajuste fino de posicionamento */
+            margin-top: -10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
         }
 
         /* Ajuste para Celulares */
