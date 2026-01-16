@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drive Inteligente - Luma Info Tech Dev</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- ESTILOS ESPECÍFICOS PARA ESTA PÁGINA (HERDADOS DO ESTILO CHATWHATSAPP) --- */
+
+        /* Estilo do Banner Hero com a imagem DRIVE.jpg */
+        .hero-banner-container {
+            width: 100%;
+            /* Altura fixa para desktop */
+            height: 500px;
+            
+            /* 1. Define a imagem */
+            background-image: url('DRIVE.jpg');
+            
+            /* 2. Centraliza a imagem perfeitamente na horizontal e vertical */
+            background-position: center center;
+            
+            /* 3. Garante que a imagem não se repita */
+            background-repeat: no-repeat;
+            
+            /* 4. 'contain' é o segredo: força a imagem a caber inteira dentro da caixa de 500px de altura, 
+               sem cortar absolutamente nada. */
+            background-size: contain;
+            
+            /* 5. Se a tela for muito larga e sobrar espaço nas laterais, 
+               essa cor de fundo sólida preencherá o vazio. */
+            background-color: var(--primary-bg);
+            
+            /* Estilos de borda e sombra */
+            border-bottom: 3px solid var(--neon-cyan);
+            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.2);
+            margin-top: -10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Ajuste para Celulares (Mobile) - Mantido para preencher bem a tela pequena */
+        @media (max-width: 768px) {
+            .hero-banner-container {
+                height: 250px;
+                /* No celular, usamos 'cover' para preencher tudo, pois a tela é estreita e não sobram laterais */
+                background-size: cover; 
+                margin-top: 0;
+            }
+             .app-container {
+                padding-top: 140px;
+            }
+        }
+
+        /* Ajuste para Telas Muito Grandes (Opcional: aumenta um pouco a altura para a imagem ficar maior) */
+        @media (min-width: 1400px) {
+            .hero-banner-container {
+                height: 600px;
+            }
+        }
+
+        /* --- CONTÊINER PRINCIPAL DE TEXTO --- */
+        .landing-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            color: var(--text-light);
+        }
+
+        /* Títulos e Subtítulos da Landing Page */
+        .landing-title {
+            font-size: 2.5rem;
+            color: var(--neon-cyan);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
+        }
+
+        .landing-subtitle {
+            font-size: 1.3rem;
+            text-align: center;
+            color: var(--text-dim);
+            max-width: 800px;
+            margin: 0 auto 3rem auto;
+            line-height: 1.6;
+        }
+
+        .section-header {
+            font-size: 1.8rem;
+            color: var(--neon-blue);
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        /* --- GRID DE CARDS (DIFERENCIAIS) --- */
+        .pilar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .pilar-card-vendas {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .pilar-card-vendas:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .pilar-card-vendas h3 {
+            color: var(--neon-cyan);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pilar-card-vendas p {
+            color: var(--text-dim);
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        /* --- TABELA COMPARATIVA NEON --- */
+        .neon-table-wrapper {
+            overflow-x: auto;
+            margin: 2rem 0;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .neon-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            background: var(--secondary-bg);
+        }
+
+        .neon-table th, .neon-table td {
+            padding: 1.2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .neon-table th {
+            background: rgba(0, 102, 255, 0.1);
+            color: var(--neon-cyan);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .neon-table td:first-child {
+            font-weight: 600;
+            color: var(--neon-blue);
+        }
+        
+        .neon-table tr:hover td {
+            background: rgba(0, 242, 255, 0.03);
+        }
+
+        /* --- LISTA DE FLUXO DE TRABALHO --- */
+        .workflow-list {
+            list-style: none;
+            padding: 0;
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        .workflow-list li {
+            background: var(--secondary-bg);
+            margin-bottom: 1rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--neon-blue);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .workflow-list li strong {
+            color: var(--neon-cyan);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* --- CITAÇÃO DE DESTAQUE --- */
+        .highlight-quote {
+            font-size: 1.5rem;
+            text-align: center;
+            font-style: italic;
+            color: var(--text-light);
+            padding: 3rem 1rem;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            margin: 3rem 0;
+            background: radial-gradient(circle at center, rgba(0, 242, 255, 0.05) 0%, transparent 70%);
+        }
+
+        /* --- CARD DE TECNOLOGIA (Reusando estilo security-badge) --- */
+        .tech-badge {
+            background: rgba(0, 242, 255, 0.05);
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem auto;
+            text-align: center;
+            max-width: 800px;
+        }
+        .tech-badge h4 {
+            color: var(--neon-cyan); margin-bottom: 1rem; font-size: 1.2rem;
+        }
+
+        /* --- SEÇÃO CTA (BOTÕES) --- */
+        .cta-section {
+            text-align: center;
+            padding: 4rem 0;
+            background: radial-gradient(circle at center, rgba(0, 102, 255, 0.1) 0%, transparent 70%);
+            margin-top: 3rem;
+        }
+
+        .cta-buttons-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 2.5rem;
+        }
+
+        .cta-buttons-wrapper .neon-button {
+            min-width: 280px;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .btn-whatsapp-cta {
+            border-color: #25d366 !important;
+            color: #25d366 !important;
+        }
+
+        .btn-whatsapp-cta:hover {
+            background: #25d366 !important;
+            color: var(--primary-bg) !important;
+        }
+
+        /* Botão Flutuante do WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Luma Info Tech Dev</a>
+            <ul>
+                <li><a href="index.html">Sobre</a></li>
+                <li><a href="controleimobiliario.html">Controle Imobiliário</a></li>
+                <li><a href="driveinteligente.html" class="active">Drive Inteligente</a></li>
+                <li><a href="receberarquivos.html">Receber Arquivos</a></li>
+                <li><a href="chatwhatsappinteligente.html">Chat WhatsApp</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="app-container" style="display: block; min-height: auto;">
+        <section class="hero-banner-container">
+        </section>
+
+        <div class="landing-container">
+            
+            <h1 class="landing-title">Luma Drive Pro: A Gestão de Documentos que sua Empresa Merece</h1>
+            
+            <p class="landing-subtitle">
+                Você ainda perde tempo procurando arquivos em pastas bagunçadas ou enviando e-mails manuais para seus clientes? Conheça o <strong>Luma Drive Pro</strong>, a solução definitiva desenvolvida pela Luma Info Tech Dev para organizar, monitorar e automatizar o fluxo de documentos da sua empresa.
+            </p>
+
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <h2 style="color: var(--neon-blue); margin-bottom: 1rem;">Por que escolher o Luma Drive Pro?</h2>
+                <p style="color: var(--text-dim); max-width: 800px; margin: 0 auto;">Diferente de um Google Drive comum, nosso sistema oferece uma interface inteligente que prioriza o controle total sobre cada processo.</p>
+            </div>
+
+            <h2 class="section-header">Principais Diferenciais</h2>
+            <div class="pilar-grid">
+                <div class="pilar-card-vendas">
+                    <h3>🚀 Entrega Profissional em 1 Clique</h3>
+                    <p>Selecione arquivos ou pastas inteiras e envie diretamente para o e-mail do seu cliente. O sistema converte automaticamente planilhas em PDF, compacta arquivos pesados em ZIP e gera links de download seguros.</p>
+                </div>
+
+                <div class="pilar-card-vendas">
+                    <h3>📊 Controle Visual de Processos (Status Flow)</h3>
+                    <p>Saiba exatamente em que pé está cada tarefa. Atribua status como <em>Em Aberto</em>, <em>Fazendo</em>, <em>Feito</em> ou <em>Erro</em> com sinalização por cores e histórico de notas.</p>
+                </div>
+
+                <div class="pilar-card-vendas">
+                    <h3>📅 Automatização Mensal Inteligente</h3>
+                    <p>Configure regras de recorrência. Todo mês, o sistema reseta os status e cria novas linhas de controle automaticamente, garantindo que nenhuma obrigação seja esquecida.</p>
+                </div>
+
+                <div class="pilar-card-vendas">
+                    <h3>🔐 Segurança e Aprovação de Acesso</h3>
+                    <p>Controle quem entra no sistema. Novos usuários solicitam acesso e você aprova ou nega com um único clique no seu e-mail.</p>
+                </div>
+
+                <div class="pilar-card-vendas">
+                    <h3>📝 Notas e Comentários Fixos</h3>
+                    <p>Adicione observações importantes em arquivos ou pastas que ficam visíveis para toda a equipe, evitando erros de comunicação.</p>
+                </div>
+
+                <div class="pilar-card-vendas">
+                    <h3>📂 Organização de Elite</h3>
+                    <p>Funções avançadas para copiar, mover e renomear itens em lote, mantendo todos os metadados e históricos preservados.</p>
+                </div>
+            </div>
+
+            <h2 class="section-header">Comparativo: Gestão Manual vs. Luma Drive Pro</h2>
+            <div class="neon-table-wrapper">
+                <table class="neon-table">
+                    <thead>
+                        <tr>
+                            <th>Funcionalidade</th>
+                            <th>Google Drive Comum</th>
+                            <th>Luma Drive Pro</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Status de Tarefas</td>
+                            <td>Inexistente</td>
+                            <td>Visual (Verde, Amarelo, Vermelho)</td>
+                        </tr>
+                        <tr>
+                            <td>Envio para Clientes</td>
+                            <td>Manual/Anexo pesado</td>
+                            <td>Automático (Com Log de Envio)</td>
+                        </tr>
+                        <tr>
+                            <td>Histórico de Alterações</td>
+                            <td>Difícil de rastrear</td>
+                            <td>Log de notas e status por usuário</td>
+                        </tr>
+                        <tr>
+                            <td>Recorrência Mensal</td>
+                            <td>Precisa criar tudo do zero</td>
+                            <td>100% Automatizado</td>
+                        </tr>
+                        <tr>
+                            <td>Segurança</td>
+                            <td>Permissões manuais</td>
+                            <td>Sistema de Aprovação por E-mail</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 class="section-header">Como funciona o fluxo de trabalho?</h2>
+            <p style="text-align: center; color: var(--text-dim); margin-bottom: 2rem;">O Luma Drive Pro foi desenhado para ser intuitivo. Veja como ele otimiza seu dia:</p>
+            <ul class="workflow-list">
+                <li>
+                    <strong>1. Organização</strong>
+                    Você sobe os arquivos ou pastas do mês.
+                </li>
+                <li>
+                    <strong>2. Monitoramento</strong>
+                    A equipe atualiza o status conforme trabalha (ex: "Guia gerada", "Aguardando conferência").
+                </li>
+                <li>
+                    <strong>3. Envio</strong>
+                    Ao finalizar, basta selecionar os itens e escolher o cliente. O sistema cuida do resto, inclusive registrando o Log de Envio (Tag Rosa) para que você tenha prova de que o documento foi entregue.
+                </li>
+            </ul>
+
+            <div class="highlight-quote">
+                "Transforme a maneira como sua contabilidade entrega valor. Menos tempo enviando e-mails, mais tempo analisando resultados."
+            </div>
+
+            <div class="tech-badge">
+                <h4>Quer levar essa tecnologia para sua empresa?</h4>
+                <p>O Luma Drive Pro é uma aplicação web customizável que roda dentro do seu próprio ecossistema Google, garantindo baixo custo de manutenção e alta performance.</p>
+            </div>
+
+            <div class="cta-section">
+                <h2>Entre em contato com a Luma Info Tech Dev e agende uma demonstração!</h2>
+                <div class="cta-buttons-wrapper">
+                    <a href="https://script.google.com/macros/s/AKfycbwL6sLuJ3p4_eiTfDjBUaCxvE1AN82c-Bwr_qmh59A5uhxvrVEyaQWpLYbC_YNkR6BB/exec" class="neon-button" target="_blank">
+                        TESTAR DEMONSTRAÇÃO
+                    </a>
+                    <a href="https://api.whatsapp.com/send?phone=553799642620&text=Fiquei%20interessado(a)%20na%20LUMA%20DRIVE%20PRO%20oferecido%20e%20gostaria%20de%20saber%20mais%20detalhes%20a%20respeito." class="neon-button btn-whatsapp-cta" target="_blank">
+                        MARCAR REUNIÃO
+                    </a>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem; color: var(--text-dim);">
+                <p>Desenvolvido pela empresa</p>
+                <p><strong style="color: var(--neon-cyan);">LUMA INFORMATION TECHNOLOGY DEVELOPERS</strong><br>Com muito ❤ e ☕</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>DESENVOLVIDO PELA EMPRESA LUMA INFORMATION TECHNOLOGY DEVELOPERS</p>
+        <p>CNPJ DO RESPONSÁVEL: 61.868.004/0001-80</p>
+        <div class="footer-links">
+            <a href="politicadeprivacidade.html">Política de Privacidade</a>
+        </div>
+    </footer>
+
+    <a href="https://api.whatsapp.com/send?phone=553799642620&text=Fiquei%20interessado(a)%20no%20servi%C3%A7o%20oferecido%20e%20gostaria%20de%20saber%20mais%20detalhes%20a%20respeito." class="whatsapp-float" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="24" height="24" fill="#fff">
+            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27.1 106.1 27.1s73.7-9.4 106.1-27.1l117.7 30.9L418.4 365c19.4-33.7 29.6-71.9 29.6-111 0-122.4-99.6-222-222-222zM223.9 439.7c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L78 362.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.5-184.5 49.3 0 95.6 19.2 130.4 54s54 81.1 54 130.4c0 101.7-82.8 184.5-184.5 184.5zM319.1 307.2c-3.8-1.9-22.6-11.2-26.1-12.5-3.5-1.3-6-1.9-8.6 1.9-2.6 3.8-9.9 12.5-12.1 15-2.2 2.6-4.5 2.9-8.3 1-3.8-1.9-16-5.9-30.5-18.7-11.4-10-19.2-22.4-22.6-27.4-3.4-5-0.4-7.7 1.5-10.1 1.8-2.2 3.8-5.7 5.7-8.6 1.9-2.9 2.6-4.5 3.8-7.7 1.3-3.2 0.6-5.9-0.3-7.7-0.9-1.9-8.6-20.6-11.7-28.2-3.1-7.6-6.2-6.6-8.6-6.6-2.2 0-4.8 0-7.4 0-2.6 0-6.8 0.9-10.3 4.8-3.5 3.8-13.4 13.1-13.4 31.9 0 18.8 13.7 37 15.6 39.6 1.9 2.6 26.1 41.8 63.4 56.2 8.7 3.3 15.6 5.3 20.9 6.8 5.3 1.5 10 0.9 13.7-1 3.9-1.9 22.6-9.2 25.7-18.1 3.1-8.9 3.1-16.4 2.2-18.1-0.9-1.8-3.4-2.8-7.2-4.7z"/>
+        </svg>
+    </a>
+</body>
+</html>
