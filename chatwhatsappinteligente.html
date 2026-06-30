@@ -3,179 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Chat WhatsApp Inteligente - Transforme seu WhatsApp em uma central de atendimento multiusuário organizada, automatizada e escalável. Lumairam Info Tech Dev.">
     <title>Chat WhatsApp Inteligente - Lumairam Info Tech Dev</title>
     <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* --- ESTILOS DO BANNER HERO (SOLUÇÃO FINAL) --- */
-        .hero-banner-container {
-            width: 100%;
-            /* Altura fixa para desktop */
-            height: 500px;
-            
-            /* 1. Define a imagem */
-            background-image: url('WHATSAPP.jpg');
-            
-            /* 2. Centraliza a imagem perfeitamente na horizontal e vertical */
-            background-position: center center;
-            
-            /* 3. Garante que a imagem não se repita */
-            background-repeat: no-repeat;
-            
-            /* 4. 'contain' é o segredo: força a imagem a caber inteira dentro da caixa de 500px de altura, 
-               sem cortar absolutamente nada. */
-            background-size: contain;
-            
-            /* 5. Se a tela for muito larga e sobrar espaço nas laterais, 
-               essa cor de fundo sólida preencherá o vazio. */
-            background-color: var(--primary-bg);
-            
-            /* Estilos de borda e sombra */
-            border-bottom: 3px solid var(--neon-cyan);
-            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.2);
-            margin-top: -10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        /* Ajuste para Celulares (Mobile) - Mantido para preencher bem a tela pequena */
-        @media (max-width: 768px) {
-            .hero-banner-container {
-                height: 250px;
-                /* No celular, usamos 'cover' para preencher tudo, pois a tela é estreita e não sobram laterais */
-                background-size: cover; 
-                margin-top: 0;
-            }
-             .app-container {
-                padding-top: 140px;
-            }
-        }
-
-        /* Ajuste para Telas Muito Grandes (Opcional: aumenta um pouco a altura para a imagem ficar maior) */
-        @media (min-width: 1400px) {
-            .hero-banner-container {
-                height: 600px;
-            }
-        }
-
-        /* --- RESTANTE DOS ESTILOS DA PÁGINA --- */
-        .landing-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 2rem;
-            color: var(--text-light);
-        }
-
-       
-        .pilar-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin: 3rem 0;
-        }
-
-        .pilar-card-vendas {
-            background: var(--secondary-bg);
-            border: 1px solid var(--border-color);
-            padding: 2rem;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .pilar-card-vendas:hover {
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.1);
-            transform: translateY(-5px);
-        }
-
-        .pilar-card-vendas h3 {
-            color: var(--neon-cyan);
-            margin-bottom: 1rem;
-        }
-
-        .pilar-card-vendas ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .pilar-card-vendas ul li {
-            margin-bottom: 0.8rem;
-            color: var(--text-dim);
-            font-size: 0.95rem;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        .pilar-card-vendas ul li::before {
-            content: "→";
-            position: absolute;
-            left: 0;
-            color: var(--neon-blue);
-        }
-
-        .security-badge {
-            background: rgba(0, 242, 255, 0.05);
-            border: 1px solid rgba(0, 242, 255, 0.2);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin: 2rem 0;
-            text-align: center;
-        }
-
-        .cta-section {
-            text-align: center;
-            padding: 4rem 0;
-            background: radial-gradient(circle at center, rgba(0, 102, 255, 0.05) 0%, transparent 70%);
-        }
-
-        .cta-buttons-wrapper {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 2.5rem;
-        }
-
-        .cta-buttons-wrapper .neon-button {
-            min-width: 280px;
-            justify-content: center;
-            text-decoration: none;
-        }
-
-        .btn-whatsapp-cta {
-            border-color: #25d366 !important;
-            color: #25d366 !important;
-        }
-
-        .btn-whatsapp-cta:hover {
-            background: #25d366 !important;
-            color: var(--primary-bg) !important;
-        }
-
-        .whatsapp-float {
-            position: fixed;
-            width: 60px;
-            height: 60px;
-            bottom: 40px;
-            right: 40px;
-            background-color: #25d366;
-            color: #FFF;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
-        }
-    </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader-text">&lt;/LUMAIRAM&gt;</div>
+        <div class="loader-bar"><div class="loader-bar-inner"></div></div>
+    </div>
+
+    <!-- Scroll Progress -->
+    <div id="scroll-progress"></div>
+
+    <!-- Custom Cursor -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+
+    <!-- Matrix Rain -->
+    <canvas id="matrix-canvas"></canvas>
+
     <header>
         <nav>
             <a href="index.html" class="logo">Lumairam Info Tech Dev</a>
-            <ul>
+            <button id="hamburger-btn" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+            <ul id="nav-menu">
                 <li><a href="sobre.html">Sobre</a></li>
                 <li><a href="index.html">Seja Sócio</a></li>
                 <li><a href="controleimobiliario.html">Controle Imobiliário</a></li>
@@ -187,76 +47,78 @@
     </header>
 
     <main class="app-container">
-        <section class="hero-banner-container">
+        <section class="hero-banner-container" style="background-image: url('WHATSAPP.jpg')" data-reveal>
         </section>
 
         <div class="landing-container">
-            <div style="text-align: center; margin-bottom: 3rem; margin-top: 2rem;">
+            <div style="text-align: center; margin-bottom: 3rem; margin-top: 2rem;" data-reveal>
                 <p style="color: var(--text-dim); font-size: 1.3rem; max-width: 800px; margin: 0 auto; line-height: 1.6;">
                     Sua solução completa para transformar o WhatsApp em uma central de atendimento multiusuário organizada, automatizada e escalável.
                 </p>
             </div>
 
-            <div class="pilar-grid">
-                <div class="pilar-card-vendas">
-                    <h3>01. Centralização e Organização por Setores</h3>
-                    <p><strong>Esqueça a confusão de várias pessoas usando o mesmo celular ou conversas perdidas.</strong></p>
-                    <br>
-                    <ul>
-                        <li><strong>Multiusuários:</strong> Vários atendentes utilizam o mesmo número de WhatsApp simultaneamente, cada um com seu login e senha.</li>
-                        <li><strong>Divisão por Setores:</strong> Organize seu fluxo por departamentos (ex: Comercial, Suporte, Financeiro). O cliente escolhe com quem deseja falar através de menus interativos, e a conversa é direcionada automaticamente para os profissionais responsáveis.</li>
-                    </ul>
-                </div>
+            <section data-reveal>
+                <div class="pilar-grid">
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3 data-glitch>01. Centralização e Organização por Setores</h3>
+                        <p><strong>Esqueça a confusão de várias pessoas usando o mesmo celular ou conversas perdidas.</strong></p>
+                        <br>
+                        <ul>
+                            <li><strong>Multiusuários:</strong> Vários atendentes utilizam o mesmo número de WhatsApp simultaneamente, cada um com seu login e senha.</li>
+                            <li><strong>Divisão por Setores:</strong> Organize seu fluxo por departamentos (ex: Comercial, Suporte, Financeiro). O cliente escolhe com quem deseja falar através de menus interativos, e a conversa é direcionada automaticamente para os profissionais responsáveis.</li>
+                        </ul>
+                    </div>
 
-                <div class="pilar-card-vendas">
-                    <h3>02. Atendimento 24/7</h3>
-                    <p><strong>Seu negócio nunca para, mesmo fora do horário comercial.</strong></p>
-                    <br>
-                    <ul>
-                        <li><strong>Fluxos Automáticos:</strong> Criamos regras baseadas em palavras-chave ou botões. Se o cliente digitar "orçamento", o sistema pode enviar instantaneamente sua tabela de preços e apresentações.</li>
-                        <li><strong>Horários:</strong> Fora do expediente, o robô assume, informa o horário de retorno e agenda automaticamente um lembrete para que sua equipe entre em contato assim que o expediente começar.</li>
-                        <li><strong>Setores de Plantão:</strong> Você pode configurar setores específicos (como Emergência) para ignorar o horário comercial e funcionar 24h.</li>
-                    </ul>
-                </div>
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3 data-glitch>02. Atendimento 24/7</h3>
+                        <p><strong>Seu negócio nunca para, mesmo fora do horário comercial.</strong></p>
+                        <br>
+                        <ul>
+                            <li><strong>Fluxos Automáticos:</strong> Criamos regras baseadas em palavras-chave ou botões. Se o cliente digitar "orçamento", o sistema pode enviar instantaneamente sua tabela de preços e apresentações.</li>
+                            <li><strong>Horários:</strong> Fora do expediente, o robô assume, informa o horário de retorno e agenda automaticamente um lembrete para que sua equipe entre em contato assim que o expediente começar.</li>
+                            <li><strong>Setores de Plantão:</strong> Você pode configurar setores específicos (como Emergência) para ignorar o horário comercial e funcionar 24h.</li>
+                        </ul>
+                    </div>
 
-                <div class="pilar-card-vendas">
-                    <h3>03. Produtividade</h3>
-                    <p><strong>Garanta que o cliente nunca fique no vácuo e que sua equipe seja ágil.</strong></p>
-                    <br>
-                    <ul>
-                        <li><strong>Alertas de Ausência:</strong> Se um cliente parar de responder, o sistema envia uma mensagem automática de acompanhamento. Se um atendente demorar a responder, a conversa pode ser transferida automaticamente para outro colega ou setor.</li>
-                        <li><strong>Transferência entre Agentes:</strong> Um atendente pode transferir uma conversa para outro com apenas um clique, mantendo todo o histórico para que o cliente não precise repetir informações.</li>
-                    </ul>
-                </div>
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3 data-glitch>03. Produtividade</h3>
+                        <p><strong>Garanta que o cliente nunca fique no vácuo e que sua equipe seja ágil.</strong></p>
+                        <br>
+                        <ul>
+                            <li><strong>Alertas de Ausência:</strong> Se um cliente parar de responder, o sistema envia uma mensagem automática de acompanhamento. Se um atendente demorar a responder, a conversa pode ser transferida automaticamente para outro colega ou setor.</li>
+                            <li><strong>Transferência entre Agentes:</strong> Um atendente pode transferir uma conversa para outro com apenas um clique, mantendo todo o histórico para que o cliente não precise repetir informações.</li>
+                        </ul>
+                    </div>
 
-                <div class="pilar-card-vendas">
-                    <h3>04. Marketing e Prospecção (Envio em Massa Inteligente)</h3>
-                    <p><strong>Comunique-se com toda a sua base de contatos de forma profissional e econômica.</strong></p>
-                    <br>
-                    <ul>
-                        <li><strong>Campanhas Agendadas:</strong> Programe avisos, promoções ou cobranças para datas e horários específicos.</li>
-                        <li><strong>Agendamento Inteligente:</strong> O sistema prioriza envios dentro das "janelas de gratuidade" do WhatsApp, reduzindo custos operacionais e garantindo que as mensagens cheguem em horários comerciais para maior taxa de leitura.</li>
-                    </ul>
-                </div>
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3 data-glitch>04. Marketing e Prospecção (Envio em Massa Inteligente)</h3>
+                        <p><strong>Comunique-se com toda a sua base de contatos de forma profissional e econômica.</strong></p>
+                        <br>
+                        <ul>
+                            <li><strong>Campanhas Agendadas:</strong> Programe avisos, promoções ou cobranças para datas e horários específicos.</li>
+                            <li><strong>Agendamento Inteligente:</strong> O sistema prioriza envios dentro das "janelas de gratuidade" do WhatsApp, reduzindo custos operacionais e garantindo que as mensagens cheguem em horários comerciais para maior taxa de leitura.</li>
+                        </ul>
+                    </div>
 
-                <div class="pilar-card-vendas">
-                    <h3>05. Relatórios e Inteligência de Vendas</h3>
-                    <p><strong>Tome decisões baseadas em dados reais, não em suposições.</strong></p>
-                    <br>
-                    <ul>
-                        <li><strong>Painel de Controle:</strong> Visualize quantos atendimentos estão abertos, quantos foram finalizados e o desempenho por setor.</li>
-                        <li><strong>Rastreamento de Conversão:</strong> Marque clientes como "Convertidos" e acompanhe em tempo real o funil de vendas gerado diretamente pelo WhatsApp.</li>
-                        <li><strong>Histórico Completo:</strong> Todas as mensagens, áudios e arquivos (PDFs, imagens) ficam armazenados com segurança e organizados por contato no Google Drive da sua empresa.</li>
-                    </ul>
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3 data-glitch>05. Relatórios e Inteligência de Vendas</h3>
+                        <p><strong>Tome decisões baseadas em dados reais, não em suposições.</strong></p>
+                        <br>
+                        <ul>
+                            <li><strong>Painel de Controle:</strong> Visualize quantos atendimentos estão abertos, quantos foram finalizados e o desempenho por setor.</li>
+                            <li><strong>Rastreamento de Conversão:</strong> Marque clientes como "Convertidos" e acompanhe em tempo real o funil de vendas gerado diretamente pelo WhatsApp.</li>
+                            <li><strong>Histórico Completo:</strong> Todas as mensagens, áudios e arquivos (PDFs, imagens) ficam armazenados com segurança e organizados por contato no Google Drive da sua empresa.</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
+            </section>
 
-            <div class="security-badge">
+            <div class="security-badge" data-reveal>
                 <p>🛡️ <strong>Segurança SHA-256:</strong> Autenticação criptografada e dados 100% privados no seu Google Drive.</p>
             </div>
 
-            <div class="cta-section">
-                <h2>Vamos elevar o nível do seu atendimento?</h2>
+            <section class="cta-section" data-reveal>
+                <h2 data-glitch>Vamos elevar o nível do seu atendimento?</h2>
                 <div class="cta-buttons-wrapper">
                     <a href="https://script.google.com/macros/s/AKfycbxYK0bghoWfTkACxSkmp2N9JizBBaS0Bm1sHYpiqTjMydAe3KYk6z-5JJGIaWypmqxj/exec" class="neon-button" target="_blank">
                         TESTAR DEMONSTRAÇÃO
@@ -265,16 +127,16 @@
                         MARCAR REUNIÃO
                     </a>
                 </div>
-            </div>
+            </section>
 
-            <div style="text-align: center; margin-top: 2rem; color: var(--text-dim);">
+            <div style="text-align: center; margin-top: 2rem; color: var(--text-dim);" data-reveal>
                 <p>Desenvolvido pela empresa</p>
                 <p><strong style="color: var(--neon-cyan);">LUMAIRAM INFORMATION TECHNOLOGY DEVELOPERS</strong><br>Com muito ❤ e ☕</p>
             </div>
         </div>
     </main>
 
-    <footer>
+    <footer data-reveal>
         <p>DESENVOLVIDO PELA EMPRESA LUMAIRAM INFORMATION TECHNOLOGY DEVELOPERS</p>
         <p>CNPJ DO RESPONSÁVEL: 61.868.004/0001-80</p>
         <div class="footer-links">
@@ -287,5 +149,7 @@
             <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27.1 106.1 27.1s73.7-9.4 106.1-27.1l117.7 30.9L418.4 365c19.4-33.7 29.6-71.9 29.6-111 0-122.4-99.6-222-222-222zM223.9 439.7c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L78 362.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.5-184.5 49.3 0 95.6 19.2 130.4 54s54 81.1 54 130.4c0 101.7-82.8 184.5-184.5 184.5zM319.1 307.2c-3.8-1.9-22.6-11.2-26.1-12.5-3.5-1.3-6-1.9-8.6 1.9-2.6 3.8-9.9 12.5-12.1 15-2.2 2.6-4.5 2.9-8.3 1-3.8-1.9-16-5.9-30.5-18.7-11.4-10-19.2-22.4-22.6-27.4-3.4-5-0.4-7.7 1.5-10.1 1.8-2.2 3.8-5.7 5.7-8.6 1.9-2.9 2.6-4.5 3.8-7.7 1.3-3.2 0.6-5.9-0.3-7.7-0.9-1.9-8.6-20.6-11.7-28.2-3.1-7.6-6.2-6.6-8.6-6.6-2.2 0-4.8 0-7.4 0-2.6 0-6.8 0.9-10.3 4.8-3.5 3.8-13.4 13.1-13.4 31.9 0 18.8 13.7 37 15.6 39.6 1.9 2.6 26.1 41.8 63.4 56.2 8.7 3.3 15.6 5.3 20.9 6.8 5.3 1.5 10 0.9 13.7-1 3.9-1.9 22.6-9.2 25.7-18.1 3.1-8.9 3.1-16.4 2.2-18.1-0.9-1.8-3.4-2.8-7.2-4.7z"/>
         </svg>
     </a>
+
+    <script src="lumairam-fx.js"></script>
 </body>
 </html>

@@ -3,238 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portal de Gestão de Documentos com Inteligência Artificial - Receba arquivos, processe com IA e exporte para o Alterdata automaticamente. Lumairam Info Tech Dev.">
     <title>Portal de Recebimento IA - Lumairam Info Tech Dev</title>
     <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* --- ESTILOS ESPECÍFICOS PARA ESTA PÁGINA --- */
-
-        /* Estilo do Banner Hero */
-        .hero-banner-container {
-            width: 100%;
-            /* Altura fixa para desktop */
-            height: 500px;
-            
-            /* 1. Define a imagem */
-            background-image: url('RECEBENDO.jpg');
-            
-            /* 2. Centraliza a imagem perfeitamente na horizontal e vertical */
-            background-position: center center;
-            
-            /* 3. Garante que a imagem não se repita */
-            background-repeat: no-repeat;
-            
-            /* 4. 'contain' é o segredo: força a imagem a caber inteira dentro da caixa de 500px de altura, 
-               sem cortar absolutamente nada. */
-            background-size: contain;
-            
-            /* 5. Se a tela for muito larga e sobrar espaço nas laterais, 
-               essa cor de fundo sólida preencherá o vazio. */
-            background-color: var(--primary-bg);
-            
-            /* Estilos de borda e sombra */
-            border-bottom: 3px solid var(--neon-cyan);
-            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.2);
-            margin-top: -10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        /* Ajuste para Celulares (Mobile) - Mantido para preencher bem a tela pequena */
-        @media (max-width: 768px) {
-            .hero-banner-container {
-                height: 250px;
-                /* No celular, usamos 'cover' para preencher tudo, pois a tela é estreita e não sobram laterais */
-                background-size: cover; 
-                margin-top: 0;
-            }
-             .app-container {
-                padding-top: 140px;
-            }
-        }
-
-        /* Ajuste para Telas Muito Grandes (Opcional: aumenta um pouco a altura para a imagem ficar maior) */
-        @media (min-width: 1400px) {
-            .hero-banner-container {
-                height: 600px;
-            }
-        }
-
-
-        /* --- LAYOUT DE CONTEÚDO --- */
-        .landing-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 2rem;
-            color: var(--text-light);
-        }
-
-        .landing-title {
-            font-size: 2.5rem;
-            color: var(--neon-cyan);
-            text-align: center;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
-            line-height: 1.2;
-        }
-
-        .landing-subtitle {
-            font-size: 1.2rem;
-            text-align: center;
-            color: var(--text-dim);
-            max-width: 800px;
-            margin: 0 auto 3rem auto;
-            line-height: 1.6;
-        }
-
-        .section-header {
-            font-size: 1.8rem;
-            color: var(--neon-blue);
-            margin-top: 4rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* --- CARDS E GRID --- */
-        .pilar-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .pilar-card-vendas {
-            background: var(--secondary-bg);
-            border: 1px solid var(--border-color);
-            padding: 2rem;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .pilar-card-vendas:hover {
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.1);
-            transform: translateY(-5px);
-        }
-
-        .pilar-card-vendas h3 {
-            color: var(--neon-cyan);
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        .pilar-card-vendas p {
-            color: var(--text-dim);
-            line-height: 1.5;
-            font-size: 0.95rem;
-        }
-
-        /* --- FLUXO DE OPERAÇÃO (Passo a Passo) --- */
-        .workflow-steps {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-
-        .step-card {
-            flex: 1;
-            min-width: 200px;
-            background: rgba(0, 102, 255, 0.05);
-            border: 1px dashed var(--neon-blue);
-            padding: 1.5rem;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .step-card strong {
-            display: block;
-            color: var(--neon-cyan);
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        /* --- VANTAGENS COMPETITIVAS (Badge Grid) --- */
-        .advantages-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-        }
-
-        .advantage-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            background: var(--secondary-bg);
-            padding: 1rem;
-            border-radius: 8px;
-            border-left: 3px solid var(--neon-cyan);
-        }
-
-        /* --- CITAÇÃO DESTAQUE --- */
-        .highlight-quote {
-            font-size: 1.4rem;
-            text-align: center;
-            font-style: italic;
-            color: var(--text-light);
-            padding: 3rem 1rem;
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-            margin: 4rem 0;
-            background: radial-gradient(circle at center, rgba(0, 242, 255, 0.05) 0%, transparent 70%);
-        }
-
-        /* --- CTA SECTION --- */
-        .cta-section {
-            text-align: center;
-            padding: 3rem 0;
-            background: radial-gradient(circle at center, rgba(0, 102, 255, 0.1) 0%, transparent 70%);
-        }
-
-        .cta-buttons-wrapper {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 2rem;
-        }
-
-        .cta-buttons-wrapper .neon-button {
-            min-width: 280px;
-            justify-content: center;
-            text-decoration: none;
-        }
-
-        .btn-whatsapp-cta {
-            border-color: #25d366 !important;
-            color: #25d366 !important;
-        }
-        .btn-whatsapp-cta:hover {
-            background: #25d366 !important;
-            color: var(--primary-bg) !important;
-        }
-
-        /* WhatsApp Float */
-        .whatsapp-float {
-            position: fixed; width: 60px; height: 60px; bottom: 40px; right: 40px;
-            background-color: #25d366; color: #FFF; border-radius: 50px;
-            display: flex; align-items: center; justify-content: center;
-            z-index: 1000; box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
-            transition: all 0.3s ease;
-        }
-        .whatsapp-float:hover { transform: scale(1.1); }
-    </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader-text">&lt;/LUMAIRAM&gt;</div>
+        <div class="loader-bar"><div class="loader-bar-inner"></div></div>
+    </div>
+
+    <!-- Scroll Progress -->
+    <div id="scroll-progress"></div>
+
+    <!-- Custom Cursor -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+
+    <!-- Matrix Rain -->
+    <canvas id="matrix-canvas"></canvas>
+
     <header>
         <nav>
             <a href="index.html" class="logo">Lumairam Info Tech Dev</a>
-            <ul>
+            <button id="hamburger-btn" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+            <ul id="nav-menu">
                 <li><a href="sobre.html">Sobre</a></li>
                 <li><a href="index.html">Seja Sócio</a></li>
                 <li><a href="controleimobiliario.html">Controle Imobiliário</a></li>
@@ -246,127 +47,135 @@
     </header>
 
     <main class="app-container" style="display: block; min-height: auto;">
-        <section class="hero-banner-container">
+        <section class="hero-banner-container" style="background-image: url('RECEBENDO.jpg')">
         </section>
 
         <div class="landing-container">
             
-            <h1 class="landing-title">Portal de Gestão de Documentos com Inteligência Artificial</h1>
+            <h1 class="landing-title" data-glitch="Portal de Gestão de Documentos com Inteligência Artificial">Portal de Gestão de Documentos com Inteligência Artificial</h1>
             
             <p class="landing-subtitle">
                 Sua ponte entre a recepção de arquivos e a contabilidade digital. Nossa plataforma utiliza IA de última geração para automatizar a leitura de documentos e garantir que os dados cheguem ao seu sistema de gestão sem erros e sem digitação manual.
             </p>
 
-            <h2 class="section-header">O Grande Diferencial: Integração Total com Alterdata</h2>
-            <p style="text-align: center; color: var(--text-dim); margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-                Sabemos que o maior gargalo de uma gestão eficiente é a entrada de dados no ERP. Por isso, nosso sistema foi projetado para ser o parceiro ideal da sua operação:
-            </p>
-            
-            <div class="pilar-grid">
-                <div class="pilar-card-vendas">
-                    <h3>🔄 Exportação em Massa para Alterdata</h3>
-                    <p>Esqueça o lançamento nota por nota. Nossa plataforma transforma todos os documentos processados em arquivos prontos para a importação em lote dentro do sistema Alterdata.</p>
-                </div>
+            <section data-reveal>
+                <h2 class="section-header" data-glitch="O Grande Diferencial: Integração Total com Alterdata">O Grande Diferencial: Integração Total com Alterdata</h2>
+                <p style="text-align: center; color: var(--text-dim); margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    Sabemos que o maior gargalo de uma gestão eficiente é a entrada de dados no ERP. Por isso, nosso sistema foi projetado para ser o parceiro ideal da sua operação:
+                </p>
+                
+                <div class="pilar-grid">
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>🔄 Exportação em Massa para Alterdata</h3>
+                        <p>Esqueça o lançamento nota por nota. Nossa plataforma transforma todos os documentos processados em arquivos prontos para a importação em lote dentro do sistema Alterdata.</p>
+                    </div>
 
-                <div class="pilar-card-vendas">
-                    <h3>📐 Layout Preciso</h3>
-                    <p>Geramos os dados no formato exato exigido pelo software, garantindo que o histórico, as contas de crédito/débito e os valores sejam importados com perfeição.</p>
-                </div>
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>📐 Layout Preciso</h3>
+                        <p>Geramos os dados no formato exato exigido pelo software, garantindo que o histórico, as contas de crédito/débito e os valores sejam importados com perfeição.</p>
+                    </div>
 
-                <div class="pilar-card-vendas">
-                    <h3>⚡ Ganho de Escala</h3>
-                    <p>Processe centenas de documentos simultaneamente e faça o envio para o Alterdata em poucos segundos, liberando sua equipe para tarefas consultivas e estratégicas.</p>
-                </div>
-            </div>
-
-            <h2 class="section-header">Tecnologia de Ponta a seu Serviço</h2>
-            <div class="pilar-grid">
-                <div class="pilar-card-vendas">
-                    <h3>🧠 Processamento com Gemini AI</h3>
-                    <p>Uma Inteligência Artificial especialista em OCR que "lê" Notas Fiscais, Boletos e Duplicatas, extraindo informações críticas com alta precisão, mesmo em documentos complexos.</p>
-                </div>
-
-                <div class="pilar-card-vendas">
-                    <h3>☁️ Organização em Nuvem (Google Drive)</h3>
-                    <p>Cada arquivo enviado pelo seu cliente é automaticamente renomeado e salvo na pasta correta, criando um arquivo digital organizado e fácil de consultar.</p>
-                </div>
-
-                <div class="pilar-card-vendas">
-                    <h3>🔐 Segurança via Links Temporários</h3>
-                    <p>O envio de arquivos é feito por meio de links protegidos e com tempo de expiração, garantindo que apenas pessoas autorizadas transitem informações na plataforma.</p>
-                </div>
-
-                <div class="pilar-card-vendas">
-                    <h3>💡 Inteligência de Contas</h3>
-                    <p>O sistema aprende as regras de lançamento da sua empresa. Uma vez configurada a conta de um fornecedor, os próximos documentos serão categorizados automaticamente.</p>
-                </div>
-            </div>
-
-            <h2 class="section-header">Como sua operação se transforma</h2>
-            <div class="workflow-steps">
-                <div class="step-card">
-                    <strong>1. Coleta</strong>
-                    <p>O cliente envia os documentos por um link seguro e intuitivo.</p>
-                </div>
-                <div class="step-card">
-                    <strong>2. Extração</strong>
-                    <p>A IA identifica se é uma NF-e ou Duplicata e separa todos os valores e datas.</p>
-                </div>
-                <div class="step-card">
-                    <strong>3. Refino</strong>
-                    <p>Você revisa os lançamentos no nosso painel de gerenciador moderno.</p>
-                </div>
-                <div class="step-card">
-                    <strong>4. Importação</strong>
-                    <p>Você baixa o arquivo consolidado e faz o envio em massa para o Alterdata.</p>
-                </div>
-            </div>
-
-            <h2 class="section-header">Vantagens Competitivas</h2>
-            <div class="advantages-grid">
-                <div class="advantage-item">
-                    <div>
-                        <strong style="color: var(--neon-cyan)">Agilidade Extrema</strong><br>
-                        <span style="font-size: 0.9rem; color: var(--text-dim)">Transforme horas de trabalho manual em minutos.</span>
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>⚡ Ganho de Escala</h3>
+                        <p>Processe centenas de documentos simultaneamente e faça o envio para o Alterdata em poucos segundos, liberando sua equipe para tarefas consultivas e estratégicas.</p>
                     </div>
                 </div>
-                <div class="advantage-item">
-                    <div>
-                        <strong style="color: var(--neon-cyan)">Confiabilidade</strong><br>
-                        <span style="font-size: 0.9rem; color: var(--text-dim)">IA treinada para detectar duplicidade e erros.</span>
-                    </div>
-                </div>
-                <div class="advantage-item">
-                    <div>
-                        <strong style="color: var(--neon-cyan)">Sem Digitação</strong><br>
-                        <span style="font-size: 0.9rem; color: var(--text-dim)">Integração direta: do upload para o Alterdata.</span>
-                    </div>
-                </div>
-                <div class="advantage-item">
-                    <div>
-                        <strong style="color: var(--neon-cyan)">Segurança</strong><br>
-                        <span style="font-size: 0.9rem; color: var(--text-dim)">Links de upload que expiram automaticamente.</span>
-                    </div>
-                </div>
-                <div class="advantage-item">
-                    <div>
-                        <strong style="color: var(--neon-cyan)">Histórico na Nuvem</strong><br>
-                        <span style="font-size: 0.9rem; color: var(--text-dim)">Rastreabilidade completa de envios.</span>
-                    </div>
-                </div>
-                <div class="advantage-item">
-                    <div>
-                        <strong style="color: var(--neon-cyan)">Mobile Friendly</strong><br>
-                        <span style="font-size: 0.9rem; color: var(--text-dim)">Interface limpa e otimizada para celulares.</span>
-                    </div>
-                </div>
-            </div>
+            </section>
 
-            <div class="highlight-quote">
+            <section data-reveal>
+                <h2 class="section-header" data-glitch="Tecnologia de Ponta a seu Serviço">Tecnologia de Ponta a seu Serviço</h2>
+                <div class="pilar-grid">
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>🧠 Processamento com Gemini AI</h3>
+                        <p>Uma Inteligência Artificial especialista em OCR que "lê" Notas Fiscais, Boletos e Duplicatas, extraindo informações críticas com alta precisão, mesmo em documentos complexos.</p>
+                    </div>
+
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>☁️ Organização em Nuvem (Google Drive)</h3>
+                        <p>Cada arquivo enviado pelo seu cliente é automaticamente renomeado e salvo na pasta correta, criando um arquivo digital organizado e fácil de consultar.</p>
+                    </div>
+
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>🔐 Segurança via Links Temporários</h3>
+                        <p>O envio de arquivos é feito por meio de links protegidos e com tempo de expiração, garantindo que apenas pessoas autorizadas transitem informações na plataforma.</p>
+                    </div>
+
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>💡 Inteligência de Contas</h3>
+                        <p>O sistema aprende as regras de lançamento da sua empresa. Uma vez configurada a conta de um fornecedor, os próximos documentos serão categorizados automaticamente.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section data-reveal>
+                <h2 class="section-header" data-glitch="Como sua operação se transforma">Como sua operação se transforma</h2>
+                <div class="workflow-steps">
+                    <div class="step-card" data-reveal-child data-tilt>
+                        <strong>1. Coleta</strong>
+                        <p>O cliente envia os documentos por um link seguro e intuitivo.</p>
+                    </div>
+                    <div class="step-card" data-reveal-child data-tilt>
+                        <strong>2. Extração</strong>
+                        <p>A IA identifica se é uma NF-e ou Duplicata e separa todos os valores e datas.</p>
+                    </div>
+                    <div class="step-card" data-reveal-child data-tilt>
+                        <strong>3. Refino</strong>
+                        <p>Você revisa os lançamentos no nosso painel de gerenciador moderno.</p>
+                    </div>
+                    <div class="step-card" data-reveal-child data-tilt>
+                        <strong>4. Importação</strong>
+                        <p>Você baixa o arquivo consolidado e faz o envio em massa para o Alterdata.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section data-reveal>
+                <h2 class="section-header" data-glitch="Vantagens Competitivas">Vantagens Competitivas</h2>
+                <div class="advantages-grid">
+                    <div class="advantage-item" data-reveal-child data-tilt>
+                        <div>
+                            <strong style="color: var(--neon-cyan)">Agilidade Extrema</strong><br>
+                            <span style="font-size: 0.9rem; color: var(--text-dim)">Transforme horas de trabalho manual em minutos.</span>
+                        </div>
+                    </div>
+                    <div class="advantage-item" data-reveal-child data-tilt>
+                        <div>
+                            <strong style="color: var(--neon-cyan)">Confiabilidade</strong><br>
+                            <span style="font-size: 0.9rem; color: var(--text-dim)">IA treinada para detectar duplicidade e erros.</span>
+                        </div>
+                    </div>
+                    <div class="advantage-item" data-reveal-child data-tilt>
+                        <div>
+                            <strong style="color: var(--neon-cyan)">Sem Digitação</strong><br>
+                            <span style="font-size: 0.9rem; color: var(--text-dim)">Integração direta: do upload para o Alterdata.</span>
+                        </div>
+                    </div>
+                    <div class="advantage-item" data-reveal-child data-tilt>
+                        <div>
+                            <strong style="color: var(--neon-cyan)">Segurança</strong><br>
+                            <span style="font-size: 0.9rem; color: var(--text-dim)">Links de upload que expiram automaticamente.</span>
+                        </div>
+                    </div>
+                    <div class="advantage-item" data-reveal-child data-tilt>
+                        <div>
+                            <strong style="color: var(--neon-cyan)">Histórico na Nuvem</strong><br>
+                            <span style="font-size: 0.9rem; color: var(--text-dim)">Rastreabilidade completa de envios.</span>
+                        </div>
+                    </div>
+                    <div class="advantage-item" data-reveal-child data-tilt>
+                        <div>
+                            <strong style="color: var(--neon-cyan)">Mobile Friendly</strong><br>
+                            <span style="font-size: 0.9rem; color: var(--text-dim)">Interface limpa e otimizada para celulares.</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="highlight-quote" data-reveal>
                 "Tecnologia Lumairam Info Tech Dev: Conectando dados, simplificando processos e eliminando a burocracia manual."
             </div>
 
-            <div class="cta-section">
+            <div class="cta-section" data-reveal>
                 <h2>Interessado em automatizar sua contabilidade?</h2>
                 <div class="cta-buttons-wrapper">
                     <a href="https://script.google.com/macros/s/AKfycbxjOhV3tF4h6JrsE2aF0wGgdoZfjEK8Vijvw8GW3_aY_yNcNovtdKwCwfffX4fdXbxs/exec" class="neon-button" target="_blank">
@@ -398,5 +207,7 @@
             <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27.1 106.1 27.1s73.7-9.4 106.1-27.1l117.7 30.9L418.4 365c19.4-33.7 29.6-71.9 29.6-111 0-122.4-99.6-222-222-222zM223.9 439.7c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L78 362.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.5-184.5 49.3 0 95.6 19.2 130.4 54s54 81.1 54 130.4c0 101.7-82.8 184.5-184.5 184.5zM319.1 307.2c-3.8-1.9-22.6-11.2-26.1-12.5-3.5-1.3-6-1.9-8.6 1.9-2.6 3.8-9.9 12.5-12.1 15-2.2 2.6-4.5 2.9-8.3 1-3.8-1.9-16-5.9-30.5-18.7-11.4-10-19.2-22.4-22.6-27.4-3.4-5-0.4-7.7 1.5-10.1 1.8-2.2 3.8-5.7 5.7-8.6 1.9-2.9 2.6-4.5 3.8-7.7 1.3-3.2 0.6-5.9-0.3-7.7-0.9-1.9-8.6-20.6-11.7-28.2-3.1-7.6-6.2-6.6-8.6-6.6-2.2 0-4.8 0-7.4 0-2.6 0-6.8 0.9-10.3 4.8-3.5 3.8-13.4 13.1-13.4 31.9 0 18.8 13.7 37 15.6 39.6 1.9 2.6 26.1 41.8 63.4 56.2 8.7 3.3 15.6 5.3 20.9 6.8 5.3 1.5 10 0.9 13.7-1 3.9-1.9 22.6-9.2 25.7-18.1 3.1-8.9 3.1-16.4 2.2-18.1-0.9-1.8-3.4-2.8-7.2-4.7z"/>
         </svg>
     </a>
+
+    <script src="lumairam-fx.js"></script>
 </body>
 </html>
