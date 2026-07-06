@@ -11,6 +11,228 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* ─── RECEBER ARQUIVOS HERO IMMERSIVE ─── */
+        .recv-hero {
+            position: relative;
+            width: 100%;
+            min-height: 520px;
+            background: linear-gradient(165deg, rgb(5,10,25) 0%, rgb(8,5,30) 40%, rgb(5,10,25) 100%);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 2px solid var(--neon-cyan);
+            box-shadow: 0 10px 60px rgba(0,242,255,0.15);
+        }
+        .recv-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 120px;
+            background: linear-gradient(to top, var(--primary-bg), transparent);
+            z-index: 3;
+        }
+        /* Neural network background */
+        .recv-neural {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            opacity: 0.15;
+        }
+        .recv-neural-line {
+            position: absolute;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--neon-cyan), transparent);
+            animation: neuralPulse 4s ease-in-out infinite;
+        }
+        .recv-neural-line:nth-child(1) { left: 10%; height: 200px; top: 20%; animation-delay: 0s; }
+        .recv-neural-line:nth-child(2) { left: 25%; height: 150px; top: 40%; animation-delay: 0.8s; }
+        .recv-neural-line:nth-child(3) { left: 40%; height: 250px; top: 10%; animation-delay: 1.6s; }
+        .recv-neural-line:nth-child(4) { left: 55%; height: 180px; top: 50%; animation-delay: 0.4s; }
+        .recv-neural-line:nth-child(5) { left: 70%; height: 220px; top: 15%; animation-delay: 1.2s; }
+        .recv-neural-line:nth-child(6) { left: 85%; height: 160px; top: 35%; animation-delay: 2s; }
+        .recv-neural-dot {
+            position: absolute;
+            width: 6px; height: 6px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-cyan);
+            animation: dotPulse 3s ease-in-out infinite;
+        }
+        .recv-neural-dot:nth-child(7)  { left: 10%; top: 20%; animation-delay: 0.5s; }
+        .recv-neural-dot:nth-child(8)  { left: 25%; top: 55%; animation-delay: 1s; }
+        .recv-neural-dot:nth-child(9)  { left: 40%; top: 30%; animation-delay: 1.5s; }
+        .recv-neural-dot:nth-child(10) { left: 55%; top: 65%; animation-delay: 0.3s; }
+        .recv-neural-dot:nth-child(11) { left: 70%; top: 25%; animation-delay: 1.8s; }
+        .recv-neural-dot:nth-child(12) { left: 85%; top: 50%; animation-delay: 0.7s; }
+        @keyframes neuralPulse {
+            0%, 100% { opacity: 0.3; transform: scaleY(0.8); }
+            50% { opacity: 1; transform: scaleY(1.2); }
+        }
+        @keyframes dotPulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.8); opacity: 1; }
+        }
+        /* Showcase */
+        .recv-showcase {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem;
+            text-align: center;
+        }
+        /* Document processing mockup */
+        .recv-mockup {
+            width: 360px;
+            background: rgba(10,14,35,0.9);
+            border: 1px solid rgba(0,242,255,0.15);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(100,50,255,0.1), 0 0 80px rgba(0,242,255,0.05);
+            backdrop-filter: blur(10px);
+        }
+        .rm-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: rgba(0,242,255,0.04);
+            border-bottom: 1px solid rgba(0,242,255,0.1);
+        }
+        .rm-header i { color: var(--neon-cyan); font-size: 0.85rem; }
+        .rm-header span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+        }
+        .rm-body { padding: 14px; }
+        /* Upload area */
+        .rm-upload {
+            border: 2px dashed rgba(0,242,255,0.2);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            margin-bottom: 12px;
+            animation: uploadPulse 3s ease-in-out infinite;
+        }
+        @keyframes uploadPulse {
+            0%, 100% { border-color: rgba(0,242,255,0.15); }
+            50% { border-color: rgba(0,242,255,0.4); }
+        }
+        .rm-upload i { font-size: 1.5rem; color: var(--neon-cyan); margin-bottom: 6px; }
+        .rm-upload p { font-size: 0.65rem; color: var(--text-dim); }
+        /* Processing pipeline */
+        .rm-pipeline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4px;
+            margin-bottom: 12px;
+        }
+        .rm-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            flex: 1;
+        }
+        .rm-step-icon {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            border: 1px solid;
+        }
+        .rm-step-icon.active {
+            background: rgba(0,242,255,0.1);
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+            box-shadow: 0 0 12px rgba(0,242,255,0.3);
+            animation: stepGlow 2s ease-in-out infinite;
+        }
+        .rm-step-icon.done {
+            background: rgba(40,200,64,0.1);
+            border-color: #28c840;
+            color: #28c840;
+        }
+        .rm-step-icon.waiting {
+            background: rgba(255,255,255,0.03);
+            border-color: rgba(255,255,255,0.1);
+            color: var(--text-dim);
+        }
+        @keyframes stepGlow {
+            0%, 100% { box-shadow: 0 0 8px rgba(0,242,255,0.2); }
+            50% { box-shadow: 0 0 20px rgba(0,242,255,0.5); }
+        }
+        .rm-step span { font-size: 0.55rem; color: var(--text-dim); }
+        .rm-arrow { color: rgba(255,255,255,0.15); font-size: 0.6rem; margin-top: -12px; }
+        /* Result row */
+        .rm-result {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            background: rgba(40,200,64,0.05);
+            border: 1px solid rgba(40,200,64,0.15);
+            border-radius: 6px;
+            animation: resultFade 0.8s ease-out 2.5s both;
+        }
+        @keyframes resultFade {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .rm-result i { color: #28c840; font-size: 0.8rem; }
+        .rm-result span {
+            font-size: 0.65rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: #28c840;
+        }
+        /* Hero text */
+        .recv-hero-text h1 {
+            font-size: clamp(1.5rem, 3.8vw, 2.4rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 30%, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            margin-bottom: 0.8rem;
+        }
+        .recv-hero-text p {
+            color: var(--text-dim);
+            font-size: 1rem;
+            line-height: 1.6;
+            max-width: 480px;
+        }
+        .recv-scanline {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, #a78bfa, transparent);
+            opacity: 0.25;
+            animation: scanDown 7s linear infinite;
+        }
+        @keyframes scanDown {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+        @media (min-width: 768px) {
+            .recv-showcase { flex-direction: row; gap: 4rem; }
+            .recv-hero-text { text-align: left; }
+            .recv-hero { min-height: 480px; }
+        }
+        @media (max-width: 767px) {
+            .recv-hero { min-height: 620px; padding: 80px 0 60px; }
+            .recv-mockup { width: 290px; }
+        }
+    </style>
 </head>
 <body>
     <!-- Loading Screen -->
@@ -47,16 +269,72 @@
     </header>
 
     <main class="app-container" style="display: block; min-height: auto;">
-        <section class="hero-banner-container" style="background-image: url('RECEBENDO.jpg')">
+
+        <!-- HERO IMERSIVO RECEBER ARQUIVOS -->
+        <section class="recv-hero" data-reveal>
+            <div class="recv-scanline"></div>
+            <div class="recv-neural">
+                <div class="recv-neural-line"></div>
+                <div class="recv-neural-line"></div>
+                <div class="recv-neural-line"></div>
+                <div class="recv-neural-line"></div>
+                <div class="recv-neural-line"></div>
+                <div class="recv-neural-line"></div>
+                <div class="recv-neural-dot"></div>
+                <div class="recv-neural-dot"></div>
+                <div class="recv-neural-dot"></div>
+                <div class="recv-neural-dot"></div>
+                <div class="recv-neural-dot"></div>
+                <div class="recv-neural-dot"></div>
+            </div>
+
+            <div class="recv-showcase">
+                <div class="recv-mockup">
+                    <div class="rm-header">
+                        <i class="fa-solid fa-brain"></i>
+                        <span>PROCESSAMENTO IA</span>
+                    </div>
+                    <div class="rm-body">
+                        <div class="rm-upload">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <p>Arraste documentos aqui</p>
+                        </div>
+                        <div class="rm-pipeline">
+                            <div class="rm-step">
+                                <div class="rm-step-icon done"><i class="fa-solid fa-check"></i></div>
+                                <span>Upload</span>
+                            </div>
+                            <span class="rm-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                            <div class="rm-step">
+                                <div class="rm-step-icon done"><i class="fa-solid fa-check"></i></div>
+                                <span>OCR</span>
+                            </div>
+                            <span class="rm-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                            <div class="rm-step">
+                                <div class="rm-step-icon active"><i class="fa-solid fa-brain"></i></div>
+                                <span>IA</span>
+                            </div>
+                            <span class="rm-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                            <div class="rm-step">
+                                <div class="rm-step-icon waiting"><i class="fa-solid fa-file-export"></i></div>
+                                <span>Export</span>
+                            </div>
+                        </div>
+                        <div class="rm-result">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>3 NF-e processadas → Alterdata</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recv-hero-text">
+                    <h1>Portal de Gestão de Documentos com IA</h1>
+                    <p>Sua ponte entre a recepção de arquivos e a contabilidade digital. IA de última geração que lê, extrai e exporta dados direto para o Alterdata, sem digitação manual.</p>
+                </div>
+            </div>
         </section>
 
         <div class="landing-container">
-            
-            <h1 class="landing-title" data-glitch="Portal de Gestão de Documentos com Inteligência Artificial">Portal de Gestão de Documentos com Inteligência Artificial</h1>
-            
-            <p class="landing-subtitle">
-                Sua ponte entre a recepção de arquivos e a contabilidade digital. Nossa plataforma utiliza IA de última geração para automatizar a leitura de documentos e garantir que os dados cheguem ao seu sistema de gestão sem erros e sem digitação manual.
-            </p>
 
             <section data-reveal>
                 <h2 class="section-header" data-glitch="O Grande Diferencial: Integração Total com Alterdata">O Grande Diferencial: Integração Total com Alterdata</h2>

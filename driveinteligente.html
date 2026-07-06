@@ -11,6 +11,190 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* ─── DRIVE HERO IMMERSIVE ─── */
+        .drive-hero {
+            position: relative;
+            width: 100%;
+            min-height: 520px;
+            background: linear-gradient(165deg, rgb(5,10,25) 0%, rgb(0,20,50) 40%, rgb(5,10,25) 100%);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 2px solid var(--neon-cyan);
+            box-shadow: 0 10px 60px rgba(0,242,255,0.15);
+        }
+        .drive-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 600px 400px at 20% 30%, rgba(0,102,255,0.12) 0%, transparent 70%),
+                radial-gradient(ellipse 500px 350px at 80% 60%, rgba(0,242,255,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .drive-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 120px;
+            background: linear-gradient(to top, var(--primary-bg), transparent);
+            z-index: 3;
+        }
+        /* Grid pattern */
+        .drive-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0,242,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,242,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridPulse 8s ease-in-out infinite;
+        }
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+        /* Floating folder icons */
+        .drive-icon-float {
+            position: absolute;
+            opacity: 0.08;
+            font-size: 4rem;
+            color: var(--neon-cyan);
+            animation: floatIcon 12s ease-in-out infinite;
+        }
+        .drive-icon-float:nth-child(2) { top: 15%; left: 8%; animation-delay: -2s; font-size: 3rem; }
+        .drive-icon-float:nth-child(3) { top: 60%; left: 5%; animation-delay: -4s; font-size: 2.5rem; }
+        .drive-icon-float:nth-child(4) { top: 25%; right: 10%; animation-delay: -6s; font-size: 3.5rem; }
+        .drive-icon-float:nth-child(5) { top: 70%; right: 8%; animation-delay: -3s; font-size: 2rem; }
+        .drive-icon-float:nth-child(6) { top: 40%; left: 15%; animation-delay: -7s; font-size: 2.8rem; }
+        .drive-icon-float:nth-child(7) { bottom: 20%; right: 20%; animation-delay: -1s; font-size: 3.2rem; }
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.06; }
+            50% { transform: translateY(-20px) rotate(5deg); opacity: 0.12; }
+        }
+        /* Central showcase */
+        .drive-showcase {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem;
+            text-align: center;
+        }
+        .drive-mockup {
+            width: 340px;
+            background: rgba(10,18,40,0.85);
+            border: 1px solid rgba(0,242,255,0.2);
+            border-radius: 12px;
+            padding: 0;
+            box-shadow: 0 0 40px rgba(0,102,255,0.15), 0 0 80px rgba(0,242,255,0.05);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        .dm-titlebar {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 14px;
+            background: rgba(0,242,255,0.06);
+            border-bottom: 1px solid rgba(0,242,255,0.1);
+        }
+        .dm-dot { width: 8px; height: 8px; border-radius: 50%; }
+        .dm-dot.red { background: #ff5f57; }
+        .dm-dot.yellow { background: #febc2e; }
+        .dm-dot.green { background: #28c840; }
+        .dm-titlebar span {
+            margin-left: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+        }
+        .dm-body { padding: 16px; }
+        .dm-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 10px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.04);
+            animation: rowSlide 0.6s ease-out both;
+        }
+        .dm-row:nth-child(1) { animation-delay: 0.8s; }
+        .dm-row:nth-child(2) { animation-delay: 1.1s; }
+        .dm-row:nth-child(3) { animation-delay: 1.4s; }
+        .dm-row:nth-child(4) { animation-delay: 1.7s; }
+        .dm-row:nth-child(5) { animation-delay: 2.0s; }
+        @keyframes rowSlide {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .dm-row i { font-size: 0.9rem; }
+        .dm-row .fname {
+            flex: 1;
+            font-size: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-dim);
+        }
+        .dm-status {
+            font-size: 0.6rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .st-done { background: rgba(40,200,64,0.15); color: #28c840; border: 1px solid rgba(40,200,64,0.3); }
+        .st-progress { background: rgba(254,188,46,0.15); color: #febc2e; border: 1px solid rgba(254,188,46,0.3); }
+        .st-open { background: rgba(0,102,255,0.15); color: var(--neon-blue); border: 1px solid rgba(0,102,255,0.3); }
+        .st-sent { background: rgba(255,105,180,0.15); color: #ff69b4; border: 1px solid rgba(255,105,180,0.3); }
+        .st-error { background: rgba(255,95,87,0.15); color: #ff5f57; border: 1px solid rgba(255,95,87,0.3); }
+        /* Hero text */
+        .drive-hero-text h1 {
+            font-size: clamp(1.6rem, 4vw, 2.6rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 30%, var(--neon-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            margin-bottom: 0.8rem;
+        }
+        .drive-hero-text p {
+            color: var(--text-dim);
+            font-size: 1rem;
+            line-height: 1.6;
+            max-width: 500px;
+        }
+        /* Scan line */
+        .drive-scanline {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+            opacity: 0.3;
+            animation: scanDown 6s linear infinite;
+        }
+        @keyframes scanDown {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+        @media (min-width: 768px) {
+            .drive-showcase { flex-direction: row; gap: 4rem; }
+            .drive-hero-text { text-align: left; }
+            .drive-hero { min-height: 480px; }
+        }
+        @media (max-width: 767px) {
+            .drive-hero { min-height: 600px; padding: 80px 0 60px; }
+            .drive-mockup { width: 280px; }
+        }
+    </style>
 </head>
 <body>
     <!-- Loading Screen -->
@@ -47,13 +231,68 @@
     </header>
 
     <main class="app-container" style="display: block; min-height: auto;">
-        <section class="hero-banner-container" style="background-image: url('DRIVE.jpg')" data-reveal>
+
+        <!-- HERO IMERSIVO DRIVE -->
+        <section class="drive-hero" data-reveal>
+            <div class="drive-grid"></div>
+            <div class="drive-scanline"></div>
+
+            <!-- Floating icons -->
+            <i class="fa-solid fa-folder drive-icon-float"></i>
+            <i class="fa-solid fa-file-lines drive-icon-float"></i>
+            <i class="fa-solid fa-cloud-arrow-up drive-icon-float"></i>
+            <i class="fa-solid fa-folder-open drive-icon-float"></i>
+            <i class="fa-solid fa-file-pdf drive-icon-float"></i>
+            <i class="fa-solid fa-envelope drive-icon-float"></i>
+
+            <div class="drive-showcase">
+                <!-- Mockup de interface -->
+                <div class="drive-mockup">
+                    <div class="dm-titlebar">
+                        <div class="dm-dot red"></div>
+                        <div class="dm-dot yellow"></div>
+                        <div class="dm-dot green"></div>
+                        <span>LUMAIRAM DRIVE PRO</span>
+                    </div>
+                    <div class="dm-body">
+                        <div class="dm-row">
+                            <i class="fa-solid fa-folder" style="color: #febc2e;"></i>
+                            <span class="fname">Contabilidade_Jul</span>
+                            <span class="dm-status st-done">Feito</span>
+                        </div>
+                        <div class="dm-row">
+                            <i class="fa-solid fa-file-pdf" style="color: #ff5f57;"></i>
+                            <span class="fname">NF_00482.pdf</span>
+                            <span class="dm-status st-sent">Enviado</span>
+                        </div>
+                        <div class="dm-row">
+                            <i class="fa-solid fa-file-excel" style="color: #28c840;"></i>
+                            <span class="fname">Balancete_Q2.xlsx</span>
+                            <span class="dm-status st-progress">Fazendo</span>
+                        </div>
+                        <div class="dm-row">
+                            <i class="fa-solid fa-folder" style="color: #febc2e;"></i>
+                            <span class="fname">Fiscal_2024</span>
+                            <span class="dm-status st-open">Em Aberto</span>
+                        </div>
+                        <div class="dm-row">
+                            <i class="fa-solid fa-file-lines" style="color: var(--neon-cyan);"></i>
+                            <span class="fname">Guia_INSS.pdf</span>
+                            <span class="dm-status st-error">Erro</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Texto do hero -->
+                <div class="drive-hero-text">
+                    <h1>Lumairam Drive Pro</h1>
+                    <p>A gestão de documentos que sua empresa merece. Organize, monitore e automatize todo o fluxo com controle visual de status, envio profissional em 1 clique e recorrência mensal inteligente.</p>
+                </div>
+            </div>
         </section>
 
         <div class="landing-container">
-            
-            <h1 class="landing-title" data-glitch>Lumairam Drive Pro: A Gestão de Documentos que sua Empresa Merece</h1>
-            
+
             <p class="landing-subtitle">
                 Você ainda perde tempo procurando arquivos em pastas bagunçadas ou enviando e-mails manuais para seus clientes? Conheça o <strong>Lumairam Drive Pro</strong>, a solução definitiva desenvolvida pela Lumairam Info Tech Dev para organizar, monitorar e automatizar o fluxo de documentos da sua empresa.
             </p>
