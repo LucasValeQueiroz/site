@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portal do Contribuinte - O robô fiscal que baixa NF-e e NFS-e, emite notas, cuida dos certificados A1/A3 e entrega tudo organizado ao cliente. Desenvolvido pela Lumairam Info Tech Dev.">
+    <title>Portal do Contribuinte - O Robô Fiscal | Lumairam Info Tech Dev</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ═══════════════════════════════════════════════
+           PORTAL DO CONTRIBUINTE — IDENTIDADE PRÓPRIA
+           ═══════════════════════════════════════════════ */
+
+        /* ─── HERO COCKPIT ─── */
+        .pc-hero {
+            position: relative; width: 100%; min-height: 640px;
+            background:
+                radial-gradient(ellipse 700px 500px at 15% 20%, rgba(0,102,255,0.14) 0%, transparent 65%),
+                radial-gradient(ellipse 600px 450px at 85% 70%, rgba(0,242,255,0.10) 0%, transparent 65%),
+                linear-gradient(165deg, rgb(4,8,20) 0%, rgb(2,22,38) 45%, rgb(4,8,20) 100%);
+            overflow: hidden; display: flex; align-items: center; justify-content: center;
+            border-bottom: 2px solid var(--neon-cyan);
+            box-shadow: 0 10px 60px rgba(0,242,255,0.15);
+            padding: 90px 1.5rem 70px;
+        }
+        .pc-hero::after {
+            content: ''; position: absolute; bottom: 0; left: 0;
+            width: 100%; height: 130px;
+            background: linear-gradient(to top, var(--primary-bg), transparent); z-index: 4;
+        }
+        .pc-grid {
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(0,242,255,0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,242,255,0.035) 1px, transparent 1px);
+            background-size: 54px 54px; animation: gridPulse 8s ease-in-out infinite;
+            -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, #000 40%, transparent 100%);
+                    mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, #000 40%, transparent 100%);
+        }
+        @keyframes gridPulse { 0%,100%{opacity:.5} 50%{opacity:1} }
+        .pc-scanline {
+            position: absolute; top:0; left:0; width:100%; height:2px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+            opacity:.25; animation: scanDown 7s linear infinite; z-index: 1;
+        }
+        @keyframes scanDown { 0%{top:-2%} 100%{top:102%} }
+        .pc-icon-float { position: absolute; opacity: 0.06; color: var(--neon-cyan); animation: floatIcon 13s ease-in-out infinite; }
+        .pc-icon-float:nth-of-type(1){ top:16%; left:7%; font-size:3rem; animation-delay:-2s; }
+        .pc-icon-float:nth-of-type(2){ top:64%; left:6%; font-size:2.4rem; animation-delay:-5s; }
+        .pc-icon-float:nth-of-type(3){ top:22%; right:9%; font-size:3.4rem; animation-delay:-7s; }
+        .pc-icon-float:nth-of-type(4){ bottom:18%; right:14%; font-size:2.6rem; animation-delay:-1s; }
+        @keyframes floatIcon { 0%,100%{ transform:translateY(0) rotate(0); opacity:.05 } 50%{ transform:translateY(-22px) rotate(6deg); opacity:.12 } }
+
+        .pc-hero-inner {
+            position: relative; z-index: 3; width: 100%; max-width: 1180px;
+            display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center;
+        }
+        .pc-eyebrow {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--neon-cyan);
+            border: 1px solid rgba(0,242,255,0.35); border-radius: 40px;
+            padding: 0.4rem 1rem; margin-bottom: 1.4rem; background: rgba(0,242,255,0.05);
+        }
+        .pc-eyebrow .dot-live { width:7px; height:7px; border-radius:50%; background:#28c840; box-shadow:0 0 8px #28c840; animation: blink 1.4s ease-in-out infinite; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
+        .pc-hero-title {
+            font-size: clamp(2.1rem, 5.4vw, 3.6rem); font-weight: 900; line-height: 1.05;
+            margin-bottom: 1rem; letter-spacing: -1px;
+        }
+        .pc-hero-title .grad {
+            background: linear-gradient(120deg, #fff 20%, var(--neon-cyan) 70%, var(--neon-blue));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .pc-hero-sub {
+            min-height: 1.6em; font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(0.95rem, 2.2vw, 1.15rem); color: var(--neon-cyan); margin-bottom: 1.2rem; font-weight: 500;
+        }
+        .pc-hero-desc { color: var(--text-dim); font-size: 1.02rem; line-height: 1.65; max-width: 540px; margin-bottom: 1.8rem; }
+        .pc-hero-cta { display: flex; gap: 0.9rem; flex-wrap: wrap; }
+        .pc-btn {
+            display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.95rem 1.7rem;
+            border-radius: 10px; font-weight: 700; font-size: 0.92rem; text-decoration: none;
+            transition: all .25s ease; border: 1px solid transparent; cursor: pointer;
+        }
+        .pc-btn-primary { background: var(--neon-cyan); color: #04141c; }
+        .pc-btn-primary:hover { box-shadow: 0 0 26px rgba(0,242,255,.5); transform: translateY(-2px); }
+        .pc-btn-wa { background: #25D366; color: #04140a; }
+        .pc-btn-wa:hover { box-shadow: 0 0 26px rgba(37,211,102,.45); transform: translateY(-2px); }
+
+        /* ─── App window "ao vivo" ─── */
+        .pc-window {
+            width: 100%; max-width: 480px; margin: 0 auto;
+            background: rgba(8,15,32,0.9); border: 1px solid rgba(0,242,255,0.22);
+            border-radius: 14px; overflow: hidden; backdrop-filter: blur(12px);
+            box-shadow: 0 0 50px rgba(0,102,255,0.18), 0 0 100px rgba(0,242,255,0.06);
+        }
+        .pc-titlebar { display:flex; align-items:center; gap:6px; padding:11px 14px; background:rgba(0,242,255,0.06); border-bottom:1px solid rgba(0,242,255,0.1); }
+        .pc-dot { width:9px; height:9px; border-radius:50%; }
+        .pc-dot.red{background:#ff5f57} .pc-dot.yellow{background:#febc2e} .pc-dot.green{background:#28c840}
+        .pc-titlebar span { margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:.64rem; color:var(--text-dim); letter-spacing:1px; }
+        .pc-console {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; line-height: 1.7;
+            padding: 16px 16px 18px; height: 260px; overflow: hidden;
+            background:
+                repeating-linear-gradient(180deg, rgba(255,255,255,0.012) 0 1px, transparent 1px 3px);
+        }
+        .pc-console .ln { white-space: pre-wrap; word-break: break-word; opacity: 0; transform: translateY(4px); animation: lnIn .25s ease forwards; }
+        @keyframes lnIn { to { opacity:1; transform:none } }
+        .pc-console .cmd { color: var(--neon-cyan); }
+        .pc-console .ok { color: #28c840; }
+        .pc-console .info { color: #9fb4d0; }
+        .pc-console .warn { color: #febc2e; }
+        .pc-console .path { color: var(--neon-blue); }
+        .pc-cursor { display:inline-block; width:8px; height:1.05em; background:var(--neon-cyan); vertical-align:-2px; animation: blink 1s steps(1) infinite; }
+
+        /* ─── FAIXA DE STATS ─── */
+        .pc-stats-band {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
+            background: rgba(0,242,255,0.12); border: 1px solid rgba(0,242,255,0.15);
+            border-radius: 16px; overflow: hidden; margin: 3.5rem auto; max-width: 1000px;
+        }
+        .pc-stat { background: rgba(6,12,26,0.9); padding: 2rem 1rem; text-align: center; }
+        .pc-stat .num { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 900; color: var(--neon-cyan); line-height: 1; font-family: 'JetBrains Mono', monospace; }
+        .pc-stat .lbl { color: var(--text-dim); font-size: 0.82rem; margin-top: 0.5rem; letter-spacing: .5px; }
+
+        /* ─── ESTEIRA / PIPELINE ─── */
+        .pc-pipeline { position: relative; display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; margin: 2.5rem auto 0; max-width: 980px; flex-wrap: wrap; }
+        .pc-pipe-line { position: absolute; top: 34px; left: 6%; right: 6%; height: 2px; background: rgba(0,242,255,0.15); overflow: hidden; }
+        .pc-pipe-line::after { content:''; position:absolute; top:0; left:-30%; width:30%; height:100%; background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent); animation: flow 3.2s linear infinite; }
+        @keyframes flow { to { left: 100%; } }
+        .pc-node { position: relative; z-index: 2; flex: 1 1 150px; text-align: center; }
+        .pc-node .ic {
+            width: 68px; height: 68px; margin: 0 auto 0.9rem; border-radius: 16px;
+            display: flex; align-items: center; justify-content: center; font-size: 1.6rem;
+            color: var(--neon-cyan); background: rgba(8,15,32,0.95);
+            border: 1px solid rgba(0,242,255,0.3); box-shadow: 0 0 0 rgba(0,242,255,0);
+            animation: nodePulse 3.2s ease-in-out infinite;
+        }
+        .pc-node:nth-child(2) .ic{animation-delay:0s} .pc-node:nth-child(3) .ic{animation-delay:.5s}
+        .pc-node:nth-child(4) .ic{animation-delay:1s} .pc-node:nth-child(5) .ic{animation-delay:1.5s}
+        .pc-node:nth-child(6) .ic{animation-delay:2s}
+        @keyframes nodePulse { 0%,100%{ box-shadow:0 0 0 rgba(0,242,255,0); border-color:rgba(0,242,255,0.3) } 50%{ box-shadow:0 0 22px rgba(0,242,255,0.35); border-color:var(--neon-cyan) } }
+        .pc-node h4 { font-size: 0.92rem; color: #fff; margin: 0 0 0.3rem; }
+        .pc-node p { font-size: 0.78rem; color: var(--text-dim); margin: 0; padding: 0 0.4rem; }
+
+        /* ─── Para quem ─── */
+        .pc-audience { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 1.5rem; }
+        .pc-aud-card { background: rgba(8,15,32,0.6); border: 1px solid rgba(0,242,255,0.14); border-radius: 12px; padding: 1.4rem; display: flex; gap: 1rem; align-items: flex-start; }
+        .pc-aud-card i { font-size: 1.5rem; color: var(--neon-cyan); margin-top: 2px; }
+        .pc-aud-card h4 { margin: 0 0 0.3rem; color: #fff; }
+        .pc-aud-card p { margin: 0; color: var(--text-dim); font-size: 0.9rem; }
+
+        /* ─── Caixa de Download / Manual ─── */
+        .download-box {
+            background: linear-gradient(135deg, rgba(0,102,255,0.1), rgba(0,242,255,0.05));
+            border: 1px solid rgba(0,242,255,0.3); border-radius: 18px; padding: 2.8rem 2rem;
+            text-align: center; box-shadow: 0 0 50px rgba(0,102,255,0.12); position: relative; overflow: hidden;
+        }
+        .download-box::before { content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background: radial-gradient(circle, rgba(0,242,255,0.06), transparent 60%); animation: spin 18s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .download-box > * { position: relative; z-index: 1; }
+        .download-box h2 { color: var(--neon-cyan); margin-bottom: 0.6rem; }
+        .download-box p { color: var(--text-dim); max-width: 640px; margin: 0 auto 1.8rem; }
+        .download-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+        .dl-btn { display:inline-flex; align-items:center; gap:0.6rem; padding:1rem 2rem; border-radius:10px; font-weight:700; font-size:0.95rem; text-decoration:none; transition:all .25s ease; border:1px solid transparent; cursor:pointer; }
+        .dl-btn i { font-size: 1.1rem; }
+        .dl-primary { background: var(--neon-cyan); color:#041018; }
+        .dl-primary:hover { box-shadow:0 0 25px rgba(0,242,255,.5); transform: translateY(-2px); }
+        .dl-secondary { background: transparent; color: var(--neon-cyan); border-color: rgba(0,242,255,0.4); }
+        .dl-secondary:hover { background: rgba(0,242,255,0.08); transform: translateY(-2px); }
+        .dl-disabled { background: rgba(255,255,255,0.04); color: var(--text-dim); border-color: rgba(255,255,255,0.1); cursor:not-allowed; pointer-events:none; }
+        .dl-soon { display:inline-block; margin-top:0.8rem; font-size:0.72rem; color:#febc2e; letter-spacing:1px; text-transform:uppercase; font-family:'JetBrains Mono',monospace; }
+        .dl-note { margin-top: 1.4rem; font-size: 0.8rem; color: var(--text-dim); }
+
+        @media (min-width: 900px) {
+            .pc-hero-inner { grid-template-columns: 1.05fr 0.95fr; gap: 3.5rem; }
+            .pc-stats-band { grid-template-columns: repeat(4, 1fr); }
+            .pc-audience { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 560px) {
+            .pc-node { flex-basis: 45%; }
+            .pc-pipe-line { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader-text">&lt;/LUMAIRAM&gt;</div>
+        <div class="loader-bar"><div class="loader-bar-inner"></div></div>
+    </div>
+
+    <div id="scroll-progress"></div>
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+    <canvas id="matrix-canvas"></canvas>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Lumairam Info Tech Dev</a>
+            <button id="hamburger-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+            <ul id="nav-menu">
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="index.html">Seja Sócio</a></li>
+                <li><a href="controleimobiliario.html">Controle Imobiliário</a></li>
+                <li><a href="driveinteligente.html">Drive Inteligente</a></li>
+                <li><a href="receberarquivos.html">Receber Arquivos</a></li>
+                <li><a href="chatwhatsappinteligente.html">Chat WhatsApp</a></li>
+                <li><a href="portaldocontribuinte.html" class="active">Portal do Contribuinte</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="app-container" style="display: block; min-height: auto;">
+
+        <!-- ═══════════ HERO COCKPIT ═══════════ -->
+        <section class="pc-hero">
+            <div class="pc-grid"></div>
+            <div class="pc-scanline"></div>
+            <i class="fa-solid fa-file-invoice-dollar pc-icon-float"></i>
+            <i class="fa-solid fa-certificate pc-icon-float"></i>
+            <i class="fa-solid fa-robot pc-icon-float"></i>
+            <i class="fa-solid fa-building pc-icon-float"></i>
+
+            <div class="pc-hero-inner">
+                <div data-reveal="left">
+                    <span class="pc-eyebrow"><span class="dot-live"></span> ROBÔ FISCAL AUTÔNOMO</span>
+                    <h1 class="pc-hero-title">Portal do <span class="grad">Contribuinte</span></h1>
+                    <div class="pc-hero-sub">
+                        <span data-typing="Baixa suas notas sozinho.|Emite NFS-e por você.|Cuida dos certificados.|Entrega pronto ao cliente."></span><span class="typing-cursor"></span>
+                    </div>
+                    <p class="pc-hero-desc">
+                        Enquanto você dorme, ele trabalha: conecta na SEFAZ e no e-CAC, baixa as notas de entrada e saída de todas as suas empresas, organiza por CNPJ e mês, gera os PDFs e prepara a entrega. Uma rotina de horas resolvida em <strong>um clique</strong>.
+                    </p>
+                    <div class="pc-hero-cta">
+                        <a href="#download" class="pc-btn pc-btn-primary"><i class="fa-solid fa-cloud-arrow-down"></i> Baixar o programa</a>
+                        <a href="https://api.whatsapp.com/send?phone=553799642620&text=Fiquei%20interessado(a)%20no%20PORTAL%20DO%20CONTRIBUINTE%20e%20gostaria%20de%20liberar%20meu%20acesso." class="pc-btn pc-btn-wa" target="_blank"><i class="fab fa-whatsapp"></i> Falar no WhatsApp</a>
+                    </div>
+                </div>
+
+                <div data-reveal="right">
+                    <div class="pc-window" data-tilt>
+                        <div class="pc-titlebar">
+                            <div class="pc-dot red"></div><div class="pc-dot yellow"></div><div class="pc-dot green"></div>
+                            <span>PORTAL DO CONTRIBUINTE — AO VIVO</span>
+                        </div>
+                        <div class="pc-console" id="pc-console" aria-hidden="true">
+                            <div class="ln"><span class="cmd">$ portal --sincronizar --todas</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="landing-container">
+
+            <!-- ═══════════ FAIXA DE STATS ═══════════ -->
+            <div class="pc-stats-band" data-reveal>
+                <div class="pc-stat"><div class="num"><span data-counter="1">0</span></div><div class="lbl">clique pra sincronizar tudo</div></div>
+                <div class="pc-stat"><div class="num"><span data-counter="100" data-counter-suffix="%">0%</span></div><div class="lbl">arquivos organizados sozinho</div></div>
+                <div class="pc-stat"><div class="num"><span data-counter="24">0</span>/7</div><div class="lbl">monitorando certificados</div></div>
+                <div class="pc-stat"><div class="num">A1<span style="color:var(--text-dim)">&amp;</span>A3</div><div class="lbl">certificados suportados</div></div>
+            </div>
+
+            <p class="landing-subtitle">
+                Chega de entrar em portal por portal, digitar certificado a cada empresa e baixar nota por nota. O <strong>Portal do Contribuinte</strong> é o robô fiscal que automatiza a rotina de escritórios de contabilidade e empresas: coleta, organiza, emite, monitora e entrega — do começo ao fim, sozinho.
+            </p>
+
+            <!-- ═══════════ ESTEIRA / PIPELINE ═══════════ -->
+            <section data-reveal>
+                <h2 class="section-header" data-glitch>Da coleta à entrega — sem você tocar</h2>
+                <div class="pc-pipeline">
+                    <div class="pc-pipe-line"></div>
+                    <div class="pc-node"><div class="ic"><i class="fa-solid fa-certificate"></i></div><h4>1. Certificado</h4><p>Valida o A1/A3 de cada empresa.</p></div>
+                    <div class="pc-node"><div class="ic"><i class="fa-solid fa-tower-broadcast"></i></div><h4>2. Governo</h4><p>Conecta na SEFAZ e no e-CAC.</p></div>
+                    <div class="pc-node"><div class="ic"><i class="fa-solid fa-download"></i></div><h4>3. Coleta</h4><p>Baixa NF-e e NFS-e, entrada e saída.</p></div>
+                    <div class="pc-node"><div class="ic"><i class="fa-solid fa-folder-tree"></i></div><h4>4. Organiza</h4><p>Separa por CNPJ, mês e tipo.</p></div>
+                    <div class="pc-node"><div class="ic"><i class="fa-solid fa-paper-plane"></i></div><h4>5. Entrega</h4><p>Gera PDF e prepara o e-mail.</p></div>
+                </div>
+            </section>
+
+            <!-- ═══════════ TUDO O QUE FAZ ═══════════ -->
+            <section data-reveal>
+                <h2 class="section-header" data-glitch>Tudo o que ele faz</h2>
+                <div class="pilar-grid">
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>📥 Download automático de NF-e e NFS-e</h3>
+                        <p>Baixa as notas de <strong>entrada e saída</strong> direto da SEFAZ e do e-CAC, de todas as suas empresas, e organiza em pastas por CNPJ, mês e tipo. Sem digitar nada.</p>
+                    </div>
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>🧾 Emissão de NFS-e (Emissor Nacional)</h3>
+                        <p>Emita notas de serviço pelo padrão nacional de forma automatizada, com muito menos cliques e sem sair do sistema.</p>
+                    </div>
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>🔐 Gestão de Certificados A1 e A3</h3>
+                        <p>Cadastre os certificados uma vez, por CNPJ, com as senhas guardadas de forma criptografada. O sistema usa o certificado certo para cada empresa, sozinho.</p>
+                    </div>
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>🏢 Matriz + Filiais</h3>
+                        <p>Um único certificado da matriz atende todos os estabelecimentos da raiz do CNPJ. As filiais entram no lote sozinhas, cada uma com sua pasta.</p>
+                    </div>
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>📊 Painel de Controle Inteligente</h3>
+                        <p>Visão geral num relance: total de certificados, <strong>quais estão perto de vencer</strong>, downloads realizados e a atividade recente de cada empresa.</p>
+                    </div>
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>⚙️ Download em Lote com Fila Inteligente</h3>
+                        <p>Processe dezenas de empresas de uma vez. Se a SEFAZ limitar o acesso (erro 656), o sistema enfileira e <strong>tenta de novo sozinho</strong> mais tarde.</p>
+                    </div>
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>📄 Geração de DANFE / PDF</h3>
+                        <p>Transforma os XMLs em documentos legíveis (DANFE/PDF) prontos para arquivar ou enviar, sem depender de sites externos.</p>
+                    </div>
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>📧 Entrega pronta ao cliente</h3>
+                        <p>Compacta os arquivos por mês e prepara o envio por e-mail (Outlook ou Gmail) em poucos cliques. Você entrega, o cliente recebe organizado.</p>
+                    </div>
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>🔄 Atualização automática e segura</h3>
+                        <p>O programa se mantém atualizado sozinho e conta com licenciamento por máquina, garantindo que só usuários autorizados tenham acesso.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════ PARA QUEM ═══════════ -->
+            <section data-reveal>
+                <h2 class="section-header" data-glitch>Feito para quem vive de prazo fiscal</h2>
+                <div class="pc-audience">
+                    <div class="pc-aud-card" data-tilt><i class="fa-solid fa-calculator"></i><div><h4>Escritórios de contabilidade</h4><p>Dezenas de empresas, um clique. Ganhe horas todo mês e entregue no prazo.</p></div></div>
+                    <div class="pc-aud-card" data-tilt><i class="fa-solid fa-store"></i><div><h4>Empresas e contadores internos</h4><p>Mantenha suas notas sempre baixadas e organizadas, sem depender de ninguém.</p></div></div>
+                    <div class="pc-aud-card" data-tilt><i class="fa-solid fa-user-tie"></i><div><h4>Assessorias fiscais</h4><p>Padronize a coleta e a entrega de documentos com controle e segurança.</p></div></div>
+                </div>
+            </section>
+
+            <!-- ═══════════ COMPARATIVO ═══════════ -->
+            <section data-reveal>
+                <h2 class="section-header" data-glitch>Rotina Manual vs. Portal do Contribuinte</h2>
+                <div class="neon-table-wrapper">
+                    <table class="neon-table">
+                        <thead>
+                            <tr><th>Tarefa</th><th>Do jeito manual</th><th>Com o Portal do Contribuinte</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Baixar notas de várias empresas</td><td>Portal por portal, uma a uma</td><td>Tudo em lote, automático</td></tr>
+                            <tr><td>Certificados e senhas</td><td>Digitar toda vez</td><td>Cadastra uma vez, criptografado</td></tr>
+                            <tr><td>Organização dos arquivos</td><td>Pastas feitas na mão</td><td>Por CNPJ / mês / tipo, automático</td></tr>
+                            <tr><td>Vencimento de certificado</td><td>Você tem que lembrar</td><td>Painel avisa com antecedência</td></tr>
+                            <tr><td>Limite da SEFAZ (erro 656)</td><td>Trava e você recomeça</td><td>Fila com nova tentativa sozinho</td></tr>
+                            <tr><td>Entrega ao cliente</td><td>Zipar e anexar manualmente</td><td>Compacta e prepara o e-mail</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ═══════════ FLUXO ═══════════ -->
+            <section data-reveal>
+                <h2 class="section-header" data-glitch>Como funciona na prática</h2>
+                <p style="text-align: center; color: var(--text-dim); margin-bottom: 2rem;">Simples do começo ao fim:</p>
+                <ul class="workflow-list">
+                    <li><strong>1. Cadastre</strong> Adicione seus certificados A1/A3 por empresa (uma única vez).</li>
+                    <li><strong>2. Sincronize</strong> Escolha as empresas e clique. O robô coleta as notas de entrada e saída e organiza tudo.</li>
+                    <li><strong>3. Acompanhe</strong> O painel mostra o que já foi feito, o que está pendente e os certificados a vencer.</li>
+                    <li><strong>4. Entregue</strong> Gere os PDFs e envie os arquivos do mês para o seu cliente em poucos cliques.</li>
+                </ul>
+            </section>
+
+            <section data-reveal>
+                <div class="highlight-quote">
+                    "Menos tempo baixando notas, mais tempo cuidando dos seus clientes. Deixe a parte repetitiva com o robô."
+                </div>
+            </section>
+
+            <!-- ═══════════ DOWNLOAD E MANUAL ═══════════ -->
+            <section data-reveal id="download">
+                <div class="download-box">
+                    <h2><i class="fa-solid fa-cloud-arrow-down"></i> Baixe o Portal do Contribuinte</h2>
+                    <p>Baixe, instale e solicite a liberação do seu acesso. Assim que aprovarmos a sua máquina, o programa se atualiza sozinho para a versão mais recente e está pronto para uso.</p>
+
+                    <div class="download-actions">
+                        <!--
+                          ===========================================================
+                          COLOQUE AQUI O LINK DO DOWNLOAD QUANDO COMPILAR (DISTRIBUIR.bat)
+                          Troque o <span> abaixo por:
+                          <a href="LINK_DO_ZIP_AQUI" class="dl-btn dl-primary" download>
+                              <i class="fa-solid fa-download"></i> Baixar agora
+                          </a>
+                          ===========================================================
+                        -->
+                        <span class="dl-btn dl-disabled" title="Disponível em breve">
+                            <i class="fa-solid fa-download"></i> Baixar o programa
+                        </span>
+
+                        <!--
+                          COLOQUE AQUI O LINK DO MANUAL DE USO (PDF)
+                          Troque o <span> abaixo por:
+                          <a href="LINK_DO_MANUAL.pdf" class="dl-btn dl-secondary" target="_blank">
+                              <i class="fa-solid fa-book-open"></i> Manual de uso
+                          </a>
+                        -->
+                        <span class="dl-btn dl-disabled" title="Disponível em breve">
+                            <i class="fa-solid fa-book-open"></i> Manual de uso
+                        </span>
+                    </div>
+                    <div class="dl-soon">⏳ Disponível em breve</div>
+                    <div class="dl-note">Windows 10/11 · 64 bits. Após instalar, seu acesso passa por aprovação — fale com a gente para liberar.</div>
+                </div>
+            </section>
+
+            <section class="cta-section" data-reveal>
+                <h2 data-glitch>Quer automatizar a rotina fiscal da sua empresa ou escritório?</h2>
+                <div class="cta-buttons-wrapper">
+                    <a href="https://api.whatsapp.com/send?phone=553799642620&text=Fiquei%20interessado(a)%20no%20PORTAL%20DO%20CONTRIBUINTE%20e%20gostaria%20de%20saber%20mais%20detalhes%20e%20liberar%20meu%20acesso." class="neon-button btn-whatsapp-cta" target="_blank">
+                        <i class="fab fa-whatsapp"></i> FALAR NO WHATSAPP
+                    </a>
+                    <a href="#download" class="neon-button"><i class="fa-solid fa-cloud-arrow-down"></i> IR PARA O DOWNLOAD</a>
+                </div>
+            </section>
+
+            <div style="text-align: center; margin-top: 3rem; color: var(--text-dim);">
+                <p>Desenvolvido pela empresa</p>
+                <p><strong style="color: var(--neon-cyan);">LUMAIRAM INFORMATION TECHNOLOGY DEVELOPERS</strong><br>Com muito ❤ e ☕</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>DESENVOLVIDO PELA EMPRESA LUMAIRAM INFORMATION TECHNOLOGY DEVELOPERS</p>
+        <p>CNPJ DO RESPONSÁVEL: 61.868.004/0001-80</p>
+        <div class="footer-links"><a href="politicadeprivacidade.html">Política de Privacidade</a></div>
+    </footer>
+
+    <a href="https://api.whatsapp.com/send?phone=553799642620&text=Fiquei%20interessado(a)%20no%20PORTAL%20DO%20CONTRIBUINTE%20e%20gostaria%20de%20saber%20mais%20detalhes%20a%20respeito." class="whatsapp-float" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="24" height="24" fill="#fff">
+            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27.1 106.1 27.1s73.7-9.4 106.1-27.1l117.7 30.9L418.4 365c19.4-33.7 29.6-71.9 29.6-111 0-122.4-99.6-222-222-222zM223.9 439.7c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L78 362.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.5-184.5 49.3 0 95.6 19.2 130.4 54s54 81.1 54 130.4c0 101.7-82.8 184.5-184.5 184.5zM319.1 307.2c-3.8-1.9-22.6-11.2-26.1-12.5-3.5-1.3-6-1.9-8.6 1.9-2.6 3.8-9.9 12.5-12.1 15-2.2 2.6-4.5 2.9-8.3 1-3.8-1.9-16-5.9-30.5-18.7-11.4-10-19.2-22.4-22.6-27.4-3.4-5-0.4-7.7 1.5-10.1 1.8-2.2 3.8-5.7 5.7-8.6 1.9-2.9 2.6-4.5 3.8-7.7 1.3-3.2 0.6-5.9-0.3-7.7-0.9-1.9-8.6-20.6-11.7-28.2-3.1-7.6-6.2-6.6-8.6-6.6-2.2 0-4.8 0-7.4 0-2.6 0-6.8 0.9-10.3 4.8-3.5 3.8-13.4 13.1-13.4 31.9 0 18.8 13.7 37 15.6 39.6 1.9 2.6 26.1 41.8 63.4 56.2 8.7 3.3 15.6 5.3 20.9 6.8 5.3 1.5 10 0.9 13.7-1 3.9-1.9 22.6-9.2 25.7-18.1 3.1-8.9 3.1-16.4 2.2-18.1-0.9-1.8-3.4-2.8-7.2-4.7z"/>
+        </svg>
+    </a>
+
+    <script src="lumairam-fx.js"></script>
+    <script>
+    /* Console "ao vivo" do Portal do Contribuinte — loop de automação */
+    (function () {
+        var el = document.getElementById('pc-console');
+        if (!el) return;
+        var linhas = [
+            {c:'cmd',  t:'$ portal --sincronizar --todas'},
+            {c:'info', t:'> Conectando ao e-CAC / SEFAZ...'},
+            {c:'ok',   t:'✓ Sessão segura estabelecida'},
+            {c:'info', t:'> Validando certificado A1 (COMÉRCIO EXEMPLO LTDA)...'},
+            {c:'ok',   t:'✓ Certificado OK'},
+            {c:'warn', t:'⚠ Vence em 12 dias — avisando no painel'},
+            {c:'info', t:'> Baixando NF-e ENTRADA · 07/2026...'},
+            {c:'ok',   t:'✓ 142 notas → <span class="path">/COMERCIO_EXEMPLO/07-2026/entrada</span>'},
+            {c:'info', t:'> Baixando NFS-e SAÍDA · 07/2026...'},
+            {c:'ok',   t:'✓ 38 notas organizadas'},
+            {c:'info', t:'> Erro 656 na SEFAZ? enfileirando p/ retry...'},
+            {c:'ok',   t:'✓ Fila inteligente ativa'},
+            {c:'info', t:'> Gerando DANFE (PDF)...'},
+            {c:'ok',   t:'✓ PDFs prontos'},
+            {c:'info', t:'> Preparando e-mail ao cliente...'},
+            {c:'ok',   t:'✓ Pacote de julho entregue'},
+            {c:'cmd',  t:'── próxima empresa da fila ──'}
+        ];
+        var i = 0, maxRows = 9;
+        function addLine() {
+            var item = linhas[i % linhas.length];
+            var div = document.createElement('div');
+            div.className = 'ln';
+            div.innerHTML = '<span class="' + item.c + '">' + item.t + '</span>';
+            el.appendChild(div);
+            while (el.children.length > maxRows) el.removeChild(el.firstChild);
+            el.scrollTop = el.scrollHeight;
+            i++;
+            var delay = item.c === 'ok' ? 500 : (item.c === 'cmd' ? 1100 : 750);
+            setTimeout(addLine, delay);
+        }
+        setTimeout(addLine, 600);
+    })();
+    </script>
+</body>
+</html>
