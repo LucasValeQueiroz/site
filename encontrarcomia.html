@@ -246,14 +246,32 @@
             <a href="index.html" class="logo">Lumairam Info Tech Dev</a>
             <button id="hamburger-btn" aria-label="Menu"><span></span><span></span><span></span></button>
             <ul id="nav-menu">
-                <li><a href="sobre.html">Sobre</a></li>
-                <li><a href="index.html">Seja Sócio</a></li>
-                <li><a href="receberarquivos.html">Receber Arquivos</a></li>
-                <li><a href="encontrarcomia.html" class="active">Conciliação Contábil</a></li>
-                <li><a href="portaldocontribuinte.html">Portal do Contribuinte</a></li>
-                <li><a href="driveinteligente.html">Drive Inteligente</a></li>
-                <li><a href="chatwhatsappinteligente.html">Chat WhatsApp</a></li>
-                <li><a href="controleimobiliario.html">Controle Imobiliário</a></li>
+                <li class="nav-item-single"><a href="sobre.html">Sobre</a></li>
+                <li class="nav-item-single"><a href="index.html">Seja Sócio</a></li>
+
+                <li class="nav-cluster nav-cluster-fiscal">
+                    <span class="nav-cluster-label"><i class="fa-solid fa-file-invoice-dollar"></i> Fiscal / Contábil</span>
+                    <div class="nav-cluster-items">
+                        <a href="receberarquivos.html">Receber Arquivos</a>
+                        <a href="encontrarcomia.html" class="active">Conciliação Contábil</a>
+                        <a href="portaldocontribuinte.html">Portal do Contribuinte</a>
+                    </div>
+                </li>
+
+                <li class="nav-cluster nav-cluster-util">
+                    <span class="nav-cluster-label"><i class="fa-solid fa-wand-magic-sparkles"></i> Utilidades</span>
+                    <div class="nav-cluster-items">
+                        <a href="driveinteligente.html">Drive Inteligente</a>
+                        <a href="chatwhatsappinteligente.html">Chat WhatsApp</a>
+                    </div>
+                </li>
+
+                <li class="nav-cluster nav-cluster-imob">
+                    <span class="nav-cluster-label"><i class="fa-solid fa-building-user"></i> Imobiliário</span>
+                    <div class="nav-cluster-items">
+                        <a href="controleimobiliario.html">Controle Imobiliário</a>
+                    </div>
+                </li>
             </ul>
         </nav>
     </header>
