@@ -297,7 +297,7 @@
 
             <div style="font-size:0.75rem; color:var(--text-dim); display:flex; align-items:center; gap:8px; border-top:1px solid rgba(255,255,255,0.08); padding-top:10px;">
                 <i class="fa-solid fa-shield-halved" style="color:var(--neon-cyan)"></i>
-                <span>Compatível com Alterdata Pack • Google Apps Script • Gemini 2.0 Flash</span>
+                <span>Compatível com Alterdata Pack • Google Apps Script • Última Versão do Google Gemini</span>
             </div>
         `;
     }
