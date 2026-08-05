@@ -64,14 +64,14 @@
   // ─── 2. REACTIVE SCROLL GRADIENT ─────────────────────────
   function initGradientMorph() {
     const root = document.documentElement;
-    const body = document.body;
 
-    // 4 tons harmônicos e elegantes na mesma paleta tecnológica (Ciano -> Azul Cobalto -> Azul Índigo -> Ice Teal)
+    // 4 cores marcantes, nítidas e perfeitamente equilibradas na paleta tecnológica
+    // (1. Ciano Elétrico -> 2. Violeta Tech -> 3. Azul Cobalto -> 4. Verde Esmeralda/Menta)
     const colorStops = [
-      { pos: 0.00, bg: [5, 10, 25],  accent: [0, 220, 255],  glow: [0, 110, 255]  },  // 1. Ciano Tech Profissional
-      { pos: 0.33, bg: [6, 12, 28],  accent: [56, 148, 255], glow: [30, 95, 230]  },  // 2. Azul Cobalto Elegante
-      { pos: 0.66, bg: [7, 14, 30],  accent: [80, 130, 255], glow: [0, 150, 255]  },  // 3. Azul Índigo Tech
-      { pos: 1.00, bg: [5, 12, 26],  accent: [0, 230, 210],  glow: [0, 140, 200]  },  // 4. Ice Teal Moderno
+      { pos: 0.00, bg: [5, 10, 24],  accent: [0, 242, 255],  glow: [0, 120, 255]   }, // 1. Ciano Elétrico (#00f2ff)
+      { pos: 0.33, bg: [7, 8, 26],   accent: [168, 85, 247], glow: [124, 58, 237] }, // 2. Violeta Tech (#a855f7)
+      { pos: 0.66, bg: [5, 10, 26],  accent: [59, 130, 246], glow: [29, 78, 216]  }, // 3. Azul Cobalto (#3b82f6)
+      { pos: 1.00, bg: [5, 12, 24],  accent: [16, 240, 160], glow: [5, 150, 105]  }, // 4. Esmeralda Tech (#10f0a0)
     ];
 
     function lerp(a, b, t) { return a + (b - a) * t; }
@@ -85,9 +85,13 @@
     }
 
     function updateColors() {
-      const scrollTop = window.scrollY;
-      const docHeight = body.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+      const docHeight = Math.max(
+        document.body.scrollHeight, document.documentElement.scrollHeight,
+        document.body.offsetHeight, document.documentElement.offsetHeight,
+        document.body.clientHeight, document.documentElement.clientHeight
+      ) - window.innerHeight;
+      const progress = docHeight > 0 ? Math.min(Math.max(scrollTop / docHeight, 0), 1) : 0;
 
       // Find the two color stops we're between
       let lower = colorStops[0], upper = colorStops[1];
@@ -99,20 +103,22 @@
         }
       }
 
-      const segmentProgress = (progress - lower.pos) / (upper.pos - lower.pos || 1);
+      const segmentRange = upper.pos - lower.pos || 1;
+      const segmentProgress = Math.min(Math.max((progress - lower.pos) / segmentRange, 0), 1);
       const bg = lerpColor(lower.bg, upper.bg, segmentProgress);
       const accent = lerpColor(lower.accent, upper.accent, segmentProgress);
       const glow = lerpColor(lower.glow, upper.glow, segmentProgress);
 
       root.style.setProperty('--primary-bg', `rgb(${bg[0]}, ${bg[1]}, ${bg[2]})`);
-      root.style.setProperty('--secondary-bg', `rgb(${bg[0] + 8}, ${bg[1] + 8}, ${bg[2] + 8})`);
+      root.style.setProperty('--secondary-bg', `rgb(${bg[0] + 6}, ${bg[1] + 6}, ${bg[2] + 6})`);
       root.style.setProperty('--neon-cyan', `rgb(${accent[0]}, ${accent[1]}, ${accent[2]})`);
       root.style.setProperty('--neon-blue', `rgb(${glow[0]}, ${glow[1]}, ${glow[2]})`);
-      root.style.setProperty('--accent-glow', `rgba(${accent[0]}, ${accent[1]}, ${accent[2]}, 0.4)`);
-      root.style.setProperty('--accent-glow-strong', `rgba(${accent[0]}, ${accent[1]}, ${accent[2]}, 0.7)`);
+      root.style.setProperty('--accent-glow', `rgba(${accent[0]}, ${accent[1]}, ${accent[2]}, 0.35)`);
+      root.style.setProperty('--accent-glow-strong', `rgba(${accent[0]}, ${accent[1]}, ${accent[2]}, 0.65)`);
     }
 
     window.addEventListener('scroll', updateColors, { passive: true });
+    window.addEventListener('resize', updateColors, { passive: true });
     updateColors();
   }
 
