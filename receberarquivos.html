@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portal de Gestão de Documentos com Inteligência Artificial - Receba arquivos, processe com IA e exporte para o Alterdata automaticamente. Lumairam Info Tech Dev.">
-    <title>Portal de Recebimento IA - Lumairam Info Tech Dev</title>
+    <meta name="description" content="Portal de Gestão de Documentos e Inteligência Fiscal - Extração de NF-e, NFS-e, Duplicatas/Boletos, Guias de Impostos (DARF/DAS/FGTS) e Extratos Bancários com IA e exportação Alterdata Pack. Lumairam Info Tech Dev.">
+    <title>Portal de Recebimento & Inteligência Fiscal - Lumairam Info Tech Dev</title>
     <link rel="icon" href="favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,33 +12,37 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* ─── RECEBER ARQUIVOS HERO IMMERSIVE ─── */
+        /* ─── RECEBER ARQUIVOS HERO & SIMULATOR ─── */
         .recv-hero {
             position: relative;
             width: 100%;
-            min-height: 520px;
-            background: linear-gradient(165deg, rgb(5,10,25) 0%, rgb(8,5,30) 40%, rgb(5,10,25) 100%);
+            min-height: 680px;
+            background: linear-gradient(165deg, rgb(4, 8, 22) 0%, rgb(10, 8, 36) 45%, rgb(4, 10, 26) 100%);
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
             border-bottom: 2px solid var(--neon-cyan);
             box-shadow: 0 10px 60px rgba(0,242,255,0.15);
+            padding: 40px 20px 60px;
         }
         .recv-hero::after {
             content: '';
             position: absolute;
             bottom: 0; left: 0;
-            width: 100%; height: 120px;
+            width: 100%; height: 100px;
             background: linear-gradient(to top, var(--primary-bg), transparent);
             z-index: 3;
+            pointer-events: none;
         }
+
         /* Neural network background */
         .recv-neural {
             position: absolute;
             inset: 0;
             overflow: hidden;
-            opacity: 0.15;
+            opacity: 0.18;
+            pointer-events: none;
         }
         .recv-neural-line {
             position: absolute;
@@ -46,12 +50,12 @@
             background: linear-gradient(to bottom, transparent, var(--neon-cyan), transparent);
             animation: neuralPulse 4s ease-in-out infinite;
         }
-        .recv-neural-line:nth-child(1) { left: 10%; height: 200px; top: 20%; animation-delay: 0s; }
-        .recv-neural-line:nth-child(2) { left: 25%; height: 150px; top: 40%; animation-delay: 0.8s; }
-        .recv-neural-line:nth-child(3) { left: 40%; height: 250px; top: 10%; animation-delay: 1.6s; }
-        .recv-neural-line:nth-child(4) { left: 55%; height: 180px; top: 50%; animation-delay: 0.4s; }
-        .recv-neural-line:nth-child(5) { left: 70%; height: 220px; top: 15%; animation-delay: 1.2s; }
-        .recv-neural-line:nth-child(6) { left: 85%; height: 160px; top: 35%; animation-delay: 2s; }
+        .recv-neural-line:nth-child(1) { left: 10%; height: 220px; top: 15%; animation-delay: 0s; }
+        .recv-neural-line:nth-child(2) { left: 25%; height: 160px; top: 40%; animation-delay: 0.8s; }
+        .recv-neural-line:nth-child(3) { left: 45%; height: 280px; top: 10%; animation-delay: 1.6s; }
+        .recv-neural-line:nth-child(4) { left: 65%; height: 190px; top: 50%; animation-delay: 0.4s; }
+        .recv-neural-line:nth-child(5) { left: 80%; height: 240px; top: 15%; animation-delay: 1.2s; }
+        .recv-neural-line:nth-child(6) { left: 92%; height: 170px; top: 35%; animation-delay: 2s; }
         .recv-neural-dot {
             position: absolute;
             width: 6px; height: 6px;
@@ -62,175 +66,905 @@
         }
         .recv-neural-dot:nth-child(7)  { left: 10%; top: 20%; animation-delay: 0.5s; }
         .recv-neural-dot:nth-child(8)  { left: 25%; top: 55%; animation-delay: 1s; }
-        .recv-neural-dot:nth-child(9)  { left: 40%; top: 30%; animation-delay: 1.5s; }
-        .recv-neural-dot:nth-child(10) { left: 55%; top: 65%; animation-delay: 0.3s; }
-        .recv-neural-dot:nth-child(11) { left: 70%; top: 25%; animation-delay: 1.8s; }
-        .recv-neural-dot:nth-child(12) { left: 85%; top: 50%; animation-delay: 0.7s; }
+        .recv-neural-dot:nth-child(9)  { left: 45%; top: 30%; animation-delay: 1.5s; }
+        .recv-neural-dot:nth-child(10) { left: 65%; top: 65%; animation-delay: 0.3s; }
+        .recv-neural-dot:nth-child(11) { left: 80%; top: 25%; animation-delay: 1.8s; }
+        .recv-neural-dot:nth-child(12) { left: 92%; top: 50%; animation-delay: 0.7s; }
+
         @keyframes neuralPulse {
-            0%, 100% { opacity: 0.3; transform: scaleY(0.8); }
-            50% { opacity: 1; transform: scaleY(1.2); }
+            0%, 100% { opacity: 0.2; transform: scaleY(0.8); }
+            50% { opacity: 0.9; transform: scaleY(1.2); }
         }
         @keyframes dotPulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.8); opacity: 1; }
+            0%, 100% { transform: scale(1); opacity: 0.4; }
+            50% { transform: scale(1.6); opacity: 1; }
         }
-        /* Showcase */
-        .recv-showcase {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2rem;
-            padding: 2rem;
-            text-align: center;
-        }
-        /* Document processing mockup */
-        .recv-mockup {
-            width: 360px;
-            background: rgba(10,14,35,0.9);
-            border: 1px solid rgba(0,242,255,0.15);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 0 40px rgba(100,50,255,0.1), 0 0 80px rgba(0,242,255,0.05);
-            backdrop-filter: blur(10px);
-        }
-        .rm-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 16px;
-            background: rgba(0,242,255,0.04);
-            border-bottom: 1px solid rgba(0,242,255,0.1);
-        }
-        .rm-header i { color: var(--neon-cyan); font-size: 0.85rem; }
-        .rm-header span {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
-            color: var(--text-dim);
-            letter-spacing: 1px;
-        }
-        .rm-body { padding: 14px; }
-        /* Upload area */
-        .rm-upload {
-            border: 2px dashed rgba(0,242,255,0.2);
-            border-radius: 8px;
-            padding: 16px;
-            text-align: center;
-            margin-bottom: 12px;
-            animation: uploadPulse 3s ease-in-out infinite;
-        }
-        @keyframes uploadPulse {
-            0%, 100% { border-color: rgba(0,242,255,0.15); }
-            50% { border-color: rgba(0,242,255,0.4); }
-        }
-        .rm-upload i { font-size: 1.5rem; color: var(--neon-cyan); margin-bottom: 6px; }
-        .rm-upload p { font-size: 0.65rem; color: var(--text-dim); }
-        /* Processing pipeline */
-        .rm-pipeline {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 4px;
-            margin-bottom: 12px;
-        }
-        .rm-step {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            flex: 1;
-        }
-        .rm-step-icon {
-            width: 32px; height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            border: 1px solid;
-        }
-        .rm-step-icon.active {
-            background: rgba(0,242,255,0.1);
-            border-color: var(--neon-cyan);
-            color: var(--neon-cyan);
-            box-shadow: 0 0 12px rgba(0,242,255,0.3);
-            animation: stepGlow 2s ease-in-out infinite;
-        }
-        .rm-step-icon.done {
-            background: rgba(40,200,64,0.1);
-            border-color: #28c840;
-            color: #28c840;
-        }
-        .rm-step-icon.waiting {
-            background: rgba(255,255,255,0.03);
-            border-color: rgba(255,255,255,0.1);
-            color: var(--text-dim);
-        }
-        @keyframes stepGlow {
-            0%, 100% { box-shadow: 0 0 8px rgba(0,242,255,0.2); }
-            50% { box-shadow: 0 0 20px rgba(0,242,255,0.5); }
-        }
-        .rm-step span { font-size: 0.55rem; color: var(--text-dim); }
-        .rm-arrow { color: rgba(255,255,255,0.15); font-size: 0.6rem; margin-top: -12px; }
-        /* Result row */
-        .rm-result {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 10px;
-            background: rgba(40,200,64,0.05);
-            border: 1px solid rgba(40,200,64,0.15);
-            border-radius: 6px;
-            animation: resultFade 0.8s ease-out 2.5s both;
-        }
-        @keyframes resultFade {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .rm-result i { color: #28c840; font-size: 0.8rem; }
-        .rm-result span {
-            font-size: 0.65rem;
-            font-family: 'JetBrains Mono', monospace;
-            color: #28c840;
-        }
-        /* Hero text */
-        .recv-hero-text h1 {
-            font-size: clamp(1.5rem, 3.8vw, 2.4rem);
-            font-weight: 800;
-            background: linear-gradient(135deg, #fff 30%, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
-            margin-bottom: 0.8rem;
-        }
-        .recv-hero-text p {
-            color: var(--text-dim);
-            font-size: 1rem;
-            line-height: 1.6;
-            max-width: 480px;
-        }
+
         .recv-scanline {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, #a78bfa, transparent);
-            opacity: 0.25;
-            animation: scanDown 7s linear infinite;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+            opacity: 0.3;
+            animation: scanDown 6s linear infinite;
+            pointer-events: none;
         }
         @keyframes scanDown {
             0% { top: 0; }
             100% { top: 100%; }
         }
-        @media (min-width: 768px) {
-            .recv-showcase { flex-direction: row; gap: 4rem; }
-            .recv-hero-text { text-align: left; }
-            .recv-hero { min-height: 480px; }
+
+        /* Simulator Container */
+        .recv-sim-wrapper {
+            position: relative;
+            z-index: 4;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
         }
-        @media (max-width: 767px) {
-            .recv-hero { min-height: 620px; padding: 80px 0 60px; }
-            .recv-mockup { width: 290px; }
+
+        /* Top Pills Navigation */
+        .recv-pills-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            background: rgba(10, 16, 38, 0.85);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(0, 242, 255, 0.25);
+            border-radius: 50px;
+            padding: 6px 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+        .recv-pills-list {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding: 2px;
+        }
+        .recv-pills-list::-webkit-scrollbar { display: none; }
+        
+        .recv-pill {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-dim);
+            padding: 7px 16px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .recv-pill:hover {
+            color: #fff;
+            border-color: rgba(0, 242, 255, 0.4);
+            background: rgba(0, 242, 255, 0.08);
+        }
+        .recv-pill.active {
+            background: linear-gradient(135deg, rgba(0,242,255,0.2) 0%, rgba(112,0,255,0.3) 100%);
+            border-color: var(--neon-cyan);
+            color: #fff;
+            box-shadow: 0 0 14px rgba(0,242,255,0.35);
+        }
+        .recv-pill.active i {
+            color: var(--neon-cyan);
+        }
+
+        .recv-auto-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 10px;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .recv-pulse-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: #25d366;
+            box-shadow: 0 0 8px #25d366;
+            animation: dotPulse 1.5s infinite;
+        }
+
+        /* Progress Bar */
+        .recv-progress-bar {
+            width: 100%;
+            height: 3px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .recv-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--neon-cyan), #7000ff, #25d366);
+            border-radius: 3px;
+        }
+
+        /* Main Simulator Grid */
+        .recv-showcase-grid {
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr;
+            gap: 1.8rem;
+            align-items: stretch;
+        }
+
+        /* Mockup Box */
+        .recv-mockup-box {
+            background: rgba(10, 15, 34, 0.92);
+            border: 1px solid rgba(0, 242, 255, 0.25);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 242, 255, 0.1);
+            backdrop-filter: blur(16px);
+            display: flex;
+            flex-direction: column;
+            min-height: 460px;
+            position: relative;
+        }
+        .rm-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            background: rgba(0, 242, 255, 0.05);
+            border-bottom: 1px solid rgba(0, 242, 255, 0.15);
+        }
+        .rm-header-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .rm-dots {
+            display: flex;
+            gap: 5px;
+        }
+        .rm-dot {
+            width: 9px; height: 9px;
+            border-radius: 50%;
+        }
+        .rm-dot.red { background: #ff5f56; }
+        .rm-dot.yellow { background: #ffbd2e; }
+        .rm-dot.green { background: #27c93f; }
+        .rm-header-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .rm-badge-live {
+            background: rgba(37, 211, 102, 0.15);
+            border: 1px solid rgba(37, 211, 102, 0.4);
+            color: #25d366;
+            font-size: 0.62rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        .rm-body {
+            padding: 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Laser Scanner Effect */
+        .laser-scanner {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), #fff, var(--neon-cyan), transparent);
+            box-shadow: 0 0 15px var(--neon-cyan), 0 0 30px var(--neon-cyan);
+            animation: laserScan 2s ease-in-out infinite;
+            z-index: 5;
+            pointer-events: none;
+        }
+        @keyframes laserScan {
+            0% { top: 5%; opacity: 0.4; }
+            50% { top: 95%; opacity: 1; }
+            100% { top: 5%; opacity: 0.4; }
+        }
+
+        /* ─── ANIMATED CARDS & STEP RENDERS ─── */
+        .anim-upload-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(0, 242, 255, 0.02);
+            border: 2px dashed rgba(0, 242, 255, 0.3);
+            border-radius: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        .aub-icon {
+            font-size: 2.4rem;
+            animation: floatIcon 2s ease-in-out infinite;
+        }
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        .doc-incoming-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 8px;
+        }
+        .dip-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.72rem;
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .anim-doc-card {
+            background: rgba(13, 20, 48, 0.95);
+            border: 1px solid rgba(0, 242, 255, 0.35);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: fadeInScale 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.96); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .adc-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 8px;
+        }
+        .adc-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: #fff;
+            font-size: 0.95rem;
+        }
+        .adc-body {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .key-field {
+            font-size: 0.68rem;
+            color: var(--text-dim);
+            background: rgba(0, 0, 0, 0.35);
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            word-break: break-all;
+        }
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .adc-entry {
+            background: rgba(0, 242, 255, 0.06);
+            border-left: 3px solid var(--neon-cyan);
+            padding: 6px 10px;
+            font-size: 0.72rem;
+            color: #cbd5e1;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .adc-fiscal-badge {
+            font-size: 0.7rem;
+            color: #25d366;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+        }
+        .adc-status-bar {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 8px;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .retencoes-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 6px;
+            padding: 6px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .rb-title {
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: #a78bfa;
+        }
+        .rb-item {
+            font-size: 0.68rem;
+            color: #e2e8f0;
+            font-family: 'JetBrains Mono', monospace;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .darf-split {
+            display: flex;
+            gap: 12px;
+            font-size: 0.72rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .ds-item {
+            background: rgba(255, 255, 255, 0.04);
+            padding: 3px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .anim-summary-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 10px;
+            padding: 24px 16px;
+            background: rgba(13, 20, 48, 0.9);
+            border: 1px solid rgba(37, 211, 102, 0.35);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: fadeInScale 0.4s ease;
+        }
+        .asb-icon {
+            font-size: 2.2rem;
+        }
+        .asb-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            width: 100%;
+            margin-top: 6px;
+        }
+        .asb-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            text-align: center;
+        }
+        .asb-card span {
+            font-size: 0.65rem;
+            color: var(--text-dim);
+        }
+        .asb-card strong {
+            font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ─── EXTRATOS & CONCILIAÇÃO STYLES ─── */
+        .bank-tag-bar {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 6px;
+        }
+        .bank-pill {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-dim);
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 0.68rem;
+        }
+        .bank-pill.active {
+            background: rgba(0, 242, 255, 0.2);
+            border-color: var(--neon-cyan);
+            color: #fff;
+        }
+
+        .anim-extrato-card {
+            background: rgba(13, 20, 48, 0.95);
+            border: 1px solid rgba(0, 242, 255, 0.3);
+            border-radius: 12px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInScale 0.4s ease;
+        }
+        .aec-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 8px;
+            font-size: 0.78rem;
+            color: #fff;
+        }
+        .aec-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .aec-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 6px;
+            padding: 6px 8px;
+            font-size: 0.68rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .aec-raw {
+            color: #f87171;
+            font-family: 'JetBrains Mono', monospace;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .raw-text {
+            text-decoration: line-through;
+            opacity: 0.8;
+        }
+        .aec-arrow {
+            text-align: center;
+            font-size: 0.6rem;
+            margin: -2px 0;
+        }
+        .aec-clean {
+            color: #25d366;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .aec-val-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .match-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .match-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 6px;
+            padding: 6px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .mi-left {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            font-size: 0.72rem;
+        }
+        .mi-left strong { color: #fff; }
+        .mi-left span { color: var(--text-dim); font-size: 0.65rem; }
+        .mi-right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .conciliado-strip {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.35);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            margin-top: 4px;
+        }
+
+        /* ─── FILA & VÍNCULOS STYLES ─── */
+        .anim-fila-card {
+            background: rgba(13, 20, 48, 0.95);
+            border: 1px solid rgba(255, 189, 46, 0.35);
+            border-radius: 12px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            animation: fadeInScale 0.4s ease;
+        }
+        .afc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 8px;
+            font-size: 0.78rem;
+        }
+        .afc-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .afc-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 6px;
+            padding: 8px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+        }
+        .tax-credits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin-top: 8px;
+            background: rgba(0,0,0,0.3);
+            padding: 8px;
+            border-radius: 6px;
+        }
+        .tc-item {
+            text-align: center;
+            font-size: 0.65rem;
+        }
+        .tc-item span { color: var(--text-dim); display: block; }
+        .tc-item strong { color: #25d366; font-family: 'JetBrains Mono', monospace; }
+        .rule-saved-badge {
+            background: rgba(112, 0, 255, 0.2);
+            border: 1px solid #7000ff;
+            color: #d8b4fe;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 700;
+        }
+
+        /* ─── ALTERDATA EXPORT STYLES ─── */
+        .anim-alterdata-card {
+            background: rgba(13, 20, 48, 0.95);
+            border: 1px solid rgba(0, 242, 255, 0.35);
+            border-radius: 12px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            animation: fadeInScale 0.4s ease;
+        }
+        .aac-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 8px;
+            font-size: 0.78rem;
+            color: #fff;
+        }
+        .balance-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        .bc-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 8px;
+            text-align: center;
+        }
+        .bc-card span { font-size: 0.65rem; color: var(--text-dim); display: block; }
+        .bc-card strong { font-size: 0.82rem; font-family: 'JetBrains Mono', monospace; }
+        .txt-preview-code {
+            background: #040814;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 8px 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: #a78bfa;
+            line-height: 1.4;
+            overflow-x: auto;
+        }
+        .btn-download-alterdata {
+            background: linear-gradient(135deg, var(--neon-cyan) 0%, #7000ff 100%);
+            border: none;
+            color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0, 242, 255, 0.3);
+        }
+
+        /* Description Side Panel */
+        .recv-desc-panel {
+            background: rgba(10, 16, 38, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1.2rem;
+            backdrop-filter: blur(12px);
+        }
+        .recv-desc-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(0,242,255,0.15) 0%, rgba(112,0,255,0.25) 100%);
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            width: fit-content;
+        }
+        .recv-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 0.5rem;
+        }
+        .recv-stat-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 12px 8px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .recv-stat-card strong {
+            font-size: 1.05rem;
+            color: var(--neon-cyan);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .recv-stat-card span {
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ─── BADGES AUXILIARES ─── */
+        .doc-badge {
+            display: inline-block;
+            font-size: 0.62rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .doc-badge.nfe { background: rgba(0, 242, 255, 0.15); color: #00f2ff; border: 1px solid rgba(0, 242, 255, 0.3); }
+        .doc-badge.nfse { background: rgba(167, 139, 250, 0.15); color: #a78bfa; border: 1px solid rgba(167, 139, 250, 0.3); }
+        .doc-badge.dupl { background: rgba(251, 146, 60, 0.15); color: #fb923c; border: 1px solid rgba(251, 146, 60, 0.3); }
+        .doc-badge.darf { background: rgba(244, 63, 94, 0.15); color: #f43f5e; border: 1px solid rgba(244, 63, 94, 0.3); }
+        .doc-badge.extrato { background: rgba(34, 197, 94, 0.15); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.3); }
+
+        .badge-tag-sim { background: rgba(0, 242, 255, 0.15); border: 1px solid rgba(0, 242, 255, 0.3); color: var(--neon-cyan); font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; }
+        .badge-tag-green { background: rgba(37, 211, 102, 0.15); color: #25d366; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 600; }
+        .badge-tag-yellow { background: rgba(234, 179, 8, 0.15); color: #eab308; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 600; }
+        .badge-tag-red { background: rgba(244, 63, 94, 0.15); color: #f43f5e; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 600; }
+        .badge-conciliado { background: rgba(37, 211, 102, 0.15); color: #25d366; font-size: 0.62rem; padding: 2px 6px; border-radius: 10px; border: 1px solid rgba(37, 211, 102, 0.3); font-weight: 700; }
+        .badge-peso3 { background: rgba(234, 179, 8, 0.15); color: #eab308; font-size: 0.62rem; padding: 2px 6px; border-radius: 10px; border: 1px solid rgba(234, 179, 8, 0.3); font-weight: 700; }
+        .amm-badge { font-size: 0.65rem; padding: 2px 8px; border-radius: 12px; font-weight: 700; background: rgba(255, 77, 77, 0.2); color: #ff4d4d; border: 1px solid rgba(255, 77, 77, 0.4); }
+
+        /* ─── 5 DOCUMENT TYPES SPECIAL SECTION ─── */
+        .doc-types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.8rem;
+        }
+        .doc-type-card {
+            background: rgba(12, 18, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            backdrop-filter: blur(12px);
+            transition: all 0.35s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .doc-type-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--neon-cyan), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .doc-type-card:hover {
+            border-color: var(--neon-cyan);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0, 242, 255, 0.15);
+        }
+        .doc-type-card:hover::before {
+            opacity: 1;
+        }
+        .dt-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .dt-icon-box {
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            background: rgba(0, 242, 255, 0.1);
+            color: var(--neon-cyan);
+            border: 1px solid rgba(0, 242, 255, 0.3);
+        }
+        .dt-header h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 0;
+        }
+        .dt-header span {
+            font-size: 0.7rem;
+            color: var(--neon-cyan);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+        }
+        .dt-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 4px;
+        }
+        .dt-tag {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            padding: 3px 8px;
+            font-size: 0.68rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: #d8b4fe;
+        }
+        .dt-extract-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 0.82rem;
+            color: var(--text-dim);
+        }
+        .dt-extract-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            line-height: 1.4;
+        }
+        .dt-extract-list li i {
+            color: #25d366;
+            margin-top: 3px;
+            font-size: 0.75rem;
+        }
+
+        /* Dual Interface Architecture Cards */
+        .dual-arch-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .dual-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+        .dual-card:hover {
+            border-color: var(--neon-cyan);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.15);
+        }
+        .dual-card-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            width: fit-content;
+        }
+        .badge-client {
+            background: rgba(0, 242, 255, 0.15);
+            color: var(--neon-cyan);
+            border: 1px solid var(--neon-cyan);
+        }
+        .badge-admin {
+            background: rgba(112, 0, 255, 0.2);
+            color: #d8b4fe;
+            border: 1px solid #7000ff;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 991px) {
+            .recv-showcase-grid, .dual-arch-grid {
+                grid-template-columns: 1fr;
+            }
+            .recv-hero {
+                min-height: auto;
+                padding: 30px 14px 50px;
+            }
+        }
+        @media (max-width: 600px) {
+            .recv-stats-grid, .balance-cards-grid, .asb-grid {
+                grid-template-columns: 1fr;
+            }
+            .rm-body {
+                padding: 10px;
+            }
         }
     </style>
 </head>
@@ -272,7 +1006,7 @@
 
     <main class="app-container" style="display: block; min-height: auto;">
 
-        <!-- HERO IMERSIVO RECEBER ARQUIVOS -->
+        <!-- HERO IMERSIVO COM SIMULADOR MULTI-CENÁRIO RECEBER ARQUIVOS -->
         <section class="recv-hero" data-reveal>
             <div class="recv-scanline"></div>
             <div class="recv-neural">
@@ -290,178 +1024,373 @@
                 <div class="recv-neural-dot"></div>
             </div>
 
-            <div class="recv-showcase">
-                <div class="recv-mockup">
-                    <div class="rm-header">
-                        <i class="fa-solid fa-brain"></i>
-                        <span>PROCESSAMENTO IA</span>
+            <div class="recv-sim-wrapper" id="recv-sim-showcase">
+                <!-- Top Pills Scenarios Navigation -->
+                <div class="recv-pills-bar">
+                    <div class="recv-pills-list" id="recv-pills-nav">
+                        <!-- Populated dynamically by recv-simulator.js -->
                     </div>
-                    <div class="rm-body">
-                        <div class="rm-upload">
-                            <i class="fa-solid fa-cloud-arrow-up"></i>
-                            <p>Arraste documentos aqui</p>
-                        </div>
-                        <div class="rm-pipeline">
-                            <div class="rm-step">
-                                <div class="rm-step-icon done"><i class="fa-solid fa-check"></i></div>
-                                <span>Upload</span>
-                            </div>
-                            <span class="rm-arrow"><i class="fa-solid fa-chevron-right"></i></span>
-                            <div class="rm-step">
-                                <div class="rm-step-icon done"><i class="fa-solid fa-check"></i></div>
-                                <span>OCR</span>
-                            </div>
-                            <span class="rm-arrow"><i class="fa-solid fa-chevron-right"></i></span>
-                            <div class="rm-step">
-                                <div class="rm-step-icon active"><i class="fa-solid fa-brain"></i></div>
-                                <span>IA</span>
-                            </div>
-                            <span class="rm-arrow"><i class="fa-solid fa-chevron-right"></i></span>
-                            <div class="rm-step">
-                                <div class="rm-step-icon waiting"><i class="fa-solid fa-file-export"></i></div>
-                                <span>Export</span>
-                            </div>
-                        </div>
-                        <div class="rm-result">
-                            <i class="fa-solid fa-circle-check"></i>
-                            <span>3 NF-e processadas → Alterdata</span>
-                        </div>
+                    <div class="recv-auto-indicator">
+                        <span class="recv-pulse-dot"></span>
+                        <span>SIMULAÇÃO AO VIVO</span>
                     </div>
                 </div>
 
-                <div class="recv-hero-text">
-                    <h1>Portal de Gestão de Documentos com IA</h1>
-                    <p>Sua ponte entre a recepção de arquivos e a contabilidade digital. IA de última geração que lê, extrai e exporta dados direto para o Alterdata, sem digitação manual.</p>
+                <!-- Progress Bar -->
+                <div class="recv-progress-bar">
+                    <div class="recv-progress-fill" id="recv-progress-fill"></div>
+                </div>
+
+                <!-- Showcase Grid -->
+                <div class="recv-showcase-grid">
+                    <!-- Left: Interactive Terminal / Mockup -->
+                    <div class="recv-mockup-box">
+                        <div class="rm-header">
+                            <div class="rm-header-left">
+                                <div class="rm-dots">
+                                    <span class="rm-dot red"></span>
+                                    <span class="rm-dot yellow"></span>
+                                    <span class="rm-dot green"></span>
+                                </div>
+                                <div class="rm-header-title">
+                                    <i class="fa-solid fa-brain" style="color:var(--neon-cyan)"></i>
+                                    <span>LUMAIRAM FISCAL ENGINE // GEMINI 2.0 FLASH</span>
+                                </div>
+                            </div>
+                            <span class="rm-badge-live"><i class="fa-solid fa-bolt"></i> EM EXECUÇÃO</span>
+                        </div>
+
+                        <div class="rm-body" id="recv-sim-body">
+                            <!-- Populated dynamically by recv-simulator.js -->
+                        </div>
+                    </div>
+
+                    <!-- Right: Technical Details & Live Stats -->
+                    <div class="recv-desc-panel" id="recv-desc-panel">
+                        <!-- Populated dynamically by recv-simulator.js -->
+                    </div>
                 </div>
             </div>
         </section>
 
         <div class="landing-container">
 
+            <!-- OS 5 GRANDES TIPOS DOCUMENTAIS QUE O SISTEMA EXTRAI E AUTOMATIZA -->
             <section data-reveal>
-                <h2 class="section-header" data-glitch="O Grande Diferencial: Integração Total com Alterdata">O Grande Diferencial: Integração Total com Alterdata</h2>
-                <p style="text-align: center; color: var(--text-dim); margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-                    Sabemos que o maior gargalo de uma gestão eficiente é a entrada de dados no ERP. Por isso, nosso sistema foi projetado para ser o parceiro ideal da sua operação:
+                <h2 class="section-header" data-glitch="Os 5 Tipos Documentais que o Sistema Domina e Automatiza">Os 5 Tipos Documentais que o Sistema Domina e Automatiza</h2>
+                <p style="text-align: center; color: var(--text-dim); margin-bottom: 2rem; max-width: 880px; margin-left: auto; margin-right: auto; line-height: 1.7;">
+                    Nossa IA não é um leitor genérico de texto: ela foi calibrada com as regras da legislação tributária brasileira para extrair, validar e calcular as partidas contábeis exatas de cada documento fiscal e financeiro.
+                </p>
+
+                <div class="doc-types-grid">
+                    <!-- CARD 1: NF-e -->
+                    <div class="doc-type-card" data-reveal-child data-tilt>
+                        <div class="dt-header">
+                            <div class="dt-icon-box"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                            <div>
+                                <h3>01. NF-e (DANFE)</h3>
+                                <span>PRODUTOS & MERCADORIAS</span>
+                            </div>
+                        </div>
+                        <div class="dt-tags">
+                            <span class="dt-tag">Chave 44 Dígitos</span>
+                            <span class="dt-tag">CFOP</span>
+                            <span class="dt-tag">PIS/COFINS</span>
+                            <span class="dt-tag">ICMS/IPI</span>
+                            <span class="dt-tag">IBS/CBS</span>
+                        </div>
+                        <p style="color:var(--text-dim); font-size:0.86rem; line-height:1.5;">
+                            Leitura completa de DANFEs com discriminação de itens, frete, seguro, desconto e ST. Inferência inteligente de <strong>Destinação por CFOP</strong> (Revenda, Industrialização, Uso/Consumo ou Ativo) para cálculo automático de créditos tributários.
+                        </p>
+                        <ul class="dt-extract-list">
+                            <li><i class="fa-solid fa-check"></i> Separação de base de cálculo e alíquotas</li>
+                            <li><i class="fa-solid fa-check"></i> Bloqueio de crédito em Uso e Consumo</li>
+                            <li><i class="fa-solid fa-check"></i> Partida: Débito Estoque / Crédito Fornecedor</li>
+                        </ul>
+                    </div>
+
+                    <!-- CARD 2: NFS-e -->
+                    <div class="doc-type-card" data-reveal-child data-tilt>
+                        <div class="dt-header">
+                            <div class="dt-icon-box"><i class="fa-solid fa-file-contract"></i></div>
+                            <div>
+                                <h3>02. NFS-e (Serviços)</h3>
+                                <span>MUNICIPAL & SPED NACIONAL</span>
+                            </div>
+                        </div>
+                        <div class="dt-tags">
+                            <span class="dt-tag">Código Municipal</span>
+                            <span class="dt-tag">CSRF 4,65%</span>
+                            <span class="dt-tag">IRRF 1,5%</span>
+                            <span class="dt-tag">ISSQN Retido</span>
+                        </div>
+                        <p style="color:var(--text-dim); font-size:0.86rem; line-height:1.5;">
+                            Parser nativo compatível com o <strong>Padrão Nacional (SPED)</strong> e <strong>ABRASF 1.0/2.x</strong>. Identifica tomador, prestador e desmembra automaticamente as 4 retenções na fonte federais e municipais.
+                        </p>
+                        <ul class="dt-extract-list">
+                            <li><i class="fa-solid fa-check"></i> Apuração do Valor Bruto e Líquido Real</li>
+                            <li><i class="fa-solid fa-check"></i> Retenções de PIS, COFINS, CSLL, IRRF e ISS</li>
+                            <li><i class="fa-solid fa-check"></i> Geração de 4 partidas contábeis balanceadas</li>
+                        </ul>
+                    </div>
+
+                    <!-- CARD 3: DUPLICATAS / BOLETOS -->
+                    <div class="doc-type-card" data-reveal-child data-tilt>
+                        <div class="dt-header">
+                            <div class="dt-icon-box"><i class="fa-solid fa-barcode"></i></div>
+                            <div>
+                                <h3>03. Duplicatas & Boletos</h3>
+                                <span>COBRANÇAS & LIQUIDAÇÃO</span>
+                            </div>
+                        </div>
+                        <div class="dt-tags">
+                            <span class="dt-tag">Linha Digitável (47 Díg.)</span>
+                            <span class="dt-tag">Vencimento</span>
+                            <span class="dt-tag">Parcela</span>
+                            <span class="dt-tag">Juros/Multa</span>
+                        </div>
+                        <p style="color:var(--text-dim); font-size:0.86rem; line-height:1.5;">
+                            Extração precisa de boletos de cobrança e duplicatas mercantis. Reconhece cedente, sacado, número de documento, valor nominal e acréscimos por atraso, integrando à baixa de fornecedores.
+                        </p>
+                        <ul class="dt-extract-list">
+                            <li><i class="fa-solid fa-check"></i> Extração de código de barras e linha digitável</li>
+                            <li><i class="fa-solid fa-check"></i> Pareamento com a nota fiscal correspondente</li>
+                            <li><i class="fa-solid fa-check"></i> Histórico: <code>PG. S/DUPL ? REF FORNECEDOR</code></li>
+                        </ul>
+                    </div>
+
+                    <!-- CARD 4: GUIAS DE IMPOSTOS -->
+                    <div class="doc-type-card" data-reveal-child data-tilt>
+                        <div class="dt-header">
+                            <div class="dt-icon-box"><i class="fa-solid fa-landmark"></i></div>
+                            <div>
+                                <h3>04. Guias de Impostos</h3>
+                                <span>DARF • DAS • GPS • FGTS</span>
+                            </div>
+                        </div>
+                        <div class="dt-tags">
+                            <span class="dt-tag">Período de Apuração</span>
+                            <span class="dt-tag">Data Arrecadação</span>
+                            <span class="dt-tag">Multa e Juros</span>
+                            <span class="dt-tag">FGTS Rescisório</span>
+                        </div>
+                        <p style="color:var(--text-dim); font-size:0.86rem; line-height:1.5;">
+                            Processamento inteligente de DARFs federais, DAS do Simples Nacional, GPS previdenciária e guias de FGTS. Segrega com precisão o <strong>Valor Principal</strong> de <strong>Multas</strong> e <strong>Juros de Mora</strong>.
+                        </p>
+                        <ul class="dt-extract-list">
+                            <li><i class="fa-solid fa-check"></i> Distinção entre Provisão e Pagamento da Guia</li>
+                            <li><i class="fa-solid fa-check"></i> Separação de FGTS Mensal vs Indenização 40%</li>
+                            <li><i class="fa-solid fa-check"></i> Liquidação direta contra a provisão tributária</li>
+                        </ul>
+                    </div>
+
+                    <!-- CARD 5: EXTRATOS BANCÁRIOS -->
+                    <div class="doc-type-card" data-reveal-child data-tilt>
+                        <div class="dt-header">
+                            <div class="dt-icon-box"><i class="fa-solid fa-building-columns"></i></div>
+                            <div>
+                                <h3>05. Extratos Bancários</h3>
+                                <span>MULTIBANCOS (PDF/OFX/CSV)</span>
+                            </div>
+                        </div>
+                        <div class="dt-tags">
+                            <span class="dt-tag">Itaú</span>
+                            <span class="dt-tag">Bradesco</span>
+                            <span class="dt-tag">BB</span>
+                            <span class="dt-tag">Inter</span>
+                            <span class="dt-tag">Nubank</span>
+                            <span class="dt-tag">Sicredi</span>
+                        </div>
+                        <p style="color:var(--text-dim); font-size:0.86rem; line-height:1.5;">
+                            Parsers dedicados para os principais bancos do país. Classifica débitos e créditos (Pix, tarifas, TEDs, boletos), cruzando com o contas a pagar/receber através do <strong>Motor de Conciliação por Pesos</strong>.
+                        </p>
+                        <ul class="dt-extract-list">
+                            <li><i class="fa-solid fa-check"></i> Conciliação por Peso 3 (Nota + Valor + Data)</li>
+                            <li><i class="fa-solid fa-check"></i> Botão "Tirar 'Novo' em Lote" com 1 clique</li>
+                            <li><i class="fa-solid fa-check"></i> Limpeza automática de históricos bancários sujos</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DUPLA ARQUITETURA DO SISTEMA -->
+            <section data-reveal>
+                <h2 class="section-header" data-glitch="A Dupla Arquitetura: Zero Atrito para o Cliente, Controle Total para o Escritório">A Dupla Arquitetura: Zero Atrito para o Cliente, Controle Total para o Escritório</h2>
+                <p style="text-align: center; color: var(--text-dim); margin-bottom: 2rem; max-width: 860px; margin-left: auto; margin-right: auto; line-height: 1.7;">
+                    O sistema divide a experiência em duas pontas perfeitamente integradas: o <strong>Portal Web Leve para o Cliente</strong> (sem senha e sem app) e o <strong>Cockpit do Contador</strong> com inteligência fiscal autônoma.
+                </p>
+
+                <div class="dual-arch-grid">
+                    <div class="dual-card" data-reveal-child data-tilt>
+                        <span class="dual-card-badge badge-client"><i class="fa-solid fa-mobile-screen"></i> PORTAL DO CLIENTE (UPLOAD.HTML)</span>
+                        <h3 style="color:#fff; font-size:1.2rem;">Envio Rápido por Link Temporário</h3>
+                        <p style="color:var(--text-dim); font-size:0.9rem; line-height:1.6;">
+                            O cliente recebe um link com validade configurável (ex: 60 minutos) protegido por token SHA-256. Pode fotografar notas pelo celular ou arrastar pastas inteiras de uma vez, sem precisar criar login ou lembrar senhas.
+                        </p>
+                        <ul style="color:var(--text-dim); font-size:0.82rem; line-height:1.8; margin-top:0.5rem; padding-left:1.2rem;">
+                            <li>📱 Interface 100% responsiva (Mobile-First)</li>
+                            <li>⏳ Contagem regressiva de expiração com segurança ativa</li>
+                            <li>💬 Mensagem personalizada com orientações do escritório</li>
+                            <li>📂 Upload em lote de DANFEs, NFS-e, recibos, impostos e extratos</li>
+                        </ul>
+                    </div>
+
+                    <div class="dual-card" data-reveal-child data-tilt>
+                        <span class="dual-card-badge badge-admin"><i class="fa-solid fa-gauge-high"></i> COCKPIT CONTÁBIL (GERENCIADOR.HTML)</span>
+                        <h3 style="color:#fff; font-size:1.2rem;">Painel de Inteligência & Escrituração</h3>
+                        <p style="color:var(--text-dim); font-size:0.9rem; line-height:1.6;">
+                            O escritório gerencia toda a carteira de empresas, analisa a Fila de Classificação, parametriza o Plano de Contas Tipo A, concilia extratos bancários e gera o lote final em segundos para o Alterdata Pack.
+                        </p>
+                        <ul style="color:var(--text-dim); font-size:0.82rem; line-height:1.8; margin-top:0.5rem; padding-left:1.2rem;">
+                            <li>🎯 Fila de Classificação Fiscal (Revenda, Uso/Consumo, Ativo)</li>
+                            <li>🧠 Central de Inteligência de Vínculos & Auto-Aprendizado</li>
+                            <li>⚖️ Conciliação com Pesos de Tolerância e Baixa em Lote</li>
+                            <li>🛡️ Revalidação Cadastral Mensal Automática contra a RFB</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO DESTAQUE: INTEGRAÇÃO ALTERDATA -->
+            <section data-reveal>
+                <h2 class="section-header" data-glitch="O Grande Diferencial: Integração Total com Alterdata Pack">O Grande Diferencial: Integração Total com Alterdata Pack</h2>
+                <p style="text-align: center; color: var(--text-dim); margin-bottom: 2rem; max-width: 840px; margin-left: auto; margin-right: auto; line-height: 1.7;">
+                    Elimine o maior gargalo operacional do escritório contábil: a digitação manual de notas, duplicatas, guias e extratos no ERP. Nossa solução conecta a recepção de documentos, a inteligência fiscal do <code>FiscalEngine.gs</code> e a exportação direta em lote para o <strong>Alterdata Pack</strong>.
                 </p>
                 
                 <div class="pilar-grid">
                     <div class="pilar-card-vendas" data-reveal-child data-tilt>
-                        <h3>🔄 Exportação em Massa para Alterdata</h3>
-                        <p>Esqueça o lançamento nota por nota. Nossa plataforma transforma todos os documentos processados em arquivos prontos para a importação em lote dentro do sistema Alterdata.</p>
+                        <h3>🔄 Exportação em Lote (.TXT / .CSV)</h3>
+                        <p>Esqueça o lançamento nota por nota. A plataforma consolida centenas de documentos processados em arquivos no layout posicional oficial exigido pelo Alterdata Pack, prontos para importação em segundos.</p>
                     </div>
 
                     <div class="pilar-card-vendas" data-reveal-child data-tilt>
-                        <h3>📐 Layout Preciso</h3>
-                        <p>Geramos os dados no formato exato exigido pelo software, garantindo que o histórico, as contas de crédito/débito e os valores sejam importados com perfeição.</p>
+                        <h3>📐 Partidas Dobradas & Trava com Cadeado</h3>
+                        <p>Débito e crédito milimetricamente balanceados ($\sum D = \sum C$). A trava de histórico impede erros antes da geração do arquivo, garantindo 100% de consistência contábil.</p>
                     </div>
 
                     <div class="pilar-card-vendas" data-reveal-child data-tilt>
-                        <h3>⚡ Ganho de Escala</h3>
-                        <p>Processe centenas de documentos simultaneamente e faça o envio para o Alterdata em poucos segundos, liberando sua equipe para tarefas consultivas e estratégicas.</p>
+                        <h3>⚡ Histórico Padrão com Complemento (?)</h3>
+                        <p>Mapeamento automático de chamadas de histórico padrão (ex: <code>PAGTO NF ? REF FORNECEDOR</code>), preenchendo automaticamente o número da nota e o nome da entidade sem retrabalho.</p>
                     </div>
                 </div>
             </section>
 
+            <!-- TECNOLOGIA & PILARES FISCAIS REAIS -->
             <section data-reveal>
-                <h2 class="section-header" data-glitch="Tecnologia de Ponta a seu Serviço">Tecnologia de Ponta a seu Serviço</h2>
+                <h2 class="section-header" data-glitch="Pilares de Alta Tecnologia & Motor Tributário">Pilares de Alta Tecnologia & Motor Tributário</h2>
                 <div class="pilar-grid">
                     <div class="pilar-card-vendas" data-reveal-child data-tilt>
-                        <h3>🧠 Processamento com Gemini AI</h3>
-                        <p>Uma Inteligência Artificial especialista em OCR que "lê" Notas Fiscais, Boletos e Duplicatas, extraindo informações críticas com alta precisão, mesmo em documentos complexos.</p>
+                        <h3>🧠 OCR Multimodal com Gemini 2.0 Flash</h3>
+                        <p>IA generativa configurada via Script Properties para leitura ultra-rápida de PDFs escaneados, fotos, DANFEs, NFS-e municipais, duplicatas, cupons fiscais e recibos, com extração estruturada em ~1.1s.</p>
                     </div>
 
                     <div class="pilar-card-vendas" data-reveal-child data-tilt>
-                        <h3>☁️ Organização em Nuvem (Google Drive)</h3>
-                        <p>Cada arquivo enviado pelo seu cliente é automaticamente renomeado e salvo na pasta correta, criando um arquivo digital organizado e fácil de consultar.</p>
+                        <h3>⚖️ Motor Fiscal Central (FiscalEngine.gs)</h3>
+                        <p>Inteligência tributária por regime: MEI, Simples Nacional (Anexos I a V e Fator R), Lucro Presumido e Lucro Real. Calcula créditos tributários (PIS/COFINS/ICMS) e retenções na fonte (CSRF 4,65%, IRRF e ISS).</p>
                     </div>
 
                     <div class="pilar-card-vendas" data-reveal-child data-tilt>
-                        <h3>🔐 Segurança via Links Temporários</h3>
-                        <p>O envio de arquivos é feito por meio de links protegidos e com tempo de expiração, garantindo que apenas pessoas autorizadas transitem informações na plataforma.</p>
+                        <h3>🛡️ Revalidação Cadastral Mensal (Cron 06h)</h3>
+                        <p>Varredura mensal automática no dia 1º de cada mês consultando a Receita Federal. Alerta imediatamente se alguma empresa mudou de regime, porte ou teve a inscrição desativada.</p>
                     </div>
 
                     <div class="pilar-card-vendas" data-reveal-child data-tilt>
-                        <h3>💡 Inteligência de Contas</h3>
-                        <p>O sistema aprende as regras de lançamento da sua empresa. Uma vez configurada a conta de um fornecedor, os próximos documentos serão categorizados automaticamente.</p>
+                        <h3>🏦 Extratos Multibancos & Conciliação por Pesos</h3>
+                        <p>Parsers dedicados para Itaú, Bradesco, BB, Santander, Caixa, Nubank, Inter e Sicredi. Algoritmo com Pesos 3, 2 e 1 e o botão "Tirar Novo em Lote" para conciliação em segundos.</p>
+                    </div>
+
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>🔄 Regeneração de PDFs a partir dos XMLs</h3>
+                        <p>Recriação em lote dos PDFs consultando os XMLs originais guardados no Google Drive, com lixeira de 30 dias para os relatórios antigos e preservação total dos dados fiscais.</p>
+                    </div>
+
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>📚 Plano de Contas Tipo A & Central de Regras</h3>
+                        <p>Sincronização de plano de contas por planilha (.XLSX/.CSV), busca instantânea com teclado e memória de vínculos que aprende as contas de cada fornecedor automaticamente.</p>
                     </div>
                 </div>
             </section>
 
+            <!-- WORKFLOW OPERACIONAL -->
             <section data-reveal>
-                <h2 class="section-header" data-glitch="Como sua operação se transforma">Como sua operação se transforma</h2>
+                <h2 class="section-header" data-glitch="Fluxo Operacional de Ponta a Ponta">Fluxo Operacional de Ponta a Ponta</h2>
                 <div class="workflow-steps">
                     <div class="step-card" data-reveal-child data-tilt>
-                        <strong>1. Coleta</strong>
-                        <p>O cliente envia os documentos por um link seguro e intuitivo.</p>
+                        <strong>1. Coleta Multidocumental</strong>
+                        <p>O cliente recebe o link seguro e envia DANFEs, NFS-e, duplicatas, DARFs ou extratos bancários direto do celular ou PC.</p>
                     </div>
                     <div class="step-card" data-reveal-child data-tilt>
-                        <strong>2. Extração</strong>
-                        <p>A IA identifica se é uma NF-e ou Duplicata e separa todos os valores e datas.</p>
+                        <strong>2. IA & OCR Gemini</strong>
+                        <p>O Gemini 2.0 Flash lê o documento, separa fornecedor, chave de acesso, valores, itens, retenções e datas em segundos.</p>
                     </div>
                     <div class="step-card" data-reveal-child data-tilt>
-                        <strong>3. Refino</strong>
-                        <p>Você revisa os lançamentos no nosso painel de gerenciador moderno.</p>
+                        <strong>3. Motor Fiscal & Fila</strong>
+                        <p>O FiscalEngine apura impostos, deduções e sugere as contas de Débito/Crédito com base no histórico aprendido.</p>
                     </div>
                     <div class="step-card" data-reveal-child data-tilt>
-                        <strong>4. Importação</strong>
-                        <p>Você baixa o arquivo consolidado e faz o envio em massa para o Alterdata.</p>
+                        <strong>4. Exportação Alterdata</strong>
+                        <p>O escritório revisa no painel do Gerenciador e faz o download do lote .TXT pronto para o Alterdata Pack.</p>
                     </div>
                 </div>
             </section>
 
+            <!-- VANTAGENS COMPETITIVAS -->
             <section data-reveal>
-                <h2 class="section-header" data-glitch="Vantagens Competitivas">Vantagens Competitivas</h2>
+                <h2 class="section-header" data-glitch="Vantagens Competitivas para seu Escritório">Vantagens Competitivas para seu Escritório</h2>
                 <div class="advantages-grid">
                     <div class="advantage-item" data-reveal-child data-tilt>
                         <div>
-                            <strong style="color: var(--neon-cyan)">Agilidade Extrema</strong><br>
-                            <span style="font-size: 0.9rem; color: var(--text-dim)">Transforme horas de trabalho manual em minutos.</span>
+                            <strong style="color: var(--neon-cyan)">Zero Digitação Manual</strong><br>
+                            <span style="font-size: 0.9rem; color: var(--text-dim)">Integração direta do upload do cliente ao ERP Alterdata.</span>
                         </div>
                     </div>
                     <div class="advantage-item" data-reveal-child data-tilt>
                         <div>
-                            <strong style="color: var(--neon-cyan)">Confiabilidade</strong><br>
-                            <span style="font-size: 0.9rem; color: var(--text-dim)">IA treinada para detectar duplicidade e erros.</span>
+                            <strong style="color: var(--neon-cyan)">Confiabilidade Tributária</strong><br>
+                            <span style="font-size: 0.9rem; color: var(--text-dim)">Detecção de duplicidade, retenções na fonte e cruzamento de CNPJ.</span>
                         </div>
                     </div>
                     <div class="advantage-item" data-reveal-child data-tilt>
                         <div>
-                            <strong style="color: var(--neon-cyan)">Sem Digitação</strong><br>
-                            <span style="font-size: 0.9rem; color: var(--text-dim)">Integração direta: do upload para o Alterdata.</span>
+                            <strong style="color: var(--neon-cyan)">Economia de 90%+ do Tempo</strong><br>
+                            <span style="font-size: 0.9rem; color: var(--text-dim)">Dezenas de horas mensais convertidas em tempo de consultoria estratégica.</span>
                         </div>
                     </div>
                     <div class="advantage-item" data-reveal-child data-tilt>
                         <div>
-                            <strong style="color: var(--neon-cyan)">Segurança</strong><br>
-                            <span style="font-size: 0.9rem; color: var(--text-dim)">Links de upload que expiram automaticamente.</span>
+                            <strong style="color: var(--neon-cyan)">Segurança de Ponta</strong><br>
+                            <span style="font-size: 0.9rem; color: var(--text-dim)">Links temporários protegidos e armazenamento estruturado em nuvem.</span>
                         </div>
                     </div>
                     <div class="advantage-item" data-reveal-child data-tilt>
                         <div>
-                            <strong style="color: var(--neon-cyan)">Histórico na Nuvem</strong><br>
-                            <span style="font-size: 0.9rem; color: var(--text-dim)">Rastreabilidade completa de envios.</span>
+                            <strong style="color: var(--neon-cyan)">Histórico e Auditoria</strong><br>
+                            <span style="font-size: 0.9rem; color: var(--text-dim)">Logs completos de processamento e auditoria em Google Sheets.</span>
                         </div>
                     </div>
                     <div class="advantage-item" data-reveal-child data-tilt>
                         <div>
-                            <strong style="color: var(--neon-cyan)">Mobile Friendly</strong><br>
-                            <span style="font-size: 0.9rem; color: var(--text-dim)">Interface limpa e otimizada para celulares.</span>
+                            <strong style="color: var(--neon-cyan)">Totalmente Responsivo</strong><br>
+                            <span style="font-size: 0.9rem; color: var(--text-dim)">Portal de envio e painel de gestão otimizados para qualquer tela.</span>
                         </div>
                     </div>
                 </div>
             </section>
 
+            <!-- FRASE DE IMPACTO REALISTA -->
             <div class="highlight-quote" data-reveal>
-                "Tecnologia Lumairam Info Tech Dev: Conectando dados, simplificando processos e eliminando a burocracia manual."
+                "De NF-e, NFS-e, duplicatas e guias de impostos até extratos multibancos e conciliação por tolerância: extração precisa com IA e exportação instantânea para o Alterdata Pack em um único ecossistema."
             </div>
 
+            <!-- CTA SECTION -->
             <div class="cta-section" data-reveal>
-                <h2>Interessado em automatizar sua contabilidade?</h2>
+                <h2>Pronto para revolucionar a recepção e escrituração de documentos?</h2>
                 <div class="cta-buttons-wrapper">
                     <a href="https://script.google.com/macros/s/AKfycbxjOhV3tF4h6JrsE2aF0wGgdoZfjEK8Vijvw8GW3_aY_yNcNovtdKwCwfffX4fdXbxs/exec" class="neon-button" target="_blank">
-                        TESTAR DEMONSTRAÇÃO
+                        TESTAR DEMONSTRAÇÃO AO VIVO
                     </a>
-                    <a href="https://api.whatsapp.com/send?phone=553799642620&text=Fiquei%20interessado(a)%20no%20Portal%20de%20Gest%C3%A3o%20de%20Documentos%20oferecido%20e%20gostaria%20de%20saber%20mais%20detalhes%20a%20respeito." class="neon-button btn-whatsapp-cta" target="_blank">
+                    <a href="https://api.whatsapp.com/send?phone=553799642620&text=Ol%C3%A1!%20Fiquei%20impressionado%20com%20o%20Portal%20de%20Recebimento%20de%20Documentos%20com%20IA%20e%20integra%C3%A7%C3%A3o%20Alterdata%20e%20gostaria%20de%20agendar%20uma%20demonstra%C3%A7%C3%A3o." class="neon-button btn-whatsapp-cta" target="_blank">
                         MARCAR REUNIÃO
                     </a>
                 </div>
@@ -482,12 +1411,13 @@
         </div>
     </footer>
 
-    <a href="https://api.whatsapp.com/send?phone=553799642620&text=Fiquei%20interessado(a)%20no%20Portal%20de%20Gest%C3%A3o%20de%20Documentos%20oferecido%20e%20gostaria%20de%20saber%20mais%20detalhes%20a%20respeito." class="whatsapp-float" target="_blank">
+    <a href="https://api.whatsapp.com/send?phone=553799642620&text=Ol%C3%A1!%20Fiquei%20impressionado%20com%20o%20Portal%20de%20Recebimento%20de%20Documentos%20com%20IA%20e%20integra%C3%A7%C3%A3o%20Alterdata%20e%20gostaria%20de%20agendar%20uma%20demonstra%C3%A7%C3%A3o." class="whatsapp-float" target="_blank">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="24" height="24" fill="#fff">
             <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27.1 106.1 27.1s73.7-9.4 106.1-27.1l117.7 30.9L418.4 365c19.4-33.7 29.6-71.9 29.6-111 0-122.4-99.6-222-222-222zM223.9 439.7c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L78 362.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.5-184.5 49.3 0 95.6 19.2 130.4 54s54 81.1 54 130.4c0 101.7-82.8 184.5-184.5 184.5zM319.1 307.2c-3.8-1.9-22.6-11.2-26.1-12.5-3.5-1.3-6-1.9-8.6 1.9-2.6 3.8-9.9 12.5-12.1 15-2.2 2.6-4.5 2.9-8.3 1-3.8-1.9-16-5.9-30.5-18.7-11.4-10-19.2-22.4-22.6-27.4-3.4-5-0.4-7.7 1.5-10.1 1.8-2.2 3.8-5.7 5.7-8.6 1.9-2.9 2.6-4.5 3.8-7.7 1.3-3.2 0.6-5.9-0.3-7.7-0.9-1.9-8.6-20.6-11.7-28.2-3.1-7.6-6.2-6.6-8.6-6.6-2.2 0-4.8 0-7.4 0-2.6 0-6.8 0.9-10.3 4.8-3.5 3.8-13.4 13.1-13.4 31.9 0 18.8 13.7 37 15.6 39.6 1.9 2.6 26.1 41.8 63.4 56.2 8.7 3.3 15.6 5.3 20.9 6.8 5.3 1.5 10 0.9 13.7-1 3.9-1.9 22.6-9.2 25.7-18.1 3.1-8.9 3.1-16.4 2.2-18.1-0.9-1.8-3.4-2.8-7.2-4.7z"/>
         </svg>
     </a>
 
+    <script src="recv-simulator.js"></script>
     <script src="lumairam-fx.js"></script>
 </body>
 </html>
