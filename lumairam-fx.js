@@ -66,13 +66,12 @@
     const root = document.documentElement;
     const body = document.body;
 
-    // Color stops along the scroll journey
+    // 4 tons harmônicos e elegantes na mesma paleta tecnológica (Ciano -> Azul Cobalto -> Azul Índigo -> Ice Teal)
     const colorStops = [
-      { pos: 0.0,  bg: [5, 10, 25],    accent: [0, 242, 255],  glow: [0, 102, 255]   },  // Cyan cyberpunk
-      { pos: 0.25, bg: [15, 5, 35],     accent: [168, 85, 247], glow: [139, 92, 246]  },  // Purple neon
-      { pos: 0.5,  bg: [5, 20, 10],     accent: [0, 255, 65],   glow: [16, 185, 129]  },  // Matrix green
-      { pos: 0.75, bg: [25, 5, 20],     accent: [255, 0, 102],  glow: [236, 72, 153]  },  // Hot pink
-      { pos: 1.0,  bg: [5, 10, 25],     accent: [0, 242, 255],  glow: [0, 102, 255]   },  // Back to cyan
+      { pos: 0.00, bg: [5, 10, 25],  accent: [0, 220, 255],  glow: [0, 110, 255]  },  // 1. Ciano Tech Profissional
+      { pos: 0.33, bg: [6, 12, 28],  accent: [56, 148, 255], glow: [30, 95, 230]  },  // 2. Azul Cobalto Elegante
+      { pos: 0.66, bg: [7, 14, 30],  accent: [80, 130, 255], glow: [0, 150, 255]  },  // 3. Azul Índigo Tech
+      { pos: 1.00, bg: [5, 12, 26],  accent: [0, 230, 210],  glow: [0, 140, 200]  },  // 4. Ice Teal Moderno
     ];
 
     function lerp(a, b, t) { return a + (b - a) * t; }
