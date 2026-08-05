@@ -180,8 +180,7 @@
     let currentScenarioIndex = 0;
     let currentStepIndex = 0;
     let stepTimer = null;
-    let isPaused = false;
-    let progressTimer = null;
+    let isTransitioning = false;
 
     // DOM Elements
     let chatBody = null;
@@ -203,7 +202,7 @@
 
         if (!chatBody || !scenarioNav) return;
 
-        // Attach Nav Click Events
+        // Attach Nav Click Events (permite navegar manualmente se quiser, mas continua o loop automático)
         const pills = scenarioNav.querySelectorAll('.wpp-scenario-pill');
         pills.forEach((pill) => {
             pill.addEventListener('click', () => {
@@ -212,20 +211,13 @@
             });
         });
 
-        // Pause on hover
-        const phone = document.querySelector('.wpp-phone');
-        if (phone) {
-            phone.addEventListener('mouseenter', () => { isPaused = true; });
-            phone.addEventListener('mouseleave', () => { isPaused = false; });
-        }
-
-        // Start first scenario
+        // Inicia o primeiro cenário no loop automático contínuo
         loadScenario(0);
     }
 
     function switchScenario(index) {
         clearTimeout(stepTimer);
-        clearInterval(progressTimer);
+        isTransitioning = false;
         currentScenarioIndex = index;
         loadScenario(index);
     }
@@ -235,7 +227,8 @@
         if (!scenario) return;
 
         currentStepIndex = 0;
-        if (progressFill) progressFill.style.width = '0%';
+        isTransitioning = false;
+        updateProgressBar(0);
 
         // Update Header
         if (titleEl) titleEl.textContent = scenario.title;
@@ -258,44 +251,58 @@
             `;
         }
 
-        // Clear chat body
+        // Clear chat body with a quick clean fade
         chatBody.innerHTML = '';
 
-        // Run steps
+        // Run steps automatically
         runNextStep();
     }
 
+    function updateProgressBar(percent) {
+        if (progressFill) {
+            progressFill.style.transition = 'width 0.4s ease';
+            progressFill.style.width = Math.min(100, Math.max(0, percent)) + '%';
+        }
+    }
+
     function runNextStep() {
-        if (isPaused) {
-            stepTimer = setTimeout(runNextStep, 400);
+        const scenario = SCENARIOS[currentScenarioIndex];
+        if (!scenario) return;
+
+        // Se chegou ao fim do cenário atual, aguarda 2.2 segundos e avança para o próximo automaticamente
+        if (currentStepIndex >= scenario.steps.length) {
+            if (!isTransitioning) {
+                isTransitioning = true;
+                updateProgressBar(100);
+                stepTimer = setTimeout(() => {
+                    const nextIdx = (currentScenarioIndex + 1) % SCENARIOS.length;
+                    switchScenario(nextIdx);
+                }, 2200);
+            }
             return;
         }
 
-        const scenario = SCENARIOS[currentScenarioIndex];
-        if (!scenario || currentStepIndex >= scenario.steps.length) {
-            // End of scenario: wait 4.5s and cycle to next
-            startProgress(4500, () => {
-                const nextIdx = (currentScenarioIndex + 1) % SCENARIOS.length;
-                switchScenario(nextIdx);
-            });
-            return;
-        }
+        const totalSteps = scenario.steps.length;
+        const progressPercent = ((currentStepIndex + 1) / totalSteps) * 100;
+        updateProgressBar(progressPercent);
 
         const step = scenario.steps[currentStepIndex];
         currentStepIndex++;
 
-        // Remove old typing indicators
+        // Remove typing indicator anterior
         removeTypingIndicator();
 
         if (step.type === 'typing') {
             showTypingIndicator();
-            stepTimer = setTimeout(runNextStep, step.delay || 800);
+            stepTimer = setTimeout(runNextStep, step.delay || 700);
         } else if (step.type === 'click_btn') {
             highlightButton(step.btnIndex);
-            stepTimer = setTimeout(runNextStep, step.delay || 1000);
+            stepTimer = setTimeout(runNextStep, step.delay || 900);
         } else {
             renderMessage(step);
-            stepTimer = setTimeout(runNextStep, 1000);
+            // Intervalo natural entre mensagens
+            const nextDelay = (step.type === 'success' || step.type === 'product' || step.type === 'checkout') ? 1400 : 900;
+            stepTimer = setTimeout(runNextStep, nextDelay);
         }
     }
 
@@ -531,21 +538,6 @@
                 behavior: 'smooth'
             });
         }
-    }
-
-    function startProgress(durationMs, onComplete) {
-        clearInterval(progressTimer);
-        const startTime = Date.now();
-        progressTimer = setInterval(() => {
-            if (isPaused) return;
-            const elapsed = Date.now() - startTime;
-            const pct = Math.min(100, (elapsed / durationMs) * 100);
-            if (progressFill) progressFill.style.width = pct + '%';
-            if (pct >= 100) {
-                clearInterval(progressTimer);
-                if (onComplete) onComplete();
-            }
-        }, 50);
     }
 
     // Initialize on DOM ready
