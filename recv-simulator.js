@@ -12,8 +12,9 @@
 
     const SCENARIOS = [
         {
-            id: 'loop_upload_docs',
-            badge: 'LOOP 1 // PROCESSAMENTO MULTIDOCUMENTAL',
+            id: 'mod_upload_docs',
+            badge: 'PROCESSAMENTO MULTIDOCUMENTAL',
+            pillLabel: 'Documentos Fiscais',
             title: '01. Leitura Dinâmica de NF-e, NFS-e, Boletos e Guias na Mesma Interface',
             desc: 'Demonstração animada do envio de múltiplos documentos fiscais. A IA processa sequencialmente DANFE com CFOP, NFS-e com desmembramento de 4 retenções, Boletos com linha digitável e Guias DARF/DAS segregando principal de multas e juros.',
             type: 'upload_multidoc',
@@ -88,8 +89,9 @@
             ]
         },
         {
-            id: 'loop_extratos_bancarios',
-            badge: 'LOOP 2 // EXTRATOS MULTIBANCOS & CONCILIAÇÃO',
+            id: 'mod_extratos_bancarios',
+            badge: 'EXTRATOS MULTIBANCOS & CONCILIAÇÃO',
+            pillLabel: 'Extratos Bancários',
             title: '02. Leitura de Extrato Bancário, Limpeza de Históricos & Conciliação por Peso 3',
             desc: 'Demonstração da leitura direta de extrato em PDF/OFX do Banco Itaú. O motor limpa as descrições bancárias sujas, cruza em tempo real com as notas e impostos do sistema pelo algoritmo de Peso 3 e executa a baixa em lote com 1 clique.',
             type: 'extrato_conciliacao',
@@ -127,8 +129,9 @@
             ]
         },
         {
-            id: 'loop_fila_classificacao',
-            badge: 'LOOP 3 // FILA FISCAL & AUTO-APRENDIZADO',
+            id: 'mod_fila_classificacao',
+            badge: 'FILA FISCAL & AUTO-APRENDIZADO',
+            pillLabel: 'Fila & Regras Fiscais',
             title: '03. Fila de Classificação: Destinação de Mercadorias & Memória de Vínculos',
             desc: 'Quando uma nota de fornecedor novo chega, a IA analisa o CFOP e apresenta a destinação na fila. Ao confirmar em 1 clique (Revenda x Consumo), a Central de Inteligência aprende a regra para nunca mais pedir intervenção manual.',
             type: 'fila_vinculos',
@@ -155,8 +158,9 @@
             ]
         },
         {
-            id: 'loop_export_alterdata',
-            badge: 'LOOP 4 // EXPORTAÇÃO ERP ALTERDATA PACK',
+            id: 'mod_export_alterdata',
+            badge: 'EXPORTAÇÃO ERP ALTERDATA PACK',
+            pillLabel: 'Exportação Alterdata',
             title: '04. Cockpit Gerenciador & Exportação Estruturada de Lote (.TXT)',
             desc: 'Consolidação de todos os lançamentos do mês em lote oficial do Alterdata Pack. O sistema valida rigorosamente partidas dobradas balanceadas e inclui chamadas de histórico padrão com interrogação.',
             type: 'alterdata_export',
@@ -174,19 +178,20 @@
                 },
                 {
                     phase: 'generate_txt',
-                    statusText: 'Formatando arquivo posicional Alterdata Pack (.TXT)...',
-                    previewTxt: [
-                        '01|20260828|110301|210101|14850.00|1.0|NF 7849 TECH DISTRIBUIDORA LTDA|',
-                        '01|20260827|310204|210101|8500.00|1.0|NFSE 892 NEXUS CONSULTORIA TECH|',
+                    statusText: 'Gerando arquivo de lote .TXT no padrão oficial Alterdata Pack...',
+                    txtLines: [
+                        '01|20260812|110301|210101|14850.00|1.0|NF 7849 TECH DISTRIB CFOP 1102|',
+                        '01|20260827|310101|210102|8500.00|1.0|NFS-E 892 NEXUS CONSULTORIA TI|',
+                        '01|20260827|210102|210401|395.25|1.0|RETENCAO CSRF 4.65 NFS-E 892|',
+                        '01|20260827|210102|210402|127.50|1.0|RETENCAO IRRF 1.50 NFS-E 892|',
                         '01|20260828|210101|110102|4950.00|2.0|PG. S/DUPL 7849/01 TECH DISTRIB|',
-                        '01|20260820|210401|110102|3250.00|3.0|PG. S/ IRRF PRINCIPAL CONF GUIA|',
-                        '01|20260828|110102|110201|18200.00|4.0|PIX RECEBIDO CLIENTE MODERNO|'
+                        '01|20260820|210401|110102|3250.00|2.0|PG. GUIA DARF 1708 REC FEDERAL|'
                     ]
                 },
                 {
                     phase: 'ready_download',
-                    statusText: 'Arquivo LOTE_CONTABIL_ALTERDATA.TXT pronto para importação no ERP!',
-                    action: 'Zero digitação manual no escritório contábil.'
+                    statusText: 'Lote pronto! 342 lançamentos prontos para importação direta no Alterdata.',
+                    downloadBadge: 'ARQUIVO: LOTE_CONTABIL_082026.TXT'
                 }
             ]
         }
@@ -219,7 +224,7 @@
         pillsContainer.innerHTML = SCENARIOS.map((sc, idx) => `
             <button class="recv-pill ${idx === 0 ? 'active' : ''}" data-idx="${idx}">
                 <i class="${getIcon(sc.type)}"></i>
-                <span>${sc.badge.split('//')[1].trim()}</span>
+                <span>${sc.pillLabel || sc.badge}</span>
             </button>
         `).join('');
 
