@@ -73,7 +73,7 @@
             0%, 100% { transform: translateY(0); opacity: 0.5; }
             50% { transform: translateY(-15px); opacity: 1; }
         }
-        /* Showcase */
+        /* Showcase e Simulador Interativo Multi-Cenários */
         .wpp-showcase {
             position: relative;
             z-index: 2;
@@ -81,122 +81,390 @@
             flex-direction: column;
             align-items: center;
             gap: 2rem;
-            padding: 2rem;
-            text-align: center;
+            padding: 1.5rem 1rem 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
         }
+
+        /* Barra de Navegação de Cenários */
+        .wpp-scenario-nav {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 6px 4px 10px;
+            width: 100%;
+            max-width: 950px;
+            justify-content: flex-start;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0,242,255,0.3) transparent;
+        }
+        @media (min-width: 860px) {
+            .wpp-scenario-nav {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+        }
+        .wpp-scenario-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(10, 20, 35, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            color: var(--text-dim);
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(8px);
+        }
+        .wpp-scenario-pill i {
+            font-size: 0.8rem;
+            color: var(--neon-cyan);
+            transition: transform 0.2s ease;
+        }
+        .wpp-scenario-pill:hover {
+            border-color: rgba(0, 242, 255, 0.4);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 242, 255, 0.15);
+        }
+        .wpp-scenario-pill.active {
+            background: linear-gradient(135deg, rgba(0, 242, 255, 0.15), rgba(37, 211, 102, 0.15));
+            border-color: var(--neon-cyan);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.3), inset 0 0 10px rgba(0, 242, 255, 0.1);
+        }
+        .wpp-scenario-pill.active i {
+            transform: scale(1.15);
+            color: #25d366;
+        }
+
+        /* Container do Simulador (Telefone + Explicação) */
+        .wpp-sim-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2.5rem;
+            width: 100%;
+            max-width: 950px;
+        }
+        @media (min-width: 860px) {
+            .wpp-sim-layout {
+                flex-direction: row;
+                align-items: stretch;
+                justify-content: center;
+            }
+        }
+
         /* Phone mockup */
         .wpp-phone {
-            width: 260px;
-            background: rgba(10,18,30,0.95);
-            border: 1px solid rgba(37,211,102,0.2);
-            border-radius: 24px;
+            width: 320px;
+            max-width: 100%;
+            background: #0b141a;
+            border: 1px solid rgba(0, 242, 255, 0.25);
+            border-radius: 28px;
             overflow: hidden;
-            box-shadow: 0 0 40px rgba(37,211,102,0.1), 0 20px 60px rgba(0,0,0,0.4);
+            box-shadow: 0 0 40px rgba(0, 242, 255, 0.12), 0 20px 60px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .wpp-progress-track {
+            width: 100%;
+            height: 3px;
+            background: rgba(255,255,255,0.05);
+            position: relative;
+        }
+        .wpp-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #00f2ff, #25d366);
+            box-shadow: 0 0 8px #00f2ff;
+            transition: width 0.05s linear;
         }
         .wpp-phone-notch {
             width: 80px;
             height: 5px;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.15);
             border-radius: 10px;
-            margin: 8px auto;
+            margin: 6px auto 2px;
         }
         .wpp-phone-header {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 14px 10px;
-            background: rgba(37,211,102,0.08);
-            border-bottom: 1px solid rgba(37,211,102,0.1);
+            gap: 10px;
+            padding: 8px 14px;
+            background: #1f2c34;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
         }
         .wpp-phone-header .wpp-avatar {
-            width: 28px; height: 28px;
+            width: 32px; height: 32px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #25d366, #128c7e);
+            background: linear-gradient(135deg, #00f2ff, #128c7e);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.65rem;
+            font-size: 0.75rem;
             color: #fff;
             font-weight: 700;
+            flex-shrink: 0;
+            box-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
         }
         .wpp-phone-header .wpp-contact {
             flex: 1;
+            min-width: 0;
+            text-align: left;
         }
         .wpp-phone-header .wpp-contact strong {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             color: #fff;
             display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .wpp-phone-header .wpp-contact span {
-            font-size: 0.55rem;
+            font-size: 0.58rem;
             color: #25d366;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
+        .wpp-phone-icons {
+            display: flex;
+            gap: 12px;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.75rem;
+        }
+
+        /* Chat Body */
         .wpp-chat-body {
             padding: 12px;
-            min-height: 200px;
+            height: 380px;
+            min-height: 380px;
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
             gap: 8px;
+            background: #0b141a radial-gradient(circle at 50% 50%, rgba(18, 140, 126, 0.04) 0%, transparent 80%);
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.1) transparent;
         }
-        .wpp-msg {
-            max-width: 80%;
-            padding: 8px 10px;
-            border-radius: 8px;
-            font-size: 0.65rem;
-            line-height: 1.4;
-            animation: msgAppear 0.5s ease-out both;
+        .wpp-msg-wrapper {
+            animation: msgFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
         }
-        .wpp-msg.received {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.08);
-            color: var(--text-light);
-            align-self: flex-start;
-            border-radius: 8px 8px 8px 2px;
-        }
-        .wpp-msg.sent {
-            background: rgba(37,211,102,0.12);
-            border: 1px solid rgba(37,211,102,0.2);
-            color: #d4f5e0;
-            align-self: flex-end;
-            border-radius: 8px 8px 2px 8px;
-        }
-        .wpp-msg.bot {
-            background: rgba(0,242,255,0.08);
-            border: 1px solid rgba(0,242,255,0.15);
-            color: var(--neon-cyan);
-            align-self: flex-end;
-            border-radius: 8px 8px 2px 8px;
-        }
-        .wpp-msg:nth-child(1) { animation-delay: 0.8s; }
-        .wpp-msg:nth-child(2) { animation-delay: 1.4s; }
-        .wpp-msg:nth-child(3) { animation-delay: 2.0s; }
-        .wpp-msg:nth-child(4) { animation-delay: 2.6s; }
-        .wpp-msg:nth-child(5) { animation-delay: 3.2s; }
-        @keyframes msgAppear {
-            from { opacity: 0; transform: translateY(10px) scale(0.95); }
+        @keyframes msgFadeIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.96); }
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
+
+        .wpp-msg {
+            max-width: 86%;
+            padding: 8px 10px;
+            border-radius: 8px;
+            font-size: 0.68rem;
+            line-height: 1.42;
+            word-wrap: break-word;
+            text-align: left;
+            position: relative;
+        }
+        .wpp-msg.received {
+            background: #202c33;
+            color: #e9edef;
+            align-self: flex-start;
+            border-radius: 8px 8px 8px 2px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        .wpp-msg.sent {
+            background: #005c4b;
+            color: #e9edef;
+            align-self: flex-end;
+            border-radius: 8px 8px 2px 8px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        .wpp-msg.bot {
+            background: #182229;
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            color: #d1d7db;
+            align-self: flex-start;
+            border-radius: 8px 8px 8px 2px;
+            box-shadow: 0 2px 8px rgba(0, 242, 255, 0.08);
+            width: 90%;
+            max-width: 90%;
+        }
+        .wpp-msg.system {
+            background: rgba(255, 184, 0, 0.08);
+            border: 1px solid rgba(255, 184, 0, 0.25);
+            color: #ffd166;
+            align-self: center;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.62rem;
+            max-width: 92%;
+        }
+        .wpp-msg.agent {
+            background: #112d2b;
+            border: 1px solid rgba(37, 211, 102, 0.3);
+            color: #d4f5e0;
+            align-self: flex-start;
+            border-radius: 8px 8px 8px 2px;
+            max-width: 88%;
+        }
+        .wpp-msg.success {
+            background: #0e2a22;
+            border: 1px solid rgba(37, 211, 102, 0.4);
+            color: #d4f5e0;
+            align-self: flex-start;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 90%;
+        }
+
         .wpp-msg-time {
-            font-size: 0.5rem;
-            color: rgba(255,255,255,0.3);
+            font-size: 0.52rem;
+            color: rgba(255,255,255,0.4);
             text-align: right;
-            margin-top: 2px;
+            margin-top: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 4px;
+        }
+        .wpp-ticks {
+            color: #53bdeb;
+            font-size: 0.6rem;
         }
         .wpp-msg-bot-badge {
-            font-size: 0.5rem;
+            font-size: 0.52rem;
             background: rgba(0,242,255,0.15);
             color: var(--neon-cyan);
             padding: 1px 6px;
             border-radius: 4px;
             display: inline-block;
-            margin-bottom: 3px;
+            margin-bottom: 4px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
         }
+
+        /* Botões Interativos da Meta API */
+        .wpp-interactive-options, .wpp-slots-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-top: 6px;
+        }
+        .wpp-interactive-btn {
+            background: rgba(0, 242, 255, 0.08);
+            border: 1px solid rgba(0, 242, 255, 0.3);
+            border-radius: 6px;
+            padding: 6px 10px;
+            color: #00f2ff;
+            font-size: 0.64rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            user-select: none;
+        }
+        .wpp-interactive-btn:hover, .wpp-interactive-btn.selected {
+            background: rgba(0, 242, 255, 0.22);
+            border-color: #00f2ff;
+            color: #fff;
+            box-shadow: 0 0 10px rgba(0, 242, 255, 0.35);
+        }
+
+        /* Cards Especiais de Produto e Checkout */
+        .wpp-product-card, .wpp-checkout-card, .wpp-infoproduct-card {
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            padding: 6px 8px;
+            margin-top: 5px;
+        }
+        .wpp-product-header {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .wpp-product-icon {
+            width: 28px; height: 28px;
+            background: rgba(0, 242, 255, 0.15);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00f2ff;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+        .wpp-product-title {
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.25;
+        }
+        .wpp-product-tag {
+            font-size: 0.55rem;
+            color: #25d366;
+            font-weight: 600;
+        }
+        .wpp-product-price {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: #25d366;
+            margin-top: 4px;
+        }
+
+        .wpp-pix-box {
+            background: rgba(0,0,0,0.4);
+            border: 1px dashed rgba(37, 211, 102, 0.3);
+            border-radius: 4px;
+            padding: 4px 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+        }
+        .wpp-pix-box code {
+            font-family: monospace;
+            font-size: 0.52rem;
+            color: rgba(255,255,255,0.75);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .wpp-pix-copy {
+            font-size: 0.55rem;
+            color: #25d366;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        /* Typing Indicator */
         .wpp-typing {
             display: flex;
-            gap: 3px;
-            padding: 8px 12px;
-            align-self: flex-end;
-            animation: msgAppear 0.5s ease-out 3.6s both;
+            gap: 4px;
+            padding: 6px 10px;
+            background: #202c33;
+            border-radius: 12px;
+            align-self: flex-start;
+            width: fit-content;
+            margin-top: 2px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
         .wpp-typing-dot {
             width: 5px; height: 5px;
@@ -208,49 +476,89 @@
         .wpp-typing-dot:nth-child(3) { animation-delay: 0.4s; }
         @keyframes typingBounce {
             0%, 60%, 100% { transform: translateY(0); opacity: 0.3; }
-            30% { transform: translateY(-5px); opacity: 1; }
+            30% { transform: translateY(-4px); opacity: 1; }
         }
+
+        /* Bottom Bar */
         .wpp-phone-bottom {
-            padding: 10px 14px;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 8px 10px;
+            background: #1f2c34;
+            border-top: 1px solid rgba(255,255,255,0.06);
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+        .wpp-bottom-icon {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.8rem;
         }
         .wpp-input-fake {
             flex: 1;
             height: 28px;
             border-radius: 14px;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.06);
+            background: #2a3942;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+        }
+        .wpp-input-placeholder {
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.4);
         }
         .wpp-send-btn {
             width: 28px; height: 28px;
             border-radius: 50%;
-            background: #25d366;
+            background: #00a884;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 0.65rem;
             color: #fff;
+            flex-shrink: 0;
         }
-        /* Hero text */
-        .wpp-hero-text h1 {
-            font-size: clamp(1.5rem, 3.8vw, 2.4rem);
-            font-weight: 800;
-            background: linear-gradient(135deg, #fff 30%, #25d366);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
+
+        /* Scenario Explanation Box */
+        .wpp-scenario-desc {
+            flex: 1;
+            background: rgba(10, 20, 35, 0.7);
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .wpp-desc-badge {
+            display: inline-block;
+            background: rgba(0, 242, 255, 0.15);
+            color: var(--neon-cyan);
+            border: 1px solid rgba(0, 242, 255, 0.3);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            width: fit-content;
+        }
+        .wpp-scenario-desc h3 {
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+            color: #fff;
+            font-weight: 700;
             margin-bottom: 0.8rem;
+            line-height: 1.3;
         }
-        .wpp-hero-text p {
+        .wpp-scenario-desc p {
             color: var(--text-dim);
-            font-size: 1rem;
-            line-height: 1.6;
-            max-width: 480px;
+            font-size: 0.95rem;
+            line-height: 1.65;
+            margin: 0;
         }
+
         /* Scanline green */
         .wpp-scanline {
             position: absolute;
@@ -263,15 +571,6 @@
         @keyframes wppScan {
             0% { top: 0; }
             100% { top: 100%; }
-        }
-        @media (min-width: 768px) {
-            .wpp-showcase { flex-direction: row; gap: 4rem; }
-            .wpp-hero-text { text-align: left; }
-            .wpp-hero { min-height: 480px; }
-        }
-        @media (max-width: 767px) {
-            .wpp-hero { min-height: 640px; padding: 80px 0 60px; }
-            .wpp-phone { width: 230px; }
         }
     </style>
 </head>
@@ -313,7 +612,7 @@
 
     <main class="app-container">
 
-        <!-- HERO IMERSIVO WHATSAPP -->
+        <!-- HERO IMERSIVO WHATSAPP COM SIMULADOR MULTI-CENÁRIOS -->
         <section class="wpp-hero" data-reveal>
             <div class="wpp-scanline"></div>
 
@@ -322,61 +621,80 @@
                 <div class="wpp-conn-circle"></div>
                 <div class="wpp-conn-circle"></div>
                 <div class="wpp-conn-circle"></div>
-                <div class="wpp-bubble-bg">Olá, preciso de ajuda...</div>
-                <div class="wpp-bubble-bg">Orçamento enviado!</div>
-                <div class="wpp-bubble-bg">Setor: Comercial</div>
-                <div class="wpp-bubble-bg">Atendente: Ana</div>
+                <div class="wpp-bubble-bg">Triagem Inteligente...</div>
+                <div class="wpp-bubble-bg">Checkout Pix Gerado!</div>
+                <div class="wpp-bubble-bg">Estoque: -1 unid.</div>
+                <div class="wpp-bubble-bg">Google Agenda Sincronizada</div>
             </div>
 
             <div class="wpp-showcase">
-                <!-- Phone mockup -->
-                <div class="wpp-phone">
-                    <div class="wpp-phone-notch"></div>
-                    <div class="wpp-phone-header">
-                        <div class="wpp-avatar"><i class="fa-solid fa-building"></i></div>
-                        <div class="wpp-contact">
-                            <strong>Sua Empresa</strong>
-                            <span>online - 3 atendentes</span>
-                        </div>
-                    </div>
-                    <div class="wpp-chat-body">
-                        <div class="wpp-msg received">
-                            Olá! Gostaria de um orçamento para o serviço de contabilidade.
-                            <div class="wpp-msg-time">10:32</div>
-                        </div>
-                        <div class="wpp-msg bot">
-                            <div class="wpp-msg-bot-badge">BOT</div>
-                            Olá! Seja bem-vindo. Escolha o setor:<br>1 - Comercial<br>2 - Suporte<br>3 - Financeiro
-                            <div class="wpp-msg-time">10:32</div>
-                        </div>
-                        <div class="wpp-msg received">
-                            1
-                            <div class="wpp-msg-time">10:33</div>
-                        </div>
-                        <div class="wpp-msg bot">
-                            <div class="wpp-msg-bot-badge">BOT</div>
-                            Transferindo para o setor Comercial...
-                            <div class="wpp-msg-time">10:33</div>
-                        </div>
-                        <div class="wpp-msg sent">
-                            Oi! Sou a Ana do Comercial. Vou te ajudar com o orçamento agora mesmo!
-                            <div class="wpp-msg-time">10:34</div>
-                        </div>
-                        <div class="wpp-typing">
-                            <div class="wpp-typing-dot"></div>
-                            <div class="wpp-typing-dot"></div>
-                            <div class="wpp-typing-dot"></div>
-                        </div>
-                    </div>
-                    <div class="wpp-phone-bottom">
-                        <div class="wpp-input-fake"></div>
-                        <div class="wpp-send-btn"><i class="fa-solid fa-paper-plane" style="font-size:0.6rem"></i></div>
-                    </div>
+                <!-- Seletor de Cenários em Tempo Real -->
+                <div class="wpp-scenario-nav" id="wpp-scenario-nav">
+                    <button class="wpp-scenario-pill active" data-scenario="0">
+                        <i class="fa-solid fa-sitemap"></i>
+                        <span>1. Triagem por Setores</span>
+                    </button>
+                    <button class="wpp-scenario-pill" data-scenario="1">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span>2. Venda & Mercado Pago</span>
+                    </button>
+                    <button class="wpp-scenario-pill" data-scenario="2">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        <span>3. Agendamento Inteligente</span>
+                    </button>
+                    <button class="wpp-scenario-pill" data-scenario="3">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <span>4. Venda de Infoproduto</span>
+                    </button>
+                    <button class="wpp-scenario-pill" data-scenario="4">
+                        <i class="fa-solid fa-users-viewfinder"></i>
+                        <span>5. Captação de Fornecedores</span>
+                    </button>
                 </div>
 
-                <div class="wpp-hero-text">
-                    <h1>Chat WhatsApp Inteligente</h1>
-                    <p>Transforme seu WhatsApp em uma central de atendimento multiusuário. Automação 24/7, setores organizados, envio em massa e relatórios de conversão em tempo real.</p>
+                <div class="wpp-sim-layout">
+                    <!-- Phone mockup -->
+                    <div class="wpp-phone">
+                        <!-- Barra de Progresso do Cenário -->
+                        <div class="wpp-progress-track">
+                            <div class="wpp-progress-fill" id="wpp-progress-fill"></div>
+                        </div>
+
+                        <div class="wpp-phone-notch"></div>
+                        <div class="wpp-phone-header">
+                            <div class="wpp-avatar" id="wpp-sim-avatar"><i class="fa-solid fa-building-user"></i></div>
+                            <div class="wpp-contact">
+                                <strong id="wpp-sim-title">Lumairam Atendimento</strong>
+                                <span id="wpp-sim-status"><i class="fa-solid fa-circle" style="font-size:0.4rem; color:#25d366; vertical-align:middle; margin-right:4px;"></i>online • 4 atendentes ativos</span>
+                            </div>
+                            <div class="wpp-phone-icons">
+                                <i class="fa-solid fa-video"></i>
+                                <i class="fa-solid fa-phone"></i>
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </div>
+                        </div>
+
+                        <!-- Chat Messages Rendered Dynamically -->
+                        <div class="wpp-chat-body" id="wpp-chat-body">
+                            <!-- Injetado via chat-simulator.js -->
+                        </div>
+
+                        <div class="wpp-phone-bottom">
+                            <div class="wpp-bottom-icon"><i class="fa-regular fa-face-smile"></i></div>
+                            <div class="wpp-input-fake">
+                                <span class="wpp-input-placeholder">Mensagem</span>
+                            </div>
+                            <div class="wpp-bottom-icon"><i class="fa-solid fa-paperclip"></i></div>
+                            <div class="wpp-send-btn"><i class="fa-solid fa-paper-plane"></i></div>
+                        </div>
+                    </div>
+
+                    <!-- Explicação Dinâmica do Cenário Atual -->
+                    <div class="wpp-scenario-desc" id="wpp-scenario-desc">
+                        <div class="wpp-desc-badge">ROTEAMENTO INTELIGENTE</div>
+                        <h3>01. Triagem por Setores com Botões Interativos (Meta API)</h3>
+                        <p>Esqueça menus numéricos arcaicos. O cliente escolhe o departamento através de botões interativos nativos do WhatsApp Cloud API. A conversa é roteada em tempo real para o atendente correto com histórico preservado.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -504,6 +822,7 @@
         </svg>
     </a>
 
+    <script src="chat-simulator.js"></script>
     <script src="lumairam-fx.js"></script>
 </body>
 </html>
