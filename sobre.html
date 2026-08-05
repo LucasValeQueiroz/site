@@ -37,30 +37,81 @@
                 <span></span><span></span><span></span>
             </button>
             <ul id="nav-menu">
-                <li class="nav-item-single"><a href="sobre.html" class="active">Sobre</a></li>
-                <li class="nav-item-single"><a href="index.html">Seja Sócio</a></li>
+                <li class="nav-item"><a href="sobre.html" class="nav-link active">Sobre</a></li>
+                <li class="nav-item"><a href="index.html" class="nav-link">Seja Sócio</a></li>
 
-                <li class="nav-cluster nav-cluster-fiscal">
-                    <span class="nav-cluster-label"><i class="fa-solid fa-file-invoice-dollar"></i> Fiscal / Contábil</span>
-                    <div class="nav-cluster-items">
-                        <a href="receberarquivos.html">Receber Arquivos</a>
-                        <a href="encontrarcomia.html">Conciliação Contábil</a>
-                        <a href="portaldocontribuinte.html">Portal do Contribuinte</a>
+                <!-- DROPDOWN FISCAL / CONTÁBIL -->
+                <li class="nav-item nav-dropdown nav-dropdown-fiscal">
+                    <button class="dropdown-trigger" aria-expanded="false" type="button">
+                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                        <span>Fiscal / Contábil</span>
+                        <i class="fa-solid fa-chevron-down caret-icon"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="receberarquivos.html" class="dropdown-item">
+                            <i class="fa-solid fa-file-arrow-up"></i>
+                            <div class="dropdown-item-text">
+                                <span class="dropdown-title">Receber Arquivos</span>
+                                <span class="dropdown-desc">OCR Inteligente com Google Gemini</span>
+                            </div>
+                        </a>
+                        <a href="encontrarcomia.html" class="dropdown-item">
+                            <i class="fa-solid fa-scale-balanced"></i>
+                            <div class="dropdown-item-text">
+                                <span class="dropdown-title">Conciliação Contábil</span>
+                                <span class="dropdown-desc">Cruzamento & Integração Alterdata</span>
+                            </div>
+                        </a>
+                        <a href="portaldocontribuinte.html" class="dropdown-item">
+                            <i class="fa-solid fa-landmark"></i>
+                            <div class="dropdown-item-text">
+                                <span class="dropdown-title">Portal do Contribuinte</span>
+                                <span class="dropdown-desc">Automação de Guias & Simulação</span>
+                            </div>
+                        </a>
                     </div>
                 </li>
 
-                <li class="nav-cluster nav-cluster-util">
-                    <span class="nav-cluster-label"><i class="fa-solid fa-wand-magic-sparkles"></i> Utilidades</span>
-                    <div class="nav-cluster-items">
-                        <a href="driveinteligente.html">Drive Inteligente</a>
-                        <a href="chatwhatsappinteligente.html">Chat WhatsApp</a>
+                <!-- DROPDOWN UTILIDADES -->
+                <li class="nav-item nav-dropdown nav-dropdown-util">
+                    <button class="dropdown-trigger" aria-expanded="false" type="button">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <span>Utilidades</span>
+                        <i class="fa-solid fa-chevron-down caret-icon"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="driveinteligente.html" class="dropdown-item">
+                            <i class="fa-solid fa-hard-drive"></i>
+                            <div class="dropdown-item-text">
+                                <span class="dropdown-title">Drive Inteligente</span>
+                                <span class="dropdown-desc">Busca Semântica & Nuvem</span>
+                            </div>
+                        </a>
+                        <a href="chatwhatsappinteligente.html" class="dropdown-item">
+                            <i class="fa-brands fa-whatsapp"></i>
+                            <div class="dropdown-item-text">
+                                <span class="dropdown-title">Chat WhatsApp</span>
+                                <span class="dropdown-desc">Atendimento Automatizado por IA</span>
+                            </div>
+                        </a>
                     </div>
                 </li>
 
-                <li class="nav-cluster nav-cluster-imob">
-                    <span class="nav-cluster-label"><i class="fa-solid fa-building-user"></i> Imobiliário</span>
-                    <div class="nav-cluster-items">
-                        <a href="controleimobiliario.html">Controle Imobiliário</a>
+                <!-- DROPDOWN IMOBILIÁRIO -->
+                <li class="nav-item nav-dropdown nav-dropdown-imob">
+                    <button class="dropdown-trigger" aria-expanded="false" type="button">
+                        <i class="fa-solid fa-building-user"></i>
+                        <span>Imobiliário</span>
+                        <i class="fa-solid fa-chevron-down caret-icon"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="controleimobiliario.html" class="dropdown-item">
+                            <i class="fa-solid fa-city"></i>
+                            <div class="dropdown-item-text">
+                                <span class="dropdown-title">Controle Imobiliário</span>
+                                <span class="dropdown-desc">Gestão de Contratos e Aluguéis</span>
+                            </div>
+                        </a>
                     </div>
                 </li>
             </ul>
