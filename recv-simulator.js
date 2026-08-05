@@ -305,11 +305,11 @@
     function playStepSequence(sc) {
         const step = sc.steps[currentStepIdx];
         if (!step) {
-            // Fim dos passos do cenário atual -> Avançar para o próximo após um breve delay
+            // Fim dos passos do cenário atual -> Avançar para o próximo após uma pausa confortável
             loopTimer = setTimeout(() => {
                 const nextIdx = (currentScenarioIdx + 1) % SCENARIOS.length;
                 startScenario(nextIdx);
-            }, 2500);
+            }, 4200);
             return;
         }
 
@@ -329,27 +329,27 @@
 
     function getStepDuration(phase) {
         switch(phase) {
-            case 'uploading': return 1600;
-            case 'processing_nfe': return 2800;
-            case 'processing_nfse': return 2800;
-            case 'processing_dupl': return 2600;
-            case 'processing_imposto': return 2800;
-            case 'done_multidoc': return 2400;
+            case 'uploading': return 3200;
+            case 'processing_nfe': return 5200;
+            case 'processing_nfse': return 5400;
+            case 'processing_dupl': return 4800;
+            case 'processing_imposto': return 5200;
+            case 'done_multidoc': return 4600;
 
-            case 'upload_extrato': return 1600;
-            case 'cleaning_history': return 2800;
-            case 'weight_matching': return 3000;
-            case 'batch_clear': return 2400;
+            case 'upload_extrato': return 3200;
+            case 'cleaning_history': return 5400;
+            case 'weight_matching': return 5800;
+            case 'batch_clear': return 4600;
 
-            case 'fila_pending': return 2200;
-            case 'click_classify': return 2400;
-            case 'save_rule': return 2200;
+            case 'fila_pending': return 4800;
+            case 'click_classify': return 4800;
+            case 'save_rule': return 4400;
 
-            case 'check_balance': return 2000;
-            case 'generate_txt': return 2600;
-            case 'ready_download': return 2200;
+            case 'check_balance': return 4200;
+            case 'generate_txt': return 5000;
+            case 'ready_download': return 4400;
 
-            default: return 2500;
+            default: return 4500;
         }
     }
 
