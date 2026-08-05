@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Encontrar com IA - O conferidor de lançamentos que junta as notas de um fornecedor, do primeiro registro até hoje, e mostra só onde não fecha. Desenvolvido pela Lumairam Info Tech Dev.">
+    <title>Encontrar com IA - O Conferidor de Lançamentos | Lumairam Info Tech Dev</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ═══════════════════════════════════════════════
+           ENCONTRAR COM IA — IDENTIDADE PRÓPRIA (verde/lima)
+           ═══════════════════════════════════════════════ */
+        :root {
+            --ec-lime: #7CFF6B;
+            --ec-green: #00E08A;
+            --ec-red: #FF4D6D;
+        }
+
+        /* ─── HERO ─── */
+        .ec-hero {
+            position: relative; width: 100%; min-height: 640px;
+            background:
+                radial-gradient(ellipse 700px 500px at 18% 22%, rgba(0,224,138,0.14) 0%, transparent 65%),
+                radial-gradient(ellipse 600px 450px at 84% 72%, rgba(124,255,107,0.09) 0%, transparent 65%),
+                linear-gradient(165deg, rgb(4,14,12) 0%, rgb(3,26,22) 45%, rgb(4,12,16) 100%);
+            overflow: hidden; display: flex; align-items: center; justify-content: center;
+            border-bottom: 2px solid var(--ec-green);
+            box-shadow: 0 10px 60px rgba(0,224,138,0.15);
+            padding: 90px 1.5rem 70px;
+        }
+        .ec-hero::after {
+            content: ''; position: absolute; bottom: 0; left: 0;
+            width: 100%; height: 130px;
+            background: linear-gradient(to top, var(--primary-bg), transparent); z-index: 4;
+        }
+        .ec-grid {
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(0,224,138,0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,224,138,0.035) 1px, transparent 1px);
+            background-size: 46px 46px; animation: ecGridPulse 8s ease-in-out infinite;
+            -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, #000 40%, transparent 100%);
+                    mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, #000 40%, transparent 100%);
+        }
+        @keyframes ecGridPulse { 0%,100%{opacity:.5} 50%{opacity:1} }
+        .ec-scanline {
+            position: absolute; top:0; left:0; width:100%; height:2px;
+            background: linear-gradient(90deg, transparent, var(--ec-green), transparent);
+            opacity:.22; animation: ecScan 7s linear infinite; z-index: 1;
+        }
+        @keyframes ecScan { 0%{top:-2%} 100%{top:102%} }
+        .ec-icon-float { position: absolute; opacity: 0.06; color: var(--ec-green); animation: ecFloat 13s ease-in-out infinite; }
+        .ec-icon-float:nth-of-type(1){ top:15%; left:7%; font-size:3rem; animation-delay:-2s; }
+        .ec-icon-float:nth-of-type(2){ top:66%; left:6%; font-size:2.4rem; animation-delay:-5s; }
+        .ec-icon-float:nth-of-type(3){ top:21%; right:9%; font-size:3.4rem; animation-delay:-7s; }
+        .ec-icon-float:nth-of-type(4){ bottom:17%; right:13%; font-size:2.6rem; animation-delay:-1s; }
+        @keyframes ecFloat { 0%,100%{ transform:translateY(0) rotate(0); opacity:.05 } 50%{ transform:translateY(-22px) rotate(-6deg); opacity:.12 } }
+
+        .ec-hero-inner {
+            position: relative; z-index: 3; width: 100%; max-width: 1180px;
+            display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center;
+        }
+        .ec-eyebrow {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--ec-lime);
+            border: 1px solid rgba(124,255,107,0.35); border-radius: 40px;
+            padding: 0.4rem 1rem; margin-bottom: 1.4rem; background: rgba(0,224,138,0.05);
+        }
+        .ec-eyebrow .dot-live { width:7px; height:7px; border-radius:50%; background:var(--ec-lime); box-shadow:0 0 8px var(--ec-lime); animation: ecBlink 1.4s ease-in-out infinite; }
+        @keyframes ecBlink { 0%,100%{opacity:1} 50%{opacity:.25} }
+        .ec-hero-title {
+            font-size: clamp(2.1rem, 5.4vw, 3.6rem); font-weight: 900; line-height: 1.05;
+            margin-bottom: 1rem; letter-spacing: -1px;
+        }
+        .ec-hero-title .grad {
+            background: linear-gradient(120deg, #fff 20%, var(--ec-lime) 70%, var(--ec-green));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .ec-hero-sub {
+            min-height: 1.6em; font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(0.95rem, 2.2vw, 1.15rem); color: var(--ec-lime); margin-bottom: 1.2rem; font-weight: 500;
+        }
+        .ec-hero-desc { color: var(--text-dim); font-size: 1.02rem; line-height: 1.65; max-width: 540px; margin-bottom: 1.8rem; }
+        .ec-hero-cta { display: flex; gap: 0.9rem; flex-wrap: wrap; }
+        .ec-btn {
+            display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.95rem 1.7rem;
+            border-radius: 10px; font-weight: 700; font-size: 0.92rem; text-decoration: none;
+            transition: all .25s ease; border: 1px solid transparent; cursor: pointer;
+        }
+        .ec-btn-primary { background: var(--ec-lime); color: #04180c; }
+        .ec-btn-primary:hover { box-shadow: 0 0 26px rgba(124,255,107,.5); transform: translateY(-2px); }
+        .ec-btn-wa { background: #25D366; color: #04140a; }
+        .ec-btn-wa:hover { box-shadow: 0 0 26px rgba(37,211,102,.45); transform: translateY(-2px); }
+
+        /* ─── Planilha "ao vivo" ─── */
+        .ec-window {
+            width: 100%; max-width: 500px; margin: 0 auto;
+            background: rgba(6,18,16,0.92); border: 1px solid rgba(0,224,138,0.22);
+            border-radius: 14px; overflow: hidden; backdrop-filter: blur(12px);
+            box-shadow: 0 0 50px rgba(0,224,138,0.16), 0 0 100px rgba(124,255,107,0.05);
+        }
+        .ec-titlebar { display:flex; align-items:center; gap:6px; padding:11px 14px; background:rgba(0,224,138,0.07); border-bottom:1px solid rgba(0,224,138,0.12); }
+        .ec-dot { width:9px; height:9px; border-radius:50%; }
+        .ec-dot.red{background:#ff5f57} .ec-dot.yellow{background:#febc2e} .ec-dot.green{background:#28c840}
+        .ec-titlebar span { margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:.64rem; color:var(--text-dim); letter-spacing:1px; }
+
+        .ec-sheet { padding: 14px 14px 16px; height: 288px; overflow: hidden; }
+        .ec-sheet-head {
+            display:grid; grid-template-columns: 1.15fr 1fr 0.75fr; gap: 6px;
+            font-family:'JetBrains Mono',monospace; font-size:.62rem; letter-spacing:1px;
+            color: var(--text-dim); text-transform: uppercase;
+            padding-bottom: 7px; border-bottom: 1px solid rgba(0,224,138,0.15); margin-bottom: 7px;
+        }
+        .ec-row {
+            display:grid; grid-template-columns: 1.15fr 1fr 0.75fr; gap: 6px; align-items:center;
+            font-family:'JetBrains Mono',monospace; font-size:.72rem; padding: 6px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            opacity:0; transform: translateY(5px); animation: ecRowIn .3s ease forwards;
+        }
+        @keyframes ecRowIn { to { opacity:1; transform:none } }
+        .ec-row .nf { color: #dfe9f5; }
+        .ec-row .val { color: var(--text-dim); text-align: right; }
+        .ec-row .tag { font-size:.6rem; font-weight:700; letter-spacing:.5px; text-align:center; padding: 3px 6px; border-radius: 20px; white-space: nowrap; }
+        .ec-row .tag.ok  { color: var(--ec-lime); background: rgba(124,255,107,0.12); border:1px solid rgba(124,255,107,0.3); }
+        .ec-row .tag.bad { color: var(--ec-red);  background: rgba(255,77,109,0.12);  border:1px solid rgba(255,77,109,0.35); }
+        .ec-row.flag .nf { color: #fff; font-weight: 700; }
+        .ec-sheet-foot {
+            margin-top: 10px; padding-top: 9px; border-top: 1px solid rgba(0,224,138,0.15);
+            font-family:'JetBrains Mono',monospace; font-size:.68rem; color: var(--text-dim);
+            display:flex; justify-content: space-between; align-items:center;
+        }
+        .ec-sheet-foot b { color: var(--ec-lime); }
+        .ec-sheet-foot .bad { color: var(--ec-red); }
+
+        /* ─── FAIXA DE STATS ─── */
+        .ec-stats-band {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
+            background: rgba(0,224,138,0.12); border: 1px solid rgba(0,224,138,0.15);
+            border-radius: 16px; overflow: hidden; margin: 3.5rem auto; max-width: 1000px;
+        }
+        .ec-stat { background: rgba(5,14,14,0.9); padding: 2rem 1rem; text-align: center; }
+        .ec-stat .num { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 900; color: var(--ec-lime); line-height: 1; font-family: 'JetBrains Mono', monospace; }
+        .ec-stat .lbl { color: var(--text-dim); font-size: 0.82rem; margin-top: 0.5rem; letter-spacing: .5px; }
+
+        /* ─── ESTEIRA ─── */
+        .ec-pipeline { position: relative; display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; margin: 2.5rem auto 0; max-width: 980px; flex-wrap: wrap; }
+        .ec-pipe-line { position: absolute; top: 34px; left: 6%; right: 6%; height: 2px; background: rgba(0,224,138,0.15); overflow: hidden; }
+        .ec-pipe-line::after { content:''; position:absolute; top:0; left:-30%; width:30%; height:100%; background: linear-gradient(90deg, transparent, var(--ec-lime), transparent); animation: ecFlow 3.2s linear infinite; }
+        @keyframes ecFlow { to { left: 100%; } }
+        .ec-node { position: relative; z-index: 2; flex: 1 1 150px; text-align: center; }
+        .ec-node .ic {
+            width: 68px; height: 68px; margin: 0 auto 0.9rem; border-radius: 16px;
+            display: flex; align-items: center; justify-content: center; font-size: 1.6rem;
+            color: var(--ec-lime); background: rgba(6,18,16,0.95);
+            border: 1px solid rgba(0,224,138,0.3);
+            animation: ecNodePulse 3.2s ease-in-out infinite;
+        }
+        .ec-node:nth-child(2) .ic{animation-delay:0s} .ec-node:nth-child(3) .ic{animation-delay:.5s}
+        .ec-node:nth-child(4) .ic{animation-delay:1s} .ec-node:nth-child(5) .ic{animation-delay:1.5s}
+        .ec-node:nth-child(6) .ic{animation-delay:2s}
+        @keyframes ecNodePulse { 0%,100%{ box-shadow:0 0 0 rgba(0,224,138,0); border-color:rgba(0,224,138,0.3) } 50%{ box-shadow:0 0 22px rgba(0,224,138,0.35); border-color:var(--ec-green) } }
+        .ec-node h4 { font-size: 0.92rem; color: #fff; margin: 0 0 0.3rem; }
+        .ec-node p { font-size: 0.78rem; color: var(--text-dim); margin: 0; padding: 0 0.4rem; }
+
+        /* ─── Antes/Depois ─── */
+        .ec-ba { display: grid; grid-template-columns: 1fr; gap: 1.2rem; margin-top: 2rem; }
+        .ec-ba-card { border-radius: 14px; padding: 1.6rem; border: 1px solid rgba(255,255,255,0.08); background: rgba(8,16,20,0.6); }
+        .ec-ba-card.antes { border-color: rgba(255,77,109,0.25); }
+        .ec-ba-card.depois { border-color: rgba(124,255,107,0.28); }
+        .ec-ba-card h4 { margin: 0 0 1rem; font-size: 1rem; display:flex; align-items:center; gap:.5rem; }
+        .ec-ba-card.antes h4 { color: var(--ec-red); }
+        .ec-ba-card.depois h4 { color: var(--ec-lime); }
+        .ec-ba-card ul { margin: 0; padding-left: 1.1rem; }
+        .ec-ba-card li { color: var(--text-dim); font-size: 0.9rem; line-height: 1.75; }
+
+        /* ─── Para quem ─── */
+        .ec-audience { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 1.5rem; }
+        .ec-aud-card { background: rgba(8,18,18,0.6); border: 1px solid rgba(0,224,138,0.14); border-radius: 12px; padding: 1.4rem; display: flex; gap: 1rem; align-items: flex-start; }
+        .ec-aud-card i { font-size: 1.5rem; color: var(--ec-lime); margin-top: 2px; }
+        .ec-aud-card h4 { margin: 0 0 0.3rem; color: #fff; }
+        .ec-aud-card p { margin: 0; color: var(--text-dim); font-size: 0.9rem; }
+
+        /* ─── Download ─── */
+        .ec-download-box {
+            background: linear-gradient(135deg, rgba(0,224,138,0.1), rgba(124,255,107,0.05));
+            border: 1px solid rgba(0,224,138,0.3); border-radius: 18px; padding: 2.8rem 2rem;
+            text-align: center; box-shadow: 0 0 50px rgba(0,224,138,0.12); position: relative; overflow: hidden;
+        }
+        .ec-download-box::before { content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background: radial-gradient(circle, rgba(124,255,107,0.06), transparent 60%); animation: ecSpin 18s linear infinite; }
+        @keyframes ecSpin { to { transform: rotate(360deg); } }
+        .ec-download-box > * { position: relative; z-index: 1; }
+        .ec-download-box h2 { color: var(--ec-lime); margin-bottom: 0.6rem; }
+        .ec-download-box p { color: var(--text-dim); max-width: 640px; margin: 0 auto 1.8rem; }
+        .ec-dl-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+        .ec-dl-btn { display:inline-flex; align-items:center; gap:0.6rem; padding:1rem 2rem; border-radius:10px; font-weight:700; font-size:0.95rem; text-decoration:none; transition:all .25s ease; border:1px solid transparent; }
+        .ec-dl-primary { background: var(--ec-lime); color:#04180c; }
+        .ec-dl-primary:hover { box-shadow:0 0 25px rgba(124,255,107,.5); transform: translateY(-2px); }
+        .ec-dl-secondary { background: transparent; color: var(--ec-lime); border-color: rgba(124,255,107,0.4); }
+        .ec-dl-secondary:hover { background: rgba(124,255,107,0.08); transform: translateY(-2px); }
+        .ec-dl-note { margin-top: 1.4rem; font-size: 0.8rem; color: var(--text-dim); }
+
+        /* ─── FAQ ─── */
+        .ec-faq { max-width: 860px; margin: 2rem auto 0; }
+        .ec-faq details {
+            background: rgba(8,18,18,0.55); border: 1px solid rgba(0,224,138,0.14);
+            border-radius: 12px; padding: 1rem 1.3rem; margin-bottom: 0.8rem;
+        }
+        .ec-faq summary { cursor: pointer; color: #fff; font-weight: 600; font-size: 0.98rem; list-style: none; display:flex; justify-content: space-between; align-items:center; gap:1rem; }
+        .ec-faq summary::-webkit-details-marker { display: none; }
+        .ec-faq summary::after { content: '+'; color: var(--ec-lime); font-size: 1.4rem; font-weight: 300; line-height: 1; }
+        .ec-faq details[open] summary::after { content: '−'; }
+        .ec-faq p { color: var(--text-dim); font-size: 0.92rem; line-height: 1.7; margin: 0.9rem 0 0; }
+
+        @media (min-width: 900px) {
+            .ec-hero-inner { grid-template-columns: 1.05fr 0.95fr; gap: 3.5rem; }
+            .ec-stats-band { grid-template-columns: repeat(4, 1fr); }
+            .ec-audience { grid-template-columns: repeat(3, 1fr); }
+            .ec-ba { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 560px) {
+            .ec-node { flex-basis: 45%; }
+            .ec-pipe-line { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader-text">&lt;/LUMAIRAM&gt;</div>
+        <div class="loader-bar"><div class="loader-bar-inner"></div></div>
+    </div>
+
+    <div id="scroll-progress"></div>
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+    <canvas id="matrix-canvas"></canvas>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Lumairam Info Tech Dev</a>
+            <button id="hamburger-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+            <ul id="nav-menu">
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="index.html">Seja Sócio</a></li>
+                <li><a href="controleimobiliario.html">Controle Imobiliário</a></li>
+                <li><a href="driveinteligente.html">Drive Inteligente</a></li>
+                <li><a href="receberarquivos.html">Receber Arquivos</a></li>
+                <li><a href="chatwhatsappinteligente.html">Chat WhatsApp</a></li>
+                <li><a href="portaldocontribuinte.html">Portal do Contribuinte</a></li>
+                <li><a href="encontrarcomia.html" class="active">Encontrar com IA</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="app-container" style="display: block; min-height: auto;">
+
+        <!-- ═══════════ HERO ═══════════ -->
+        <section class="ec-hero">
+            <div class="ec-grid"></div>
+            <div class="ec-scanline"></div>
+            <i class="fa-solid fa-magnifying-glass-dollar ec-icon-float"></i>
+            <i class="fa-solid fa-file-invoice ec-icon-float"></i>
+            <i class="fa-solid fa-scale-unbalanced ec-icon-float"></i>
+            <i class="fa-solid fa-table-list ec-icon-float"></i>
+
+            <div class="ec-hero-inner">
+                <div data-reveal="left">
+                    <span class="ec-eyebrow"><span class="dot-live"></span> CONFERIDOR DE LANÇAMENTOS</span>
+                    <h1 class="ec-hero-title">Encontrar <span class="grad">com IA</span></h1>
+                    <div class="ec-hero-sub">
+                        <span data-typing="Junta as notas que são a mesma.|Mostra só o que não fecha.|Do primeiro lançamento até hoje.|Você olha 12 linhas, não 12 mil."></span><span class="typing-cursor"></span>
+                    </div>
+                    <p class="ec-hero-desc">
+                        Você joga o extrato do razão dentro dele. Ele lê o histórico de cada lançamento, entende qual nota é qual — mesmo quando o número vem escrito de dez jeitos diferentes — junta tudo que pertence à mesma nota e <strong>soma</strong>. O que fecha em zero, ele separa. O que sobrou é o que você precisa olhar.
+                    </p>
+                    <div class="ec-hero-cta">
+                        <a href="#download" class="ec-btn ec-btn-primary"><i class="fa-solid fa-cloud-arrow-down"></i> Baixar o programa</a>
+                        <a href="https://api.whatsapp.com/send?phone=553799642620&text=Fiquei%20interessado(a)%20no%20ENCONTRAR%20COM%20IA%20e%20gostaria%20de%20liberar%20meu%20acesso." class="ec-btn ec-btn-wa" target="_blank"><i class="fab fa-whatsapp"></i> Falar no WhatsApp</a>
+                    </div>
+                </div>
+
+                <div data-reveal="right">
+                    <div class="ec-window" data-tilt>
+                        <div class="ec-titlebar">
+                            <div class="ec-dot red"></div><div class="ec-dot yellow"></div><div class="ec-dot green"></div>
+                            <span>CONFERÊNCIA — AO VIVO</span>
+                        </div>
+                        <div class="ec-sheet">
+                            <div class="ec-sheet-head">
+                                <div>Nota</div><div style="text-align:right">Soma do grupo</div><div style="text-align:center">Situação</div>
+                            </div>
+                            <div id="ec-rows"></div>
+                            <div class="ec-sheet-foot">
+                                <span>Analisados: <b id="ec-count">0</b></span>
+                                <span class="bad">Pendências: <b class="bad" id="ec-bad">0</b></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="landing-container">
+
+            <!-- ═══════════ STATS ═══════════ -->
+            <div class="ec-stats-band" data-reveal>
+                <div class="ec-stat"><div class="num"><span data-counter="1">0</span></div><div class="lbl">arquivo, um clique</div></div>
+                <div class="ec-stat"><div class="num"><span data-counter="5">0</span></div><div class="lbl">agentes de IA em paralelo</div></div>
+                <div class="ec-stat"><div class="num">∞</div><div class="lbl">período: mês ou anos</div></div>
+                <div class="ec-stat"><div class="num">2</div><div class="lbl">abas: acertos e pendências</div></div>
+            </div>
+
+            <p class="landing-subtitle">
+                Conferir fornecedor é o serviço mais chato da contabilidade: milhares de linhas onde a mesma nota aparece como lançamento, como baixa e como parcela, cada uma com o número escrito de um jeito. O <strong>Encontrar com IA</strong> faz esse trabalho braçal por você — e devolve só a lista curta do que realmente não bate.
+            </p>
+
+            <!-- ═══════════ ESTEIRA ═══════════ -->
+            <section data-reveal>
+                <h2 class="section-header" data-glitch>Do razão bruto à lista do que conferir</h2>
+                <div class="ec-pipeline">
+                    <div class="ec-pipe-line"></div>
+                    <div class="ec-node"><div class="ic"><i class="fa-solid fa-file-arrow-up"></i></div><h4>1. Você joga o arquivo</h4><p>Excel ou CSV, exportado do seu sistema.</p></div>
+                    <div class="ec-node"><div class="ic"><i class="fa-solid fa-wand-magic-sparkles"></i></div><h4>2. A IA lê</h4><p>Descobre sozinha o formato dos números.</p></div>
+                    <div class="ec-node"><div class="ic"><i class="fa-solid fa-object-group"></i></div><h4>3. Junta</h4><p>Reúne tudo que é da mesma nota.</p></div>
+                    <div class="ec-node"><div class="ic"><i class="fa-solid fa-scale-balanced"></i></div><h4>4. Soma</h4><p>Débito menos crédito, grupo a grupo.</p></div>
+                    <div class="ec-node"><div class="ic"><i class="fa-solid fa-file-excel"></i></div><h4>5. Entrega</h4><p>Excel com acertos e pendências.</p></div>
+                </div>
+            </section>
+
+            <!-- ═══════════ ANTES / DEPOIS ═══════════ -->
+            <section data-reveal>
+                <h2 class="section-header" data-glitch>O antes e o depois da sua tarde</h2>
+                <div class="ec-ba">
+                    <div class="ec-ba-card antes" data-reveal-child>
+                        <h4><i class="fa-solid fa-face-tired"></i> Do jeito de hoje</h4>
+                        <ul>
+                            <li>Ordenar a planilha por histórico e ir lendo linha por linha.</li>
+                            <li>Achar na mão que <code>NF 44918</code> e <code>2300044918/0001</code> são a mesma nota.</li>
+                            <li>Somar grupo por grupo na calculadora para ver se zera.</li>
+                            <li>Descobrir a diferença de R$ 12,40 só depois de duas horas.</li>
+                            <li>Repetir tudo de novo no mês seguinte.</li>
+                        </ul>
+                    </div>
+                    <div class="ec-ba-card depois" data-reveal-child>
+                        <h4><i class="fa-solid fa-mug-hot"></i> Com o Encontrar com IA</h4>
+                        <ul>
+                            <li>Sobe o arquivo e clica em processar.</li>
+                            <li>O programa reconhece o número da nota em qualquer formato.</li>
+                            <li>A soma de cada grupo sai pronta e conferida.</li>
+                            <li>A aba <strong>Pendências</strong> já nasce com as diferenças isoladas.</li>
+                            <li>No mês seguinte é só escolher o perfil salvo e repetir.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════ TUDO O QUE FAZ ═══════════ -->
+            <section data-reveal>
+                <h2 class="section-header" data-glitch>Tudo o que ele faz</h2>
+                <div class="pilar-grid">
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>🔎 Acha a nota escrita de qualquer jeito</h3>
+                        <p>O mesmo documento vira <code>1541321</code>, <code>001.541.321</code> ou <code>1.541.321</code> dependendo de quem lançou. O programa entende que <strong>é tudo a mesma nota</strong> e agrupa junto.</p>
+                    </div>
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>🪄 A IA descobre as regras sozinha</h3>
+                        <p>Não sabe qual é o padrão do seu cliente? Clique em <strong>Gerar Padrões Mágicos</strong>. Cinco agentes de IA leem o arquivo em paralelo e montam as regras de captura para você.</p>
+                    </div>
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>⚖️ Separa o que fecha do que não fecha</h3>
+                        <p>Cada grupo é somado considerando débito e crédito. Zerou, vai para <strong>Acertos</strong>. Sobrou centavo, vai para <strong>Pendências</strong> — que é a única aba que você precisa abrir.</p>
+                    </div>
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>✂️ Encurta códigos longos</h3>
+                        <p>Sistemas que gravam <code>2300044918</code> com prefixo fixo e parcela no fim atrapalham o agrupamento. Configure o prefixo uma vez e o programa corta sozinho, com prévia do antes e depois.</p>
+                    </div>
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>🚫 Ignora o que confunde</h3>
+                        <p>CNPJ, CPF, data e número de contrato têm cara de número de nota e estragam a conferência. A lista de ignorados manda o programa fingir que eles não existem.</p>
+                    </div>
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>💾 Perfis por cliente</h3>
+                        <p>Cada cliente tem o seu jeito de lançar. Salve um perfil para cada um: da segunda vez em diante, é escolher no menu e processar. A configuração fica guardada no seu computador.</p>
+                    </div>
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>📅 O período que você quiser</h3>
+                        <p>Não é só o fechamento do mês. Exporte o razão de um fornecedor <strong>desde o primeiro lançamento</strong> e confira a relação inteira de uma vez.</p>
+                    </div>
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>📥 Resultado em Excel formatado</h3>
+                        <p>Baixe uma planilha com duas abas — <strong>Acertos</strong> e <strong>Erros</strong> — já com colunas ajustadas, histórico completo e datas de cada lançamento do grupo.</p>
+                    </div>
+                    <div class="pilar-card-vendas" data-reveal-child data-tilt>
+                        <h3>🔐 Roda no seu computador</h3>
+                        <p>A planilha do seu cliente <strong>não sai da sua máquina</strong> para ser agrupada. O acesso é liberado por computador e o programa se atualiza sozinho.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════ PARA QUEM ═══════════ -->
+            <section data-reveal>
+                <h2 class="section-header" data-glitch>Feito para quem confere de verdade</h2>
+                <div class="ec-audience">
+                    <div class="ec-aud-card" data-tilt><i class="fa-solid fa-calculator"></i><div><h4>Contadores e escritórios</h4><p>Fechamento mensal e conciliação de fornecedores sem varar a noite na planilha.</p></div></div>
+                    <div class="ec-aud-card" data-tilt><i class="fa-solid fa-magnifying-glass-chart"></i><div><h4>Auditoria e revisão</h4><p>Levante o histórico completo de um fornecedor e ache divergências antigas que passaram batido.</p></div></div>
+                    <div class="ec-aud-card" data-tilt><i class="fa-solid fa-building-columns"></i><div><h4>Financeiro e contas a pagar</h4><p>Confira se toda nota lançada foi realmente baixada — e o que ficou pendurado sem baixa.</p></div></div>
+                </div>
+            </section>
+
+            <!-- ═══════════ COMPARATIVO ═══════════ -->
+            <section data-reveal>
+                <h2 class="section-header" data-glitch>Conferência manual vs. Encontrar com IA</h2>
+                <div class="neon-table-wrapper">
+                    <table class="neon-table">
+                        <thead>
+                            <tr><th>Tarefa</th><th>Do jeito manual</th><th>Com o Encontrar com IA</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Identificar a nota no histórico</td><td>Lendo linha por linha</td><td>Reconhece em qualquer formato</td></tr>
+                            <tr><td>Juntar lançamento, baixa e parcelas</td><td>Ordenar e marcar na mão</td><td>Agrupa sozinho</td></tr>
+                            <tr><td>Ver se o grupo fecha</td><td>Calculadora, grupo a grupo</td><td>Soma pronta e classificada</td></tr>
+                            <tr><td>Achar a diferença</td><td>Procurar até aparecer</td><td>Já vem isolada na aba Pendências</td></tr>
+                            <tr><td>CNPJ e datas atrapalhando</td><td>Confundem a conferência</td><td>Entram na lista de ignorados</td></tr>
+                            <tr><td>Repetir no mês seguinte</td><td>Tudo de novo, do zero</td><td>Perfil salvo, dois cliques</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ═══════════ FLUXO ═══════════ -->
+            <section data-reveal>
+                <h2 class="section-header" data-glitch>Como funciona na prática</h2>
+                <p style="text-align: center; color: var(--text-dim); margin-bottom: 2rem;">Quatro passos, do arquivo bruto à conferência pronta:</p>
+                <ul class="workflow-list">
+                    <li><strong>1. Exporte</strong> Tire do seu sistema o razão do fornecedor em Excel ou CSV — o mês, o ano ou o histórico inteiro.</li>
+                    <li><strong>2. Suba</strong> Arraste o arquivo para o programa e deixe a IA descobrir os padrões, ou escolha um perfil já salvo.</li>
+                    <li><strong>3. Processe</strong> Um clique. Ele agrupa tudo que é da mesma nota e soma cada grupo.</li>
+                    <li><strong>4. Confira</strong> Abra a aba de pendências e resolva só o que ficou. Baixe o Excel para anexar no seu papel de trabalho.</li>
+                </ul>
+            </section>
+
+            <section data-reveal>
+                <div class="highlight-quote">
+                    "O trabalho braçal de achar a diferença é do computador. A decisão do que fazer com ela é sua."
+                </div>
+            </section>
+
+            <!-- ═══════════ DOWNLOAD ═══════════ -->
+            <section data-reveal id="download">
+                <div class="ec-download-box">
+                    <h2><i class="fa-solid fa-cloud-arrow-down"></i> Baixe o Encontrar com IA</h2>
+                    <p>Baixe, abra e peça a liberação do seu acesso. Assim que aprovarmos a sua máquina, o programa baixa a versão completa sozinho e já pode ser usado — e se mantém atualizado a cada abertura.</p>
+
+                    <div class="ec-dl-actions">
+                        <a href="ECONTRAR_COM_IA.exe" class="ec-dl-btn ec-dl-primary" download>
+                            <i class="fa-solid fa-download"></i> Baixar o programa
+                        </a>
+
+                        <a href="manual-encontrar-com-ia.html" class="ec-dl-btn ec-dl-secondary">
+                            <i class="fa-solid fa-book-open"></i> Manual de uso
+                        </a>
+                    </div>
+                    <div class="ec-dl-note">Windows 10/11 · 64 bits. Na primeira vez ele baixa o programa completo (alguns minutos). Seu acesso passa por aprovação — fale com a gente para liberar.</div>
+                </div>
+            </section>
+
+            <!-- ═══════════ FAQ ═══════════ -->
+            <section data-reveal>
+                <h2 class="section-header" data-glitch>Perguntas que todo contador faz</h2>
+                <div class="ec-faq">
+                    <details>
+                        <summary>Que arquivo eu preciso ter em mãos?</summary>
+                        <p>Um Excel (.xlsx / .xls) ou CSV exportado do seu sistema contábil, com as colunas <strong>Data</strong>, <strong>Descrição histórico</strong>, <strong>Valor</strong> e <strong>C/D</strong>. Se o seu relatório também trouxer Lote, Contrapartida ou usuário de inclusão, essas colunas são aproveitadas e aparecem no resultado.</p>
+                    </details>
+                    <details>
+                        <summary>Serve só para fechamento do mês?</summary>
+                        <p>Não. O período quem escolhe é você, na hora de exportar do seu sistema. Dá para conferir um mês, um exercício inteiro ou toda a vida do fornecedor desde o primeiro lançamento. Quanto maior o período, mais valor tem a conferência — é onde moram as diferenças antigas que ninguém achou.</p>
+                    </details>
+                    <details>
+                        <summary>Preciso entender de tecnologia para configurar?</summary>
+                        <p>Não. Suba o arquivo e clique em <strong>Gerar Padrões Mágicos</strong>: a IA lê uma amostra e monta as regras. Você confere a prévia, aplica e salva como um perfil daquele cliente. Da próxima vez são dois cliques.</p>
+                    </details>
+                    <details>
+                        <summary>Os dados do meu cliente vão para a internet?</summary>
+                        <p>O agrupamento, a soma e a geração do Excel acontecem <strong>dentro do seu computador</strong>. A única parte que usa internet é o assistente opcional de IA, que envia uma amostra dos textos de histórico para o Google Gemini descobrir o padrão dos números. Se você não usar esse botão, nada do arquivo sai da sua máquina.</p>
+                    </details>
+                    <details>
+                        <summary>E se ele agrupar errado?</summary>
+                        <p>Você manda no resultado. Os padrões de captura e a lista de ignorados são campos de texto editáveis — dá para corrigir, testar e processar de novo quantas vezes quiser. E tudo que ele não conseguiu identificar aparece marcado como <strong>sem grupo</strong>, em vez de sumir do relatório.</p>
+                    </details>
+                    <details>
+                        <summary>Quanto custa e como libero meu acesso?</summary>
+                        <p>Fale com a gente no WhatsApp. O programa é liberado por computador: você baixa, abre uma vez para o seu código de máquina ser registrado e nos chama para aprovar.</p>
+                    </details>
+                </div>
+            </section>
+
+            <section class="cta-section" data-reveal>
+                <h2 data-glitch>Quer parar de caçar diferença na planilha?</h2>
+                <div class="cta-buttons-wrapper">
+                    <a href="https://api.whatsapp.com/send?phone=553799642620&text=Fiquei%20interessado(a)%20no%20ENCONTRAR%20COM%20IA%20e%20gostaria%20de%20saber%20mais%20detalhes%20e%20liberar%20meu%20acesso." class="neon-button btn-whatsapp-cta" target="_blank">
+                        <i class="fab fa-whatsapp"></i> FALAR NO WHATSAPP
+                    </a>
+                    <a href="#download" class="neon-button"><i class="fa-solid fa-cloud-arrow-down"></i> IR PARA O DOWNLOAD</a>
+                </div>
+            </section>
+
+            <div style="text-align: center; margin-top: 3rem; color: var(--text-dim);">
+                <p>Desenvolvido pela empresa</p>
+                <p><strong style="color: var(--ec-lime);">LUMAIRAM INFORMATION TECHNOLOGY DEVELOPERS</strong><br>Com muito ❤ e ☕</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>DESENVOLVIDO PELA EMPRESA LUMAIRAM INFORMATION TECHNOLOGY DEVELOPERS</p>
+        <p>CNPJ DO RESPONSÁVEL: 61.868.004/0001-80</p>
+        <div class="footer-links"><a href="politicadeprivacidade.html">Política de Privacidade</a></div>
+    </footer>
+
+    <a href="https://api.whatsapp.com/send?phone=553799642620&text=Fiquei%20interessado(a)%20no%20ENCONTRAR%20COM%20IA%20e%20gostaria%20de%20saber%20mais%20detalhes%20a%20respeito." class="whatsapp-float" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="24" height="24" fill="#fff">
+            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27.1 106.1 27.1s73.7-9.4 106.1-27.1l117.7 30.9L418.4 365c19.4-33.7 29.6-71.9 29.6-111 0-122.4-99.6-222-222-222zM223.9 439.7c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L78 362.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.5-184.5 49.3 0 95.6 19.2 130.4 54s54 81.1 54 130.4c0 101.7-82.8 184.5-184.5 184.5zM319.1 307.2c-3.8-1.9-22.6-11.2-26.1-12.5-3.5-1.3-6-1.9-8.6 1.9-2.6 3.8-9.9 12.5-12.1 15-2.2 2.6-4.5 2.9-8.3 1-3.8-1.9-16-5.9-30.5-18.7-11.4-10-19.2-22.4-22.6-27.4-3.4-5-0.4-7.7 1.5-10.1 1.8-2.2 3.8-5.7 5.7-8.6 1.9-2.9 2.6-4.5 3.8-7.7 1.3-3.2 0.6-5.9-0.3-7.7-0.9-1.9-8.6-20.6-11.7-28.2-3.1-7.6-6.2-6.6-8.6-6.6-2.2 0-4.8 0-7.4 0-2.6 0-6.8 0.9-10.3 4.8-3.5 3.8-13.4 13.1-13.4 31.9 0 18.8 13.7 37 15.6 39.6 1.9 2.6 26.1 41.8 63.4 56.2 8.7 3.3 15.6 5.3 20.9 6.8 5.3 1.5 10 0.9 13.7-1 3.9-1.9 22.6-9.2 25.7-18.1 3.1-8.9 3.1-16.4 2.2-18.1-0.9-1.8-3.4-2.8-7.2-4.7z"/>
+        </svg>
+    </a>
+
+    <script src="lumairam-fx.js"></script>
+    <script>
+    /* Planilha "ao vivo": grupos sendo conferidos, um a um */
+    (function () {
+        var box = document.getElementById('ec-rows');
+        var elCount = document.getElementById('ec-count');
+        var elBad = document.getElementById('ec-bad');
+        if (!box) return;
+
+        var dados = [
+            {nf:'NF 44918',    val:'0,00',      ok:true},
+            {nf:'NF 44920',    val:'0,00',      ok:true},
+            {nf:'NF 45003',    val:'-12,40',    ok:false},
+            {nf:'NF 45111',    val:'0,00',      ok:true},
+            {nf:'NF 45112',    val:'0,00',      ok:true},
+            {nf:'NF 45204',    val:'0,00',      ok:true},
+            {nf:'NF 45330',    val:'1.480,00',  ok:false},
+            {nf:'NF 45418',    val:'0,00',      ok:true},
+            {nf:'NF 45502',    val:'0,00',      ok:true},
+            {nf:'sem grupo',   val:'87,90',     ok:false},
+            {nf:'NF 45610',    val:'0,00',      ok:true},
+            {nf:'NF 45712',    val:'0,00',      ok:true}
+        ];
+
+        var i = 0, total = 0, ruins = 0, maxRows = 7;
+
+        function addRow() {
+            var d = dados[i % dados.length];
+            var div = document.createElement('div');
+            div.className = 'ec-row' + (d.ok ? '' : ' flag');
+            div.innerHTML =
+                '<span class="nf">' + d.nf + '</span>' +
+                '<span class="val">' + d.val + '</span>' +
+                '<span class="tag ' + (d.ok ? 'ok">fecha' : 'bad">conferir') + '</span>';
+            box.appendChild(div);
+            while (box.children.length > maxRows) box.removeChild(box.firstChild);
+
+            total++; if (!d.ok) ruins++;
+            if (elCount) elCount.textContent = total;
+            if (elBad) elBad.textContent = ruins;
+
+            i++;
+            setTimeout(addRow, d.ok ? 620 : 1250);
+        }
+        setTimeout(addRow, 500);
+    })();
+    </script>
+</body>
+</html>

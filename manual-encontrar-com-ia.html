@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Manual de uso do Encontrar com IA - passo a passo para conferir lançamentos, agrupar notas e achar diferenças. Lumairam Info Tech Dev.">
+    <title>Manual de Uso - Encontrar com IA | Lumairam Info Tech Dev</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root { --ec-lime: #7CFF6B; --ec-green: #00E08A; --ec-red: #FF4D6D; }
+
+        .mn-wrap { max-width: 1180px; margin: 0 auto; padding: 110px 1.5rem 4rem; display: grid; grid-template-columns: 1fr; gap: 2.5rem; }
+
+        /* ─── Sumário ─── */
+        .mn-toc { position: relative; }
+        .mn-toc-inner {
+            background: rgba(8,18,18,0.6); border: 1px solid rgba(0,224,138,0.16);
+            border-radius: 14px; padding: 1.4rem 1.5rem;
+        }
+        .mn-toc h3 { color: var(--ec-lime); font-size: 0.82rem; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 1rem; font-family: 'JetBrains Mono', monospace; }
+        .mn-toc ol { margin: 0; padding-left: 1.2rem; }
+        .mn-toc li { margin-bottom: 0.55rem; }
+        .mn-toc a { color: var(--text-dim); text-decoration: none; font-size: 0.9rem; transition: color .2s ease; }
+        .mn-toc a:hover { color: var(--ec-lime); }
+
+        /* ─── Cabeçalho ─── */
+        .mn-head { border-bottom: 1px solid rgba(0,224,138,0.18); padding-bottom: 1.8rem; margin-bottom: 2.5rem; }
+        .mn-eyebrow {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--ec-lime);
+            border: 1px solid rgba(124,255,107,0.3); border-radius: 40px;
+            padding: 0.35rem 0.95rem; margin-bottom: 1.1rem; background: rgba(0,224,138,0.05);
+        }
+        .mn-head h1 { font-size: clamp(1.9rem, 5vw, 2.8rem); font-weight: 900; letter-spacing: -1px; margin: 0 0 0.7rem; }
+        .mn-head h1 .grad {
+            background: linear-gradient(120deg, #fff 20%, var(--ec-lime) 70%, var(--ec-green));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .mn-head p { color: var(--text-dim); font-size: 1rem; line-height: 1.7; max-width: 700px; margin: 0; }
+
+        /* ─── Seções ─── */
+        .mn-sec { margin-bottom: 3.2rem; scroll-margin-top: 100px; }
+        .mn-sec > h2 {
+            display: flex; align-items: center; gap: 0.8rem;
+            font-size: 1.45rem; color: #fff; margin: 0 0 1.2rem; letter-spacing: -0.4px;
+        }
+        .mn-sec > h2 .n {
+            flex: 0 0 auto; width: 38px; height: 38px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(0,224,138,0.1); border: 1px solid rgba(0,224,138,0.3);
+            color: var(--ec-lime); font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; font-weight: 700;
+        }
+        .mn-sec h3 { color: var(--ec-lime); font-size: 1.05rem; margin: 2rem 0 0.7rem; }
+        .mn-sec p { color: var(--text-dim); line-height: 1.8; margin: 0 0 1rem; }
+        .mn-sec ul, .mn-sec ol { color: var(--text-dim); line-height: 1.85; padding-left: 1.3rem; margin: 0 0 1.2rem; }
+        .mn-sec li { margin-bottom: 0.4rem; }
+        .mn-sec strong { color: #fff; }
+        .mn-sec code {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.86em;
+            background: rgba(0,224,138,0.08); border: 1px solid rgba(0,224,138,0.16);
+            color: var(--ec-lime); padding: 0.12em 0.45em; border-radius: 5px;
+        }
+
+        /* ─── Caixas ─── */
+        .mn-box { border-radius: 12px; padding: 1.2rem 1.4rem; margin: 1.4rem 0; border-left: 3px solid; }
+        .mn-box p:last-child { margin-bottom: 0; }
+        .mn-box .t { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; margin-bottom: 0.5rem; font-size: 0.95rem; }
+        .mn-box.dica { background: rgba(0,224,138,0.06); border-color: var(--ec-green); }
+        .mn-box.dica .t { color: var(--ec-lime); }
+        .mn-box.aviso { background: rgba(255,180,0,0.06); border-color: #febc2e; }
+        .mn-box.aviso .t { color: #febc2e; }
+        .mn-box.erro { background: rgba(255,77,109,0.06); border-color: var(--ec-red); }
+        .mn-box.erro .t { color: var(--ec-red); }
+
+        /* ─── Tabela ─── */
+        .mn-table-wrap { overflow-x: auto; margin: 1.4rem 0; border-radius: 12px; border: 1px solid rgba(0,224,138,0.16); }
+        .mn-table { width: 100%; border-collapse: collapse; min-width: 520px; }
+        .mn-table th {
+            background: rgba(0,224,138,0.09); color: var(--ec-lime); text-align: left;
+            padding: 0.85rem 1rem; font-size: 0.82rem; letter-spacing: 0.5px; text-transform: uppercase;
+            font-family: 'JetBrains Mono', monospace; font-weight: 600;
+            border-bottom: 1px solid rgba(0,224,138,0.18);
+        }
+        .mn-table td { padding: 0.85rem 1rem; color: var(--text-dim); font-size: 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.05); vertical-align: top; }
+        .mn-table tr:last-child td { border-bottom: none; }
+        .mn-table td strong { color: #fff; }
+
+        /* ─── Passos ─── */
+        .mn-steps { list-style: none; padding: 0; margin: 1.4rem 0; counter-reset: passo; }
+        .mn-steps > li {
+            position: relative; padding: 0 0 1.5rem 3.2rem; margin: 0;
+            border-left: 1px solid rgba(0,224,138,0.2);
+        }
+        .mn-steps > li:last-child { border-left-color: transparent; padding-bottom: 0; }
+        .mn-steps > li::before {
+            counter-increment: passo; content: counter(passo);
+            position: absolute; left: -16px; top: -3px;
+            width: 32px; height: 32px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            background: rgb(6,16,16); border: 1px solid var(--ec-green); color: var(--ec-lime);
+            font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; font-weight: 700;
+        }
+        .mn-steps > li h4 { color: #fff; margin: 0 0 0.45rem; font-size: 1rem; }
+        .mn-steps > li p { margin: 0 0 0.6rem; }
+
+        /* ─── Antes/depois de código ─── */
+        .mn-ex {
+            display: grid; grid-template-columns: 1fr; gap: 0.8rem; margin: 1.2rem 0;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;
+        }
+        .mn-ex div { background: rgba(6,16,16,0.8); border: 1px solid rgba(0,224,138,0.15); border-radius: 10px; padding: 0.9rem 1.1rem; }
+        .mn-ex .lbl { display:block; color: var(--text-dim); font-size: 0.68rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.45rem; }
+        .mn-ex .de { color: #dfe9f5; }
+        .mn-ex .para { color: var(--ec-lime); }
+
+        /* ─── Voltar / imprimir ─── */
+        .mn-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 1.6rem; }
+        .mn-btn {
+            display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.4rem;
+            border-radius: 9px; font-weight: 600; font-size: 0.88rem; text-decoration: none;
+            transition: all .2s ease; border: 1px solid rgba(124,255,107,0.35); color: var(--ec-lime); background: transparent;
+            cursor: pointer; font-family: inherit;
+        }
+        .mn-btn:hover { background: rgba(124,255,107,0.08); transform: translateY(-2px); }
+        .mn-btn.solid { background: var(--ec-lime); color: #04180c; border-color: var(--ec-lime); }
+        .mn-btn.solid:hover { box-shadow: 0 0 22px rgba(124,255,107,.45); }
+
+        @media (min-width: 1000px) {
+            .mn-wrap { grid-template-columns: 260px 1fr; gap: 3.5rem; align-items: start; }
+            .mn-toc-inner { position: sticky; top: 100px; }
+            .mn-ex { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media print {
+            header, footer, #loading-screen, #scroll-progress, #cursor-dot, #cursor-ring,
+            #matrix-canvas, .whatsapp-float, .mn-toc, .mn-actions { display: none !important; }
+            body { background: #fff !important; color: #111 !important; }
+            .mn-wrap { grid-template-columns: 1fr; padding: 0; max-width: 100%; }
+            .mn-sec p, .mn-sec li, .mn-table td { color: #333 !important; }
+            .mn-sec h2, .mn-head h1, .mn-sec strong, .mn-table td strong { color: #000 !important; }
+            .mn-head h1 .grad { -webkit-text-fill-color: #000 !important; color: #000 !important; }
+            .mn-sec { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading-screen">
+        <div class="loader-text">&lt;/LUMAIRAM&gt;</div>
+        <div class="loader-bar"><div class="loader-bar-inner"></div></div>
+    </div>
+
+    <div id="scroll-progress"></div>
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+    <canvas id="matrix-canvas"></canvas>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Lumairam Info Tech Dev</a>
+            <button id="hamburger-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+            <ul id="nav-menu">
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="index.html">Seja Sócio</a></li>
+                <li><a href="controleimobiliario.html">Controle Imobiliário</a></li>
+                <li><a href="driveinteligente.html">Drive Inteligente</a></li>
+                <li><a href="receberarquivos.html">Receber Arquivos</a></li>
+                <li><a href="chatwhatsappinteligente.html">Chat WhatsApp</a></li>
+                <li><a href="portaldocontribuinte.html">Portal do Contribuinte</a></li>
+                <li><a href="encontrarcomia.html" class="active">Encontrar com IA</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="mn-wrap">
+
+        <!-- ═══════════ SUMÁRIO ═══════════ -->
+        <aside class="mn-toc">
+            <div class="mn-toc-inner">
+                <h3>Neste manual</h3>
+                <ol>
+                    <li><a href="#instalar">Instalar e liberar o acesso</a></li>
+                    <li><a href="#arquivo">Preparar o arquivo</a></li>
+                    <li><a href="#tela">A tela do programa</a></li>
+                    <li><a href="#ia">Deixar a IA achar as regras</a></li>
+                    <li><a href="#padroes">Padrões de captura</a></li>
+                    <li><a href="#ignorados">Lista de ignorados</a></li>
+                    <li><a href="#encurtar">Encurtar o número</a></li>
+                    <li><a href="#processar">Processar e ler o resultado</a></li>
+                    <li><a href="#perfis">Salvar perfis por cliente</a></li>
+                    <li><a href="#historico">Conferir o histórico inteiro</a></li>
+                    <li><a href="#problemas">Quando algo dá errado</a></li>
+                </ol>
+                <div class="mn-actions">
+                    <button class="mn-btn" onclick="window.print()"><i class="fa-solid fa-print"></i> Imprimir / PDF</button>
+                </div>
+            </div>
+        </aside>
+
+        <article>
+            <div class="mn-head">
+                <span class="mn-eyebrow"><i class="fa-solid fa-book-open"></i> Manual de uso</span>
+                <h1>Encontrar <span class="grad">com IA</span></h1>
+                <p>
+                    Este manual mostra, do começo ao fim, como conferir os lançamentos de um fornecedor: o que exportar do seu sistema, como ensinar o programa a reconhecer o número da nota e como ler o resultado. Se você nunca abriu o programa, comece pelo passo 1 e vá seguindo — dá para fazer a primeira conferência em uns dez minutos.
+                </p>
+                <div class="mn-actions">
+                    <a href="encontrarcomia.html" class="mn-btn"><i class="fa-solid fa-arrow-left"></i> Voltar para a página do produto</a>
+                    <a href="ECONTRAR_COM_IA.exe" class="mn-btn solid" download><i class="fa-solid fa-download"></i> Baixar o programa</a>
+                </div>
+            </div>
+
+            <!-- ═════ 1 ═════ -->
+            <section class="mn-sec" id="instalar">
+                <h2><span class="n">1</span> Instalar e liberar o acesso</h2>
+
+                <ol class="mn-steps">
+                    <li>
+                        <h4>Baixe e coloque numa pasta só dele</h4>
+                        <p>Baixe o <code>ECONTRAR_COM_IA.exe</code> e mova para uma pasta própria — por exemplo <code>C:\Encontrar com IA\</code>. Não deixe na pasta Downloads: o programa cria alguns arquivos de apoio ao lado dele.</p>
+                    </li>
+                    <li>
+                        <h4>Abra pela primeira vez</h4>
+                        <p>Uma janela preta aparece e diz que está verificando o seu acesso. Se o Windows perguntar se confia no programa, clique em <strong>Mais informações → Executar assim mesmo</strong>.</p>
+                    </li>
+                    <li>
+                        <h4>Peça a liberação</h4>
+                        <p>Como o seu computador ainda não foi aprovado, abre uma página com o seu <strong>Hardware ID</strong> e dois botões de WhatsApp. Clique em <strong>Ativar meu computador</strong> — a mensagem já vai preenchida com o código. É só enviar.</p>
+                    </li>
+                    <li>
+                        <h4>Abra de novo depois da aprovação</h4>
+                        <p>Assim que avisarmos que liberamos, feche tudo e abra o programa outra vez. Nessa hora ele baixa a versão completa (alguns minutos, uma única vez) e abre sozinho no seu navegador.</p>
+                    </li>
+                </ol>
+
+                <div class="mn-box dica">
+                    <div class="t"><i class="fa-solid fa-lightbulb"></i> Sempre abra pelo <code>ECONTRAR_COM_IA.exe</code></div>
+                    <p>Você vai notar que apareceu um segundo arquivo, o <code>ECONTRAR_COM_IA - Nucleo.exe</code>. Não crie atalho para ele. É abrindo pelo primeiro que o programa se mantém atualizado — pelo segundo, você fica travado numa versão antiga para sempre.</p>
+                </div>
+
+                <div class="mn-box aviso">
+                    <div class="t"><i class="fa-solid fa-triangle-exclamation"></i> Não feche a janela preta</div>
+                    <p>Ela é o motor do programa. Enquanto você estiver usando a tela no navegador, essa janela precisa continuar aberta. Fechar a janela preta é como desligar o programa.</p>
+                </div>
+            </section>
+
+            <!-- ═════ 2 ═════ -->
+            <section class="mn-sec" id="arquivo">
+                <h2><span class="n">2</span> Preparar o arquivo</h2>
+
+                <p>Exporte do seu sistema contábil o <strong>razão do fornecedor</strong> (ou a conta que você quer conferir) em Excel ou CSV. O programa precisa que existam quatro colunas, escritas exatamente assim:</p>
+
+                <div class="mn-table-wrap">
+                    <table class="mn-table">
+                        <thead><tr><th>Coluna</th><th>Obrigatória?</th><th>O que o programa faz com ela</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>Data</strong></td><td>Sim</td><td>Mostra as datas de todos os lançamentos do grupo.</td></tr>
+                            <tr><td><strong>Descrição histórico</strong></td><td>Sim</td><td>É aqui que ele procura o número da nota.</td></tr>
+                            <tr><td><strong>Valor</strong></td><td>Sim</td><td>O valor de cada lançamento.</td></tr>
+                            <tr><td><strong>C/D</strong></td><td>Sim</td><td>Se é crédito ou débito. É o que permite a soma fechar em zero.</td></tr>
+                            <tr><td>Lote</td><td>Não</td><td>Se existir, é levada junto para o resultado.</td></tr>
+                            <tr><td>Contrapartida</td><td>Não</td><td>Se existir, é levada junto para o resultado.</td></tr>
+                            <tr><td>Usuário de inclusão / alteração</td><td>Não</td><td>Se existirem, ajudam a rastrear quem lançou.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mn-box erro">
+                    <div class="t"><i class="fa-solid fa-circle-exclamation"></i> "Faltam colunas: ..."</div>
+                    <p>Se aparecer essa mensagem, o nome de alguma coluna obrigatória está diferente na sua planilha. Abra o Excel e renomeie o cabeçalho para o nome exato da tabela acima — inclusive o acento em <code>Descrição histórico</code>.</p>
+                </div>
+            </section>
+
+            <!-- ═════ 3 ═════ -->
+            <section class="mn-sec" id="tela">
+                <h2><span class="n">3</span> A tela do programa</h2>
+
+                <p>O programa abre no seu navegador e tem duas áreas:</p>
+
+                <ul>
+                    <li><strong>Barra lateral (esquerda)</strong> — onde você configura: escolhe o perfil do cliente, escreve os padrões, a lista de ignorados e a chave da IA.</li>
+                    <li><strong>Área central</strong> — onde você sobe o arquivo, processa e vê o resultado.</li>
+                </ul>
+
+                <p>No celular ou numa janela estreita, a barra lateral fica escondida atrás da setinha <code>&gt;</code> no canto superior esquerdo.</p>
+            </section>
+
+            <!-- ═════ 4 ═════ -->
+            <section class="mn-sec" id="ia">
+                <h2><span class="n">4</span> Deixar a IA achar as regras</h2>
+
+                <p>Essa é a parte que economiza mais tempo. Em vez de você descobrir na mão como o número da nota aparece no histórico, a IA lê uma amostra do arquivo e monta as regras.</p>
+
+                <ol class="mn-steps">
+                    <li>
+                        <h4>Cole a chave do Gemini</h4>
+                        <p>Na barra lateral, em <strong>Configuração de IA</strong>, cole a sua chave da API do Google Gemini. Ela fica salva — você só faz isso uma vez.</p>
+                    </li>
+                    <li>
+                        <h4>Suba o arquivo</h4>
+                        <p>Na área central, escolha o Excel ou CSV. Assim que ele carrega, aparece o painel <strong>Assistente de IA: Descobrir Regras Automaticamente</strong>.</p>
+                    </li>
+                    <li>
+                        <h4>Clique em "Gerar Padrões Mágicos"</h4>
+                        <p>Cinco agentes leem lotes diferentes do arquivo ao mesmo tempo. Numa planilha grande isso leva de alguns segundos a poucos minutos, com barra de progresso.</p>
+                    </li>
+                    <li>
+                        <h4>Confira a prévia</h4>
+                        <p>Se ele detectar que os códigos começam sempre iguais, mostra uma tabelinha <strong>"Código no extrato → Vai agrupar como"</strong>. Olhe se faz sentido antes de seguir.</p>
+                    </li>
+                    <li>
+                        <h4>Aplique ou salve</h4>
+                        <p><strong>Aplicar para Testar</strong> joga as regras para a barra lateral sem salvar nada — bom para experimentar. <strong>Salvar Novo Padrão</strong> guarda como um perfil daquele cliente, para usar todo mês.</p>
+                    </li>
+                </ol>
+
+                <div class="mn-box aviso">
+                    <div class="t"><i class="fa-solid fa-shield-halved"></i> O que sai do seu computador</div>
+                    <p>Só o assistente de IA usa internet, e ele envia apenas <strong>uma amostra dos textos de histórico</strong> para o Google descobrir o formato dos números. O agrupamento, a soma e o Excel final são feitos dentro da sua máquina. Se você preferir não usar a IA, escreva os padrões na mão (passo 5) e nada do arquivo sai daí.</p>
+                </div>
+            </section>
+
+            <!-- ═════ 5 ═════ -->
+            <section class="mn-sec" id="padroes">
+                <h2><span class="n">5</span> Padrões de captura</h2>
+
+                <p>O campo <strong>Padrões de Captura</strong> é a lista do que o programa deve procurar dentro do histórico para identificar a nota. <strong>Um por linha.</strong></p>
+
+                <h3>Você pode escrever de três jeitos</h3>
+
+                <div class="mn-table-wrap">
+                    <table class="mn-table">
+                        <thead><tr><th>Você escreve</th><th>O que acontece</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td><code>1541321</code></td>
+                                <td>Procura esse número <strong>em qualquer formatação</strong>. Acha também <code>001.541.321</code>, <code>1.541.321</code> e <code>1541321</code>. É o jeito mais usado.</td>
+                            </tr>
+                            <tr>
+                                <td><code>"NF 001"</code></td>
+                                <td>Entre aspas, a busca é <strong>exata</strong>: só casa com esse texto do jeito que está escrito.</td>
+                            </tr>
+                            <tr>
+                                <td><code>NF ###</code></td>
+                                <td>Sem aspas com <code>#</code>, cada <code>#</code> vale um dígito qualquer. Serve para pegar uma família inteira de números.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mn-box dica">
+                    <div class="t"><i class="fa-solid fa-lightbulb"></i> Número comprido ganha do curto</div>
+                    <p>Se a sua lista tem <code>123</code> e <code>123456</code>, o programa testa primeiro o mais comprido. Assim o <code>123</code> não "rouba" um lançamento que na verdade era do <code>123456</code>. Você não precisa se preocupar com a ordem em que escreveu.</p>
+                </div>
+            </section>
+
+            <!-- ═════ 6 ═════ -->
+            <section class="mn-sec" id="ignorados">
+                <h2><span class="n">6</span> Lista de ignorados</h2>
+
+                <p>O histórico costuma trazer números que <em>parecem</em> nota mas não são: CNPJ, CPF, data, número de contrato, código de banco. O campo <strong>Ignorar Texto</strong> manda o programa fingir que esses trechos não existem.</p>
+
+                <p>Escreva um por linha. Aqui a pontuação <strong>conta</strong> — se o CNPJ aparece como <code>12.345.678/0001-99</code>, escreva com os pontos e a barra.</p>
+
+                <div class="mn-box dica">
+                    <div class="t"><i class="fa-solid fa-lightbulb"></i> Agrupou coisa que não tinha nada a ver?</div>
+                    <p>Quase sempre é um CNPJ ou uma data sendo confundida com número de nota. Olhe a coluna Descrição do grupo estranho, ache o número que se repete e jogue ele na lista de ignorados.</p>
+                </div>
+            </section>
+
+            <!-- ═════ 7 ═════ -->
+            <section class="mn-sec" id="encurtar">
+                <h2><span class="n">7</span> Encurtar o número capturado</h2>
+
+                <p>Alguns sistemas gravam a nota com um começo fixo e a parcela colada no fim. Aí a mesma nota vira dois códigos diferentes e o grupo não fecha. O painel <strong>✂️ Encurtar o número capturado</strong> resolve isso.</p>
+
+                <h3>Remover prefixo</h3>
+                <p>Escreva o começo fixo — por exemplo <code>2300</code> — um por linha:</p>
+
+                <div class="mn-ex">
+                    <div><span class="lbl">No extrato</span><span class="de">2300044918</span></div>
+                    <div><span class="lbl">Vira</span><span class="para">44918</span></div>
+                </div>
+
+                <h3>Cortar parcela no final</h3>
+                <p>Com a caixinha marcada, um bloco de quatro dígitos do tipo <code>0001</code>, <code>0002</code> no fim é removido:</p>
+
+                <div class="mn-ex">
+                    <div><span class="lbl">No extrato</span><span class="de">2300023320001</span></div>
+                    <div><span class="lbl">Vira</span><span class="para">2332</span></div>
+                </div>
+
+                <p>Conforme você digita, aparece uma tabelinha de <strong>Prévia</strong> mostrando o antes e o depois. Confira ali antes de processar.</p>
+
+                <div class="mn-box aviso">
+                    <div class="t"><i class="fa-solid fa-triangle-exclamation"></i> Ele não deixa encurtar demais</div>
+                    <p>Se cortar o prefixo fosse deixar menos de três dígitos, o programa desiste do corte e mantém o número inteiro. É uma trava para você não acabar com um código sem sentido.</p>
+                </div>
+            </section>
+
+            <!-- ═════ 8 ═════ -->
+            <section class="mn-sec" id="processar">
+                <h2><span class="n">8</span> Processar e ler o resultado</h2>
+
+                <p>Com o arquivo carregado e os padrões preenchidos, clique em <strong>Processar Arquivo</strong>. O resultado vem em duas abas:</p>
+
+                <div class="mn-table-wrap">
+                    <table class="mn-table">
+                        <thead><tr><th>Aba</th><th>O que tem dentro</th><th>O que fazer</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>✅ Acertos</strong></td>
+                                <td>Grupos cuja soma deu zero: a nota foi lançada e baixada certinho.</td>
+                                <td>Nada. É o que está resolvido.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>⚠️ Diferenças Pendentes</strong></td>
+                                <td>Grupos que sobraram com saldo — e as linhas marcadas como <code>sem grupo</code>.</td>
+                                <td>É aqui que você trabalha.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>As colunas do resultado</h3>
+                <ul>
+                    <li><strong>NF</strong> — o número que ele usou para agrupar (ou <code>sem grupo</code>).</li>
+                    <li><strong>Descrição</strong> — todos os históricos daquele grupo, um embaixo do outro.</li>
+                    <li><strong>Data</strong> — as datas correspondentes, na mesma ordem.</li>
+                    <li><strong>Total Ajustado</strong> — a soma do grupo, já com débito e crédito com o sinal certo.</li>
+                    <li><strong>valores</strong> — os valores originais de cada lançamento, para você conferir de onde veio a diferença.</li>
+                </ul>
+
+                <h3>O que significa "sem grupo"</h3>
+                <p>São lançamentos em que o programa não achou nenhum dos seus padrões. Eles <strong>não somem</strong> do relatório — aparecem um por linha nas pendências. Se tiver muita coisa ali, é sinal de que faltou padrão: volte ao passo 4 ou 5, ajuste e processe de novo.</p>
+
+                <p>Por último, clique em <strong>📥 Baixar Resultado Consolidado</strong> para salvar o Excel com as duas abas, já formatado para anexar no seu papel de trabalho.</p>
+            </section>
+
+            <!-- ═════ 9 ═════ -->
+            <section class="mn-sec" id="perfis">
+                <h2><span class="n">9</span> Salvar perfis por cliente</h2>
+
+                <p>Cada cliente lança de um jeito. Em vez de reconfigurar tudo todo mês, salve um perfil por cliente.</p>
+
+                <ul>
+                    <li><strong>Criar</strong> — em <em>Salvar / Criar Novo</em>, escreva o nome (ex.: <code>Transportadora Silva</code>) e clique em <strong>💾 Salvar</strong>.</li>
+                    <li><strong>Atualizar</strong> — deixe o campo do nome vazio e clique em Salvar: ele grava por cima do perfil que está aberto.</li>
+                    <li><strong>Trocar</strong> — escolha no menu <em>Selecione o Padrão</em> no topo da barra lateral.</li>
+                    <li><strong>Excluir</strong> — botão <strong>🗑️ Excluir</strong>. Não dá para apagar o último perfil que sobrou.</li>
+                </ul>
+
+                <div class="mn-box dica">
+                    <div class="t"><i class="fa-solid fa-floppy-disk"></i> Onde os perfis ficam</div>
+                    <p>Num arquivo <code>config_agrupador.json</code>, na mesma pasta do programa. Guarde uma cópia dele junto com os seus backups: é ali que está todo o trabalho de configuração dos seus clientes.</p>
+                </div>
+            </section>
+
+            <!-- ═════ 10 ═════ -->
+            <section class="mn-sec" id="historico">
+                <h2><span class="n">10</span> Conferir o histórico inteiro de um fornecedor</h2>
+
+                <p>O programa não olha só o mês. Quem escolhe o período é você, na hora de exportar do seu sistema — e é justamente no período longo que ele mais rende.</p>
+
+                <ol class="mn-steps">
+                    <li>
+                        <h4>Exporte tudo</h4>
+                        <p>No seu sistema, gere o razão daquele fornecedor <strong>sem filtro de data</strong>, do primeiro lançamento até hoje.</p>
+                    </li>
+                    <li>
+                        <h4>Use o perfil que você já tem</h4>
+                        <p>Se você já configurou esse cliente para o fechamento mensal, o mesmo perfil serve. Não precisa refazer nada.</p>
+                    </li>
+                    <li>
+                        <h4>Processe e olhe só as pendências</h4>
+                        <p>Notas de anos atrás que ficaram penduradas sem baixa aparecem na aba de diferenças, junto com as do mês corrente.</p>
+                    </li>
+                </ol>
+
+                <div class="mn-box dica">
+                    <div class="t"><i class="fa-solid fa-magnifying-glass-chart"></i> É aqui que aparecem as surpresas</div>
+                    <p>Diferença antiga costuma passar batido no fechamento mensal, porque ninguém volta atrás. Rodar o histórico completo de um fornecedor grande uma vez por ano é a forma mais rápida de achar baixa em duplicidade, nota lançada e nunca baixada e pagamento a maior.</p>
+                </div>
+            </section>
+
+            <!-- ═════ 11 ═════ -->
+            <section class="mn-sec" id="problemas">
+                <h2><span class="n">11</span> Quando algo dá errado</h2>
+
+                <div class="mn-table-wrap">
+                    <table class="mn-table">
+                        <thead><tr><th>O que acontece</th><th>Por quê</th><th>Como resolver</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>"Acesso Não Autorizado"</strong></td>
+                                <td>Seu computador ainda não foi aprovado, ou foi bloqueado.</td>
+                                <td>Clique no botão de WhatsApp da própria tela — o Hardware ID já vai na mensagem.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>"Sem conexão"</strong></td>
+                                <td>O programa não conseguiu falar com o servidor de licença.</td>
+                                <td>Confira a internet e tente de novo. Se persistir, pode ser firewall do escritório.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>"Faltam colunas: ..."</strong></td>
+                                <td>Sua planilha não tem alguma das quatro colunas obrigatórias.</td>
+                                <td>Renomeie os cabeçalhos conforme a tabela do passo 2.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Quase tudo em "sem grupo"</strong></td>
+                                <td>Os padrões não batem com o histórico desse cliente.</td>
+                                <td>Rode o assistente de IA de novo, ou olhe uma linha real e escreva o padrão na mão.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Grupos com notas que não são a mesma</strong></td>
+                                <td>Um CNPJ, contrato ou data está sendo lido como número de nota.</td>
+                                <td>Coloque esse número na lista de ignorados (passo 6).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>A mesma nota em dois grupos</strong></td>
+                                <td>Prefixo fixo ou parcela no fim do código.</td>
+                                <td>Configure o encurtamento (passo 7) e olhe a prévia.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>A IA respondeu com erro</strong></td>
+                                <td>Cota da chave estourada ou modelo indisponível.</td>
+                                <td>O programa já tenta outros modelos sozinho. Se insistir, troque o modelo na barra lateral ou espere alguns minutos.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Não atualiza nunca</strong></td>
+                                <td>Você está abrindo pelo <code>- Nucleo.exe</code>.</td>
+                                <td>Abra sempre pelo <code>ECONTRAR_COM_IA.exe</code>.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mn-box dica">
+                    <div class="t"><i class="fa-solid fa-file-lines"></i> Precisa da nossa ajuda?</div>
+                    <p>Na pasta do programa existe um arquivo <code>casca_run.log</code> com o registro do que aconteceu na última abertura. Mande ele junto com o seu relato pelo WhatsApp que a gente identifica o problema bem mais rápido.</p>
+                </div>
+
+                <div class="mn-actions" style="margin-top: 2.5rem;">
+                    <a href="https://api.whatsapp.com/send?phone=553799642620&text=Ol%C3%A1!%20Estou%20usando%20o%20ENCONTRAR%20COM%20IA%20e%20preciso%20de%20ajuda." class="mn-btn solid" target="_blank"><i class="fab fa-whatsapp"></i> Falar com o suporte</a>
+                    <a href="encontrarcomia.html" class="mn-btn"><i class="fa-solid fa-arrow-left"></i> Voltar para a página do produto</a>
+                </div>
+            </section>
+
+            <div style="text-align: center; margin-top: 3rem; color: var(--text-dim);">
+                <p>Desenvolvido pela empresa</p>
+                <p><strong style="color: var(--ec-lime);">LUMAIRAM INFORMATION TECHNOLOGY DEVELOPERS</strong><br>Com muito ❤ e ☕</p>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <p>DESENVOLVIDO PELA EMPRESA LUMAIRAM INFORMATION TECHNOLOGY DEVELOPERS</p>
+        <p>CNPJ DO RESPONSÁVEL: 61.868.004/0001-80</p>
+        <div class="footer-links"><a href="politicadeprivacidade.html">Política de Privacidade</a></div>
+    </footer>
+
+    <a href="https://api.whatsapp.com/send?phone=553799642620&text=Ol%C3%A1!%20Estou%20lendo%20o%20manual%20do%20ENCONTRAR%20COM%20IA%20e%20tenho%20uma%20d%C3%BAvida." class="whatsapp-float" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="24" height="24" fill="#fff">
+            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27.1 106.1 27.1s73.7-9.4 106.1-27.1l117.7 30.9L418.4 365c19.4-33.7 29.6-71.9 29.6-111 0-122.4-99.6-222-222-222zM223.9 439.7c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L78 362.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.5-184.5 49.3 0 95.6 19.2 130.4 54s54 81.1 54 130.4c0 101.7-82.8 184.5-184.5 184.5zM319.1 307.2c-3.8-1.9-22.6-11.2-26.1-12.5-3.5-1.3-6-1.9-8.6 1.9-2.6 3.8-9.9 12.5-12.1 15-2.2 2.6-4.5 2.9-8.3 1-3.8-1.9-16-5.9-30.5-18.7-11.4-10-19.2-22.4-22.6-27.4-3.4-5-0.4-7.7 1.5-10.1 1.8-2.2 3.8-5.7 5.7-8.6 1.9-2.9 2.6-4.5 3.8-7.7 1.3-3.2 0.6-5.9-0.3-7.7-0.9-1.9-8.6-20.6-11.7-28.2-3.1-7.6-6.2-6.6-8.6-6.6-2.2 0-4.8 0-7.4 0-2.6 0-6.8 0.9-10.3 4.8-3.5 3.8-13.4 13.1-13.4 31.9 0 18.8 13.7 37 15.6 39.6 1.9 2.6 26.1 41.8 63.4 56.2 8.7 3.3 15.6 5.3 20.9 6.8 5.3 1.5 10 0.9 13.7-1 3.9-1.9 22.6-9.2 25.7-18.1 3.1-8.9 3.1-16.4 2.2-18.1-0.9-1.8-3.4-2.8-7.2-4.7z"/>
+        </svg>
+    </a>
+
+    <script src="lumairam-fx.js"></script>
+</body>
+</html>
